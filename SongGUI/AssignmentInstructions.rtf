@@ -1,0 +1,180 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fnil\fcharset0 TrebuchetMS;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red251\green0\blue7;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid2\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
+\margl1440\margr1440\vieww20640\viewh13820\viewkind0
+\deftab720
+\pard\pardeftab720\sa348\qc
+
+\f0\b\fs42 \cf0 Assignment 1\
+Song Library GUI Design & Implementation\
+\pard\pardeftab720\sa327\qc
+
+\fs32 \cf0 Posted Tue Feb 2. Due Fri Feb 12 by 11 PM.\
+Worth 50 points (5% of course grade.)\
+\pard\pardeftab720\sa140
+
+\b0\fs28 \cf0 \
+\pard\pardeftab720
+\cf0 You will work 
+\b in pairs
+\b0  on this assignment. Read the {\field{\*\fldinst{HYPERLINK "http://www.cs.rutgers.edu/policies/academicintegrity/index.php?page=3"}}{\fldrslt \cf2 \ul \ulc2 DCS Academic Integrity Policy for Programmming Assignments}} - you are responsible for this. In particular, note that 
+\b "All Violations of the Academic Integrity Policy will be reported by the instructor to the appropriate Dean".
+\b0 \
+\pard\pardeftab720\sa140
+\cf0 \
+\pard\pardeftab720\sa280
+
+\b \cf0 Requirements\
+\pard\pardeftab720\sa280
+
+\b0 \cf0 Design and implement an application with a graphical user interface to manage a library of songs. 
+\b A song is uniquely identified by name and artist (case insensitive).
+\b0  Your application should have a SINGLE WINDOW with three functions:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls1\ilvl0
+\b \cf0 {\listtext	1.	}Song list display
+\b0 , with the ability to select ONE song from the list. The list will display ONLY the names of the songs, in 
+\b alphabetical order of names
+\b0 . Unless the list is empty, one song is always pre-selected, and its details shown - see the following item.\
+\ls1\ilvl0
+\b {\listtext	2.	}Song detail
+\b0 , with name, artist, album, and year, of the song that is selected in the song list interface\
+\ls1\ilvl0
+\b {\listtext	3.	}Song Add/Delete/Edit
+\b0 , for adding a new song, deleting a selected song, and editing a selected song information:\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440
+\ls1\ilvl1\cf0 {\listtext	\uc0\u9702 	}\
+{\listtext	\uc0\u9702 	}Add: When a new song is added, the song name and artist should be entered at the very least. Year and album are optional. If the name and artist are the same as an existing song, the add should not be allowed - a message should be shown in a pop-up dialog.The newly added song should automatically be placed in the correct position in the alphabetical order in the list. Also, it should be automatically selected, replacing the previously selected song, and its details should be shown.\uc0\u8232 \
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440
+\ls1\ilvl1
+\b \cf0 {\listtext	\uc0\u9702 	}Edit
+\b0 : ANY of the fields can be changed. Again, if name and artist conflict with those of an existing song, the edit should NOT be allowed. alog.\
+\ls1\ilvl1
+\b {\listtext	\uc0\u9702 	}Delete
+\b0 : Only the selected song in the list can be deleted. After deletion, the next song in the list should be selected, and the details displayed. If there is no next song, the previous song should be selected, and if there is no previous song either, then the list is empty and the detail info is all blanks.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa280
+\ls1\ilvl0\cf0 {\listtext	4.	}For all of these actions, the user should be able to cancel on the action midstream if they change their mind.\
+\pard\pardeftab720\sa280
+\cf0 Note: If you use the song detail display area for add/delete/edit as well (instead of two separate areas), then make sure the interface is not confusing to the user, particularly if the edit is disallowed or aborted by the user.\
+When your program is started, it should show the current list of songs in the library, in the song list display, with the first song selected by default. (The first time the program is run, there should be nothing in the display, since there won't be any songs in the library.)\
+The data should be persistent across different sessions of your program. You can save the song list in a file in whatever format you like, and then read it into your program when it starts up.\
+Your application is NOT required to play a song when it is selected. In other words, there is no requirement to have audio playing functionality, and there will not be any extra credit if you choose to implement this functionality.\
+The application window need NOT be resizable. When the window is closed, the application should be terminated.\
+Most of the aspects of design (layouts and widgets) and implementation (event handling) you need to do this assignment have been covered in class. If there is any aspect you want to add that has not been covered in class, you are expected to discover these for yourself.\
+\pard\pardeftab720\sa280
+
+\b \cf3 You MUST use Java FX 8 for all UI aspects. (No Swing stuff.) Also, all UI layout should be done in fxml.
+\b0\fs24 \cf0 \
+\pard\pardeftab720\sa280
+
+\fs28 \cf0 For the first three items, the grade will depend on correctness and completeness of functionality, as well as effective/appropriate use of JavaFX widgets. For the last part (persistence), grading is on correctness, and on ensuring this is transparent to the user, i.e. the user should not have to be concerned with where and how the song list is stored between sessions.\
+Effective/appropriate means the UI should be clear, the user should know exactly what to expect when events are triggered, the user should know exactly what to do to achieve their objective. \cf3 If you need to explain to someone how to use the interface, then it's not a good enough interface.\cf0 \
+\pard\pardeftab720\sa280
+
+\b \cf0 IMPORTANT
+\b0 : Your UI should not use widgets that are an overkill for the task at hand because if a complex widget is used for a simple task, it will confuse the user. (So, for instance, do NOT use a table view to show song details because the requirements do not ask you to dynamically rearrange the display on user request.)\
+Finally, your UI is not required to be aesthetically pleasing (no points for this because it's highly subjective), but you are most welcome to dazzle us with your creativity (just for the heck of it!) as long as it does not get in the way of clean functionality.\
+You may use any of the classes in the Java 8 SDK, but 
+\b no external third-party libraries.\
+Grading\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trmarl2501 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth2820\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf0 \clbrdrr\brdrnil \clpadt200 \clpadl200 \clpadb200 \clpadr200 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth2740\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf0 \clbrdrr\brdrnil \clpadt200 \clpadl200 \clpadb200 \clpadr200 \gaph\cellx8640
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\qc
+\ls2\ilvl0\cf0 {\listtext	\'95	}GUI Component\cell 
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\qc
+\ls2\ilvl0\cf0 {\listtext	\'95	}Points\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trmarl2501 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth3140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3060\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720
+\ls2\ilvl0
+\b0\fs26 \cf0 {\listtext	\'95	}Song list+selection\cell 
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\qc
+\ls2\ilvl0\cf0 {\listtext	\'95	}10
+\fs24 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trmarl2501 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth3140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3060\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720
+\ls2\ilvl0
+\fs26 \cf0 {\listtext	\'95	}Details display\cell 
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\qc
+\ls2\ilvl0\cf0 {\listtext	\'95	}8
+\fs24 \cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trmarl2501 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth3140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3060\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720
+\ls2\ilvl0
+\fs26 \cf0 {\listtext	\'95	}Add/Delete/Edit\cell 
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\qc
+\ls2\ilvl0\cf0 {\listtext	\'95	}25\cell \row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trmarl2501 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth3140\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx4320
+\clvertalc \clshdrawnil \clwWidth3060\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadt40 \clpadl40 \clpadb40 \clpadr40 \gaph\cellx8640
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720
+\ls2\ilvl0\cf0 {\listtext	\'95	}Persistence\cell 
+\pard\intbl\itap1\tx220\tx720\pardeftab720\li720\fi-720\qc
+\ls2\ilvl0\cf0 {\listtext	\'95	}7\cell \lastrow\row
+\pard\pardeftab720\sa280
+
+\fs28 \cf0 \
+\pard\pardeftab720\sa372
+
+\b \cf0 Point deductions\
+\pard\pardeftab720
+
+\b0 \cf0 Be aware that implementing design and functionality as specified, and submitting ("releasing") your implementation as required, are both important aspects of software development in the real world. The point deductions listed here are intended to alert you to this.\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls3\ilvl0\cf0 {\listtext	\'95	}5 points, if the application window does not show up at all, but we can fix the code to make it show. So make sure it actually shows when you run the application.\
+{\listtext	\'95	}5 points, if the application window cannot be closed, or it closes but does not terminate the application\
+{\listtext	\'95	}10 points, if any window other than the application frame pops up at any time (this includes dialogs)\
+{\listtext	\'95	}Up to 5 points, if you do not write your name at the top of all the files you submit.\
+{\listtext	\'95	}Points will be deducted for each test case that cannot be tried because either your data file or your UI does not allow for testing it. The exact number of points will depend the point value of the test case(s).\
+{\listtext	\'95	}5 points, if you do not implement your main method in a class named 
+\f1 \cf2 SongLib
+\f0 \cf0  (see Submission Instructions)\
+{\listtext	\'95	}5 points, if you have any code in the default package (directly under 
+\f1 \cf2 src
+\f0 \cf0 ) (see Submission Instructions)\
+{\listtext	\'95	}10 points, if you do not submit your implementation in a project zip file (see Submission Instructions) that can imported into Eclipse as a complete project\
+\pard\tx220\tx720\pardeftab720\li720\fi-720
+\ls3\ilvl0
+\b \cf0 {\listtext	\'95	}No credit
+\b0 , if you used any external libraries--you are only allowed to use the standard Java SDK.\
+\pard\pardeftab720\sa280
+
+\b \cf0 \
+Submission Instructions\
+\pard\pardeftab720\sa280
+
+\b0 \cf0 You may implement this program in as many files as you want, but you MUST call your main class 
+\f1 \cf2 SongLib
+\f0 \cf0  (this is the class with the 
+\f1 \cf2 main
+\f0 \cf0  method.) If you don't do this we will have to first find which of your classes has the main method so we can run your program - 5 points will be deducted!\
+Also, you must organize your classes into packages. There is no requirement for how many packages you need to use, as long as there is at least one. In other words, none of your classes must be directly under 
+\f1 \cf2 src
+\f0 \cf0  (which basically amounts to a default package) - this is bad design because it severely limits the way in which you can control access to members of a class.\
+Make sure to write your names at the top of each of the Java source files in your project.\
+Export your project to a zip file called 
+\f1 \cf2 songlib.zip
+\f0 \cf0  (see how to do this in the Eclipse page, under "Zipping up a Project"). Make sure you have done this correctly by importing it back as a project into Eclipse (see "Importing a Zipped Project into Eclipse" in the Eclipse page). Since you are working pairs, a good test would be for one of you to zip the project, and for the other to import the zipped project into their Eclipse installation.\
+\pard\pardeftab720\sa280
+\cf3 10 points will be deducted if we get a zip file and/or contents that are not legit, as described above\cf0 \
+Submit your 
+\f1 \cf2 songlib.zip
+\f0 \cf0  file to Sakai. Just ONE submission per team, please!\
+\pard\tx720\pardeftab720
+\cf0 \
+}
