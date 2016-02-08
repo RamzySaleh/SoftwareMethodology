@@ -1,8 +1,12 @@
 package application;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
@@ -12,26 +16,26 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.ChoiceBox;
 
 public class SongLib extends Application { //get functionality for javaFX application
-	Button button;
+	private Stage primaryStage;
+	private AnchorPane rootLayout;
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Song Application");
-		button = new Button();
-		button.setText("Just a test button! Cool!");
-		button.setOnAction(e -> {
-			
-		System.out.println("hey now");
+		this.primaryStage = primaryStage;
+		this.primaryStage.setTitle("Song Application");
 		
-		});
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/application/songlib.fxml"));
+			rootLayout = (AnchorPane) loader.load();
+			Scene scene = new Scene(rootLayout);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		ChoiceBox<String> songs = new ChoiceBox<String>();
-		songs.getItems().add("Apples");
-		StackPane layout = new StackPane();
-		layout.getChildren().add(button);
-		Scene scene = new Scene(layout, 300, 250);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		// TODO Auto-generated method stub
+	// TODO Auto-generated method stub
 		
 	}
 	
