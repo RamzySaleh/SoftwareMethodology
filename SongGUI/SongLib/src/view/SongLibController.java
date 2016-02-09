@@ -1,11 +1,18 @@
 package view;
 
+import app.Song;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField; 
-
+import javafx.scene.control.TextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.GridPane;
+import javafx.scene.control.Alert.AlertType;
 public class SongLibController {
 	
 	@FXML ListView<String> songListView;
@@ -25,6 +32,33 @@ public class SongLibController {
 	@FXML Button acceptButton;
 	@FXML Button cancelButton;
 	
+	private ObservableList<String> obsList;
+	 public void start(Stage main) {
+	 // create an ObservableList
+	 // from an ArrayList
+	 obsList = FXCollections.observableArrayList("Testing", "Hello");
+	 songListView.setItems(obsList);
+	 songListView.getSelectionModel().select(0);
+	 
+	 songListView
+	 	.getSelectionModel()
+	 	.selectedItemProperty()
+	 	.addListener((obs, oldVal, newVal) -> showItem(main));
+	 } 
+	 
+	 public void showItem(Stage main){
+		/* Alert alert = new Alert(AlertType.INFORMATION);
+		 alert.initOwner(main);
+		 alert.setTitle("Just testing");
+		 alert.setHeaderText("Song Details");
+		 String content = "Name: "+songListView.getSelectionModel().getSelectedItem();
+		 alert.setContentText(content);
+		 alert.showAndWait(); */
+		 displaySong.appendText("Let's try this");
+		 displayArtist.appendText("Testing");
+		 displayAlbum.appendText("Trying this out");
+		 displayYear.appendText("What's happening?");
+	 }
 	
 	/**
 	 * 

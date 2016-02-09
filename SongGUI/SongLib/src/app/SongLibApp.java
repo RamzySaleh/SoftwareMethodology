@@ -13,9 +13,9 @@ import java.io.FileNotFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
+import view.SongLibController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -40,10 +40,14 @@ public class SongLibApp extends Application { //get functionality for javaFX app
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/view/songlib.fxml"));
 			rootLayout = (AnchorPane) loader.load();
+			SongLibController listController = loader.getController();
+			listController.start(primaryStage);
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add("/view/application.css");
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			
 			
 			/**
 			 * 
