@@ -1,9 +1,15 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
+
 import app.Song;
+import app.Song.CustomComparator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -33,12 +39,25 @@ public class SongLibController {
 	@FXML Button cancelButton;
 	
 	private ObservableList<String> obsList;
-	 public void start(Stage main) {
+	private ArrayList<Song> songs;
+	 public void start(Stage main, ArrayList<Song> songs) {
 	 // create an ObservableList
 	 // from an ArrayList
-	 obsList = FXCollections.observableArrayList("Testing", "Hello");
-	 songListView.setItems(obsList);
-	 songListView.getSelectionModel().select(0);
+		 obsList = FXCollections.observableArrayList();
+		 this.songs = songs;
+		 for(int i = 0; i < songs.size(); i++){
+			 if(songs.isEmpty()) break;
+			 obsList.add(songs.get(i).getSongName());
+		 }
+
+		 songListView.setItems(obsList);
+		 songListView.getSelectionModel().select(0);
+		 if(!songs.isEmpty()){
+			 displaySong.appendText(songs.get(0).getSongName());
+			 displayArtist.appendText(songs.get(0).getArtistName());
+			 displayAlbum.appendText(songs.get(0).getAlbumName());
+			 displayYear.appendText(songs.get(0).getYear());
+		 }
 	 
 	 songListView
 	 	.getSelectionModel()
@@ -47,17 +66,15 @@ public class SongLibController {
 	 } 
 	 
 	 public void showItem(Stage main){
-		/* Alert alert = new Alert(AlertType.INFORMATION);
-		 alert.initOwner(main);
-		 alert.setTitle("Just testing");
-		 alert.setHeaderText("Song Details");
-		 String content = "Name: "+songListView.getSelectionModel().getSelectedItem();
-		 alert.setContentText(content);
-		 alert.showAndWait(); */
-		 displaySong.appendText("Let's try this");
-		 displayArtist.appendText("Testing");
-		 displayAlbum.appendText("Trying this out");
-		 displayYear.appendText("What's happening?");
+
+		 displaySong.clear();
+		 displayArtist.clear();
+		 displayAlbum.clear();
+		 displayYear.clear();
+		 displaySong.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getSongName());
+		 displayArtist.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getArtistName());
+		 displayAlbum.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getAlbumName());
+		 displayYear.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getYear());
 	 }
 	
 	/**
@@ -79,6 +96,7 @@ public class SongLibController {
 		yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
 		
 	
+		
 	}
 
 	/**
@@ -116,11 +134,17 @@ public class SongLibController {
 	
 	public void deleteButtonClicked(ActionEvent e){ 
 		System.out.println("Delete BUTTON CLICKED!");
-	
-		/** TODO
-		1. Prompt user if they are sure they want to delete
-		2. Delete from ListView AND ArrayList!
-		*/
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Delete Song");
+		alert.setHeaderText("Are you sure you want to delete?");
+		Optional<ButtonType> result = alert.showAndWait();
+		if(result.get() == ButtonType.OK){
+			String name = displaySong.getText();
+			String artist = displayArtist.getText();
+			int i = searchForSong(songs, name, artist);
+			songs.remove(i);
+			obsList.remove(i);
+		}
 	}
 	
 	
@@ -139,29 +163,44 @@ public class SongLibController {
 			return;
 		}
 		
-		// Stop field from being editable and apply styling
-		songTextField.getStyleClass().clear(); songTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		artistTextField.getStyleClass().clear(); artistTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		albumTextField.getStyleClass().clear(); albumTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		songTextField.setEditable(false);
-		artistTextField.setEditable(false);
-		albumTextField.setEditable(false);
-		yearTextField.setEditable(false);
+		String song = songTextField.getText();
+		String artist = artistTextField.getText();
+		String album = albumTextField.getText();
+		String year = yearTextField.getText();
 		
-		/** TODO
-		1. Prompt user if they are sure they want to add/edit song
-		2. Check for conflicts with current song list!
-	 	3. Inform user of name conflict (if there is one) in a pop-up dialog
-	 	4. Add to ListView AND ArrayList!
-		*/
+		int indexOfSong = searchForSong(songs, song, artist);
 		
-		// Clear information after use
-		songTextField.clear();
-		artistTextField.clear();
-		albumTextField.clear();
-		yearTextField.clear();
-		
+		if (indexOfSong == -1) {
+			// Add the song
+			System.out.println("Line 175");
+			Song newSong = new Song(song, artist, album, year);
+			songs.add(newSong);
+			Collections.sort(songs, new CustomComparator());
+			obsList.add(song);
+			FXCollections.sort(obsList);
+			
+			// Stop field from being editable and apply styling
+			songTextField.getStyleClass().clear(); songTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
+			artistTextField.getStyleClass().clear(); artistTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
+			albumTextField.getStyleClass().clear(); albumTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
+			yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
+			songTextField.setEditable(false);
+			artistTextField.setEditable(false);
+			albumTextField.setEditable(false);
+			yearTextField.setEditable(false);
+			// Clear information after use
+			songTextField.clear();
+			artistTextField.clear();
+			albumTextField.clear();
+			yearTextField.clear();
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error");
+			alert.setContentText("Song already exists! Try again.");
+			alert.show();
+			return;
+		}
+				
 	}
 	
 	/**
@@ -189,6 +228,17 @@ public class SongLibController {
 		yearTextField.setEditable(false);
 	}
 	
+	public int searchForSong(ArrayList<Song> songs, String songName, String artistName){
+		
+		for (int j = 0; j < songs.size(); j++){
+			if (songs.get(j).equals(songName, artistName)){
+				System.out.println("Found same song!");
+				return j;
+			}
+		}
+		
+		return -1;
+	}
 	
 
 }

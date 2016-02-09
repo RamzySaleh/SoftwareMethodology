@@ -44,14 +44,11 @@ public class SongLibApp extends Application { //get functionality for javaFX app
 			loader.setLocation(getClass().getResource("/view/songlib.fxml"));
 			rootLayout = (AnchorPane) loader.load();
 			SongLibController listController = loader.getController();
-			listController.start(primaryStage);
+			listController.start(primaryStage, arrayListSongObjects);
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add("/view/application.css");
 			primaryStage.setScene(scene);
-			primaryStage.show();
-			
-			
-			
+			primaryStage.show();	
 			/**
 			 * 
 			 * TODO Add all the songs to the ListView that were previously found from the text file. 
