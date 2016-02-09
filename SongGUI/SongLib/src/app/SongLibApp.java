@@ -13,6 +13,9 @@ import java.io.FileNotFoundException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+import app.Song.CustomComparator;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.SongLibController;
@@ -71,9 +74,17 @@ public class SongLibApp extends Application { //get functionality for javaFX app
 		// Check if the file exists. If so, load the songs
 		if (fp.exists()) loadSongsFromTextFile(fp);
 		
+		
+		System.out.println("Size of arraylistsong = " + arrayListSongObjects.size());
+		
+		for(int i = 0; i < arrayListSongObjects.size(); i++){
+		
+			System.out.println("Testing: "+ arrayListSongObjects.get(i).getSongName());
+			
+		}
 		launch(args);
 		
-		saveSongsToTextFile();
+		// saveSongsToTextFile();
 		
 	}
 
@@ -83,8 +94,19 @@ public class SongLibApp extends Application { //get functionality for javaFX app
 	public static void loadSongsFromTextFile(File fp){
 		
 		try {
-			FileInputStream in = new FileInputStream(fp);
+			Scanner in = new Scanner(fp);
 			
+			while(in.hasNext()){
+				String token[] = in.nextLine().split("~");
+				for(int i = 0; i < 4; i++){
+					if(token[i] == null){
+						token[i] = "";
+					}
+				} //not sure if this for loop is necessary but JUST IN CASE
+				
+				Song hello = new Song(token[0], token[1], token[2], token[3]);
+				arrayListSongObjects.add(hello);
+			}
 			/**
 			 * TODO
 			 * 1. Read the songs, information is separated by '~' <---- tilde. Use delimiter.
@@ -93,12 +115,14 @@ public class SongLibApp extends Application { //get functionality for javaFX app
 			
 			try {
 				in.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		Collections.sort(arrayListSongObjects, new CustomComparator());
 		
 	}
 	

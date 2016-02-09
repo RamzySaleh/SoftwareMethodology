@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Comparator;
+
 /**
  * 
  * @author Ramzy Saleh
@@ -29,6 +31,7 @@ public class Song {
 			return false;
 		}
 	}
+	
 	
 	public void editSong(String songName) {
 		this.song = songName;
@@ -61,5 +64,11 @@ public class Song {
 	public String getYear() {
 		return this.year;
 	}
-	
+
+	public static class CustomComparator implements Comparator<Song> {
+	    @Override
+	    public int compare(Song o1, Song o2) {
+	        return o1.getSongName().compareTo(o2.getSongName());
+	    }
+	}
 }
