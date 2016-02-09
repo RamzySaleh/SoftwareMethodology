@@ -1,0 +1,11 @@
+.acceptingInput {
+	-fx-border-color: green; 
+	-fx-border-width: 3px; 
+	-fx-background-color: white;
+}
+
+.declineInput {
+	-fx-border-color: red; 
+	-fx-border-width: 3px; 
+	-fx-background-color: #808080;
+}
