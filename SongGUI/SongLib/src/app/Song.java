@@ -1,14 +1,14 @@
 package app;
 
-import java.util.Comparator;
-
 /**
  * 
  * @author Ramzy Saleh
  * @author Sara Zayed
- * 	
  *
  */
+
+import java.util.Comparator;
+
 
 public class Song {
 	
