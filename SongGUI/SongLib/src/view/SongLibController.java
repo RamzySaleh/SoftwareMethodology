@@ -1,5 +1,12 @@
 package view;
 
+/**
+ * 
+ * @author Ramzy Saleh
+ * @author Sara Zayed
+ * 	
+ */
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
@@ -63,7 +70,6 @@ public class SongLibController {
 	 	.addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				// TODO Auto-generated method stub
 				showItem(main);
 			}
 	 	}
@@ -196,7 +202,7 @@ public class SongLibController {
 	
 	/**
 	 * 
-	 * deleteButtonClicked NEEDS WORK, see TODO
+	 * deleteButtonClicked
 	 * 
 	 */
 	
@@ -219,7 +225,7 @@ public class SongLibController {
 	
 	/**
 	 * 
-	 * acceptButtonClicked NEEDS WORK, see TODO
+	 * acceptButtonClicked
 	 * 
 	 */
 	public void confirmEditClicked(ActionEvent e){ 
