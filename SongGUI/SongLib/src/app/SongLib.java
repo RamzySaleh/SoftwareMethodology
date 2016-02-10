@@ -1,5 +1,12 @@
 package app;
 
+/**
+ * 
+ * @author Ramzy Saleh
+ * @author Sara Zayed
+ * 	
+ */
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,12 +58,6 @@ public class SongLib extends Application { //get functionality for javaFX applic
 			scene.getStylesheets().add("/view/application.css");
 			primaryStage.setScene(scene);
 			primaryStage.show();	
-			/**
-			 * 
-			 * TODO Add all the songs to the ListView that were previously found from the text file. 
-			 * They are stored in the ArrayList.
-			 *  
-			 */
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -87,9 +88,7 @@ public class SongLib extends Application { //get functionality for javaFX applic
 		
 	}
 
-	/*
-	 * TODO Implement
-	 */
+
 	public static void loadSongsFromTextFile(File fp){
 		
 		try {
@@ -106,11 +105,6 @@ public class SongLib extends Application { //get functionality for javaFX applic
 				Song hello = new Song(token[0], token[1], token[2], token[3]);
 				arrayListSongObjects.add(hello);
 			}
-			/**
-			 * TODO
-			 * 1. Read the songs, information is separated by '~' <---- tilde. Use delimiter.
-			 * 2. Create Song object for each, and add it to the ArrayList.
-			 */
 			
 			try {
 				in.close();
@@ -125,9 +119,6 @@ public class SongLib extends Application { //get functionality for javaFX applic
 		
 	}
 	
-	/*
-	 * TODO Implement
-	 */
 	public static void saveSongsToTextFile(){
 		
 		File fp = new File("Songs.txt");
@@ -163,13 +154,6 @@ public class SongLib extends Application { //get functionality for javaFX applic
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-
-		/**
-		 * TODO Now save the songs!
-		 * 1. Split information by '~'. All fields not given are simple empty strings.
-		 * 2. Save one song per line.
-		 */
-
 		
 	}
 	
