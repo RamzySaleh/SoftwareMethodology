@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
  */
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -81,7 +83,7 @@ public class SongLib extends Application { //get functionality for javaFX applic
 		}
 		launch(args);
 		
-		// saveSongsToTextFile();
+		saveSongsToTextFile();
 		
 	}
 
@@ -135,6 +137,33 @@ public class SongLib extends Application { //get functionality for javaFX applic
 			fp.delete();
 		}
 		
+		PrintWriter writer;
+		
+		try {
+			writer = new PrintWriter("Songs.txt", "UTF-8");
+			
+			for (int i = 0; i < arrayListSongObjects.size(); i++) {
+				String songAsString = "";
+				String songName = arrayListSongObjects.get(i).getSongName();
+				String artistName = arrayListSongObjects.get(i).getArtistName();
+				String albumName = arrayListSongObjects.get(i).getAlbumName();
+				String year = arrayListSongObjects.get(i).getYear();
+				
+				if (songName.equals("") || songName == null) songName = " ";
+				if (artistName.equals("") || songName == null) artistName = " ";
+				if (albumName.equals("") || songName == null) albumName = " ";
+				if (year.equals("") || songName == null) year = " ";
+				
+				songAsString = songName+"~"+artistName+"~"+albumName+"~"+year;
+
+				writer.println(songAsString);
+			}
+		
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
 		/**
 		 * TODO Now save the songs!
 		 * 1. Split information by '~'. All fields not given are simple empty strings.
