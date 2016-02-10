@@ -16,6 +16,7 @@ public class Song {
 	String artist = "";
 	String year = "";
 	String album = "";
+	boolean newestSong = false;
 		
 	public Song(String song, String artist, String year, String album){
 		this.song = song;
@@ -49,6 +50,10 @@ public class Song {
 		this.year = editedYear;
 	}
 	
+	public void setNewestSong(boolean b){
+		this.newestSong = b;
+	}
+	
 	public String getSongName() {
 		return this.song;
 	}
@@ -63,6 +68,10 @@ public class Song {
 	
 	public String getYear() {
 		return this.year;
+	}
+	
+	public boolean getNewestSong(){
+		return this.newestSong;
 	}
 
 	public static class CustomComparator implements Comparator<Song> {
