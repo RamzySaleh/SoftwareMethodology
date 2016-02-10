@@ -14,6 +14,7 @@ import java.util.Optional;
 import app.Song;
 import app.Song.CustomComparator;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -23,6 +24,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -54,7 +56,7 @@ public class SongLibController {
 			 if(songs.isEmpty()) break;
 			 obsList.add(songs.get(i).getSongName());
 		 }
-
+		
 		 songListView.setItems(obsList);
 		 songListView.getSelectionModel().select(0);
 		 if(!songs.isEmpty()){
@@ -63,17 +65,18 @@ public class SongLibController {
 			 displayAlbum.setText(songs.get(0).getAlbumName());
 			 displayYear.setText(songs.get(0).getYear());
 		 }
-	 
-	 songListView
+
+		 songListView
 	 	.getSelectionModel()
-	 	.selectedItemProperty()
-	 	.addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				showItem(main);
-			}
-	 	}
-	 	);
+	 	.selectedItemProperty();
+		 
+		 songListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+	            @Override
+	            public void handle(MouseEvent event) {
+					 showItem(main);
+	            }
+	     });
 	 } 
 	 
 	 public void showItem(Stage main){
@@ -162,6 +165,10 @@ public class SongLibController {
 				for(int i = 0; i < songs.size(); i++) obsList.add(songs.get(i).getSongName());
 				for(int i = 0; i < songs.size(); i++) if(songs.get(i).getNewestSong()) index = i;;
 				songListView.getSelectionModel().clearAndSelect(index);
+				displaySong.setText(songs.get(index).getSongName());
+				displayArtist.setText(songs.get(index).getArtistName());
+				displayAlbum.setText(songs.get(index).getAlbumName());
+				displayYear.setText(songs.get(index).getYear());
 				FXCollections.sort(obsList, String.CASE_INSENSITIVE_ORDER);
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
