@@ -10,7 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.collections.FXCollections;
@@ -19,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 public class SongLibController {
 	
 	@FXML ListView<String> songListView;
@@ -30,13 +34,8 @@ public class SongLibController {
 	@FXML Button addButton;
 	@FXML Button editButton;
 	@FXML Button deleteButton;
-	
-	@FXML TextField songTextField;
-	@FXML TextField artistTextField;
-	@FXML TextField albumTextField;
-	@FXML TextField yearTextField;
-	@FXML Button acceptButton;
-	@FXML Button cancelButton;
+	@FXML Button confirmEdit;
+	@FXML Button cancelEdit;
 	
 	private ObservableList<String> obsList;
 	private ArrayList<Song> songs;
@@ -53,28 +52,34 @@ public class SongLibController {
 		 songListView.setItems(obsList);
 		 songListView.getSelectionModel().select(0);
 		 if(!songs.isEmpty()){
-			 displaySong.appendText(songs.get(0).getSongName());
-			 displayArtist.appendText(songs.get(0).getArtistName());
-			 displayAlbum.appendText(songs.get(0).getAlbumName());
-			 displayYear.appendText(songs.get(0).getYear());
+			 displaySong.setText(songs.get(0).getSongName());
+			 displayArtist.setText(songs.get(0).getArtistName());
+			 displayAlbum.setText(songs.get(0).getAlbumName());
+			 displayYear.setText(songs.get(0).getYear());
 		 }
 	 
 	 songListView
 	 	.getSelectionModel()
 	 	.selectedItemProperty()
-	 	.addListener((obs, oldVal, newVal) -> showItem(main));
+	 	.addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				// TODO Auto-generated method stub
+				showItem(main);
+			}
+	 	}
+	 	);
 	 } 
 	 
 	 public void showItem(Stage main){
+		 int index = songListView.getSelectionModel().getSelectedIndex();
+		 System.out.println("index = "+index);
+		 if (index == -1) index = 0;
+		 displaySong.setText(songs.get(index).getSongName());
+		 displayArtist.setText(songs.get(index).getArtistName());
+		 displayAlbum.setText(songs.get(index).getAlbumName());
+		 displayYear.setText(songs.get(index).getYear());
 
-		 displaySong.clear();
-		 displayArtist.clear();
-		 displayAlbum.clear();
-		 displayYear.clear();
-		 displaySong.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getSongName());
-		 displayArtist.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getArtistName());
-		 displayAlbum.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getAlbumName());
-		 displayYear.appendText(songs.get(songListView.getSelectionModel().getSelectedIndex()).getYear());
 	 }
 	
 	/**
@@ -85,15 +90,72 @@ public class SongLibController {
 	public void addButtonClicked(ActionEvent e){ 
 		System.out.println("Add BUTTON CLICKED!");
 		
-		// Make field editable and apply styling
-		songTextField.setEditable(true);
-		artistTextField.setEditable(true);
-		albumTextField.setEditable(true);
-		yearTextField.setEditable(true);
-		songTextField.getStyleClass().clear(); songTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
-		artistTextField.getStyleClass().clear(); artistTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
-		albumTextField.getStyleClass().clear(); albumTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
-		yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
+		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
+		dialog.setTitle("Add New Song");
+		dialog.setHeaderText("Enter song name, artist, album, and year.");
+		
+		Label songLabel = new Label("Song: ");
+		Label artistLabel = new Label("Artist: ");
+		Label albumLabel = new Label("Album: ");
+		Label yearLabel = new Label("Year: ");
+		TextField songField = new TextField();
+		TextField artistField = new TextField();
+		TextField albumField = new TextField();
+		TextField yearField = new TextField();
+
+		GridPane grid = new GridPane();
+		grid.add(songLabel, 0, 0);
+		grid.add(artistLabel, 0, 1);
+		grid.add(albumLabel, 0, 2);
+		grid.add(yearLabel, 0, 3);
+		
+		grid.add(songField, 1, 0);
+		grid.add(artistField, 1, 1);
+		grid.add(albumField, 1, 2);
+		grid.add(yearField, 1, 3);
+		
+		dialog.getDialogPane().setGraphic(grid);
+		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		
+		
+		Optional<ButtonType> result = dialog.showAndWait();
+		
+		
+		if(result.get() == ButtonType.OK){
+			
+			String song = songField.getText();
+			String artist = artistField.getText();
+			String album = albumField.getText();
+			String year = yearField.getText();
+			
+			if(song.equals("") || song == null || artist.equals("") || artist == null){
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Error");
+				alert.setContentText("Songs require both a SONG NAME and ARTIST!");
+				alert.show();
+				return;
+			}
+			
+			int indexOfSong = searchForSong(songs, song, artist);
+			
+			if (indexOfSong == -1) {
+				// Add the song
+				System.out.println("Line 175");
+				Song newSong = new Song(song, artist, album, year);
+				songs.add(newSong);
+				Collections.sort(songs, new CustomComparator());
+				obsList.add(song);
+				FXCollections.sort(obsList, String.CASE_INSENSITIVE_ORDER);
+			} else {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setHeaderText("Error");
+				alert.setContentText("Song already exists! Try again.");
+				alert.show();
+				return;
+			}
+		} else {
+			return;
+		}
 		
 	
 		
@@ -107,21 +169,18 @@ public class SongLibController {
 	public void editButtonClicked(ActionEvent e){ 
 		System.out.println("Edit BUTTON CLICKED!");
 		
-		// Load display information so we can edit it
-		songTextField.setText(displaySong.getText());
-		artistTextField.setText(displayArtist.getText());
-		albumTextField.setText(displayAlbum.getText());
-		yearTextField.setText(displayYear.getText());
-		
+
 		// Make field editable and apply styling
-		songTextField.setEditable(true);
-		artistTextField.setEditable(true);
-		albumTextField.setEditable(true);
-		yearTextField.setEditable(true);
-		songTextField.getStyleClass().clear(); songTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
-		artistTextField.getStyleClass().clear(); artistTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
-		albumTextField.getStyleClass().clear(); albumTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
-		yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
+		displaySong.setEditable(true);
+		displayArtist.setEditable(true);
+		displayAlbum.setEditable(true);
+		displayYear.setEditable(true);
+
+		displaySong.getStyleClass().clear(); displaySong.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
+		displayArtist.getStyleClass().clear(); displayArtist.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
+		displayAlbum.getStyleClass().clear(); displayAlbum.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
+		displayYear.getStyleClass().clear(); displayYear.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
+
 		
 		
 	}
@@ -154,52 +213,42 @@ public class SongLibController {
 	 * acceptButtonClicked NEEDS WORK, see TODO
 	 * 
 	 */
-	public void acceptButtonClicked(ActionEvent e){ 
-		System.out.println("Accept BUTTON CLICKED!");
+	public void confirmEditClicked(ActionEvent e){ 
+		System.out.println("Confirm Edit BUTTON CLICKED!");
 		
-		
-		// Check to see if the user hit accept and they were not editing or adding!
-		if(songTextField.isEditable() == false){
+		// Check to see if the user hit accept and they were not editing!
+		if(displaySong.isEditable() == false){
 			return;
 		}
 		
-		String song = songTextField.getText();
-		String artist = artistTextField.getText();
-		String album = albumTextField.getText();
-		String year = yearTextField.getText();
+		String song = displaySong.getText();
+		String artist = displayArtist.getText();
+		String album = displayAlbum.getText();
+		String year = displayYear.getText();
+
+		int index = songListView.getSelectionModel().getSelectedIndex();
 		
-		int indexOfSong = searchForSong(songs, song, artist);
+		obsList.set(index, song);
 		
-		if (indexOfSong == -1) {
-			// Add the song
-			System.out.println("Line 175");
-			Song newSong = new Song(song, artist, album, year);
-			songs.add(newSong);
-			Collections.sort(songs, new CustomComparator());
-			obsList.add(song);
-			FXCollections.sort(obsList);
-			
-			// Stop field from being editable and apply styling
-			songTextField.getStyleClass().clear(); songTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-			artistTextField.getStyleClass().clear(); artistTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-			albumTextField.getStyleClass().clear(); albumTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-			yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-			songTextField.setEditable(false);
-			artistTextField.setEditable(false);
-			albumTextField.setEditable(false);
-			yearTextField.setEditable(false);
-			// Clear information after use
-			songTextField.clear();
-			artistTextField.clear();
-			albumTextField.clear();
-			yearTextField.clear();
-		} else {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setHeaderText("Error");
-			alert.setContentText("Song already exists! Try again.");
-			alert.show();
-			return;
-		}
+		System.out.println("index line 224 = "+index);
+		songs.get(index).editSong(song);
+		songs.get(index).editArtist(artist);
+		songs.get(index).editAlbum(album);
+		songs.get(index).editYear(year);
+		
+		Collections.sort(songs, new CustomComparator());
+		FXCollections.sort(obsList);
+		
+		displaySong.setEditable(false);
+		displayArtist.setEditable(false);
+		displayAlbum.setEditable(false);
+		displayYear.setEditable(false);
+		
+		displaySong.getStyleClass().clear(); displaySong.getStyleClass().addAll("text-field", "text-input", "declineInput");
+		displayArtist.getStyleClass().clear(); displayArtist.getStyleClass().addAll("text-field", "text-input", "declineInput");
+		displayAlbum.getStyleClass().clear(); displayAlbum.getStyleClass().addAll("text-field", "text-input", "declineInput");
+		displayYear.getStyleClass().clear(); displayYear.getStyleClass().addAll("text-field", "text-input", "declineInput");
+
 				
 	}
 	
@@ -208,24 +257,28 @@ public class SongLibController {
 	 * cancelButtonClicked COMPLETED!
 	 * 
 	 */
-	public void cancelButtonClicked(ActionEvent e){ 
-		System.out.println("Cancel BUTTON CLICKED!");
+	public void cancelEditClicked(ActionEvent e){ 
+		System.out.println("Cancel Edit BUTTON CLICKED!");
 		
-		// Clear Information from add/delete, user would like to cancel
-		songTextField.clear();
-		artistTextField.clear();
-		albumTextField.clear();
-		yearTextField.clear();
+		if(displaySong.isEditable() == false){
+			return;
+		}
 		
-		// Stop field from being editable and apply styling
-		songTextField.getStyleClass().clear(); songTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		artistTextField.getStyleClass().clear(); artistTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		albumTextField.getStyleClass().clear(); albumTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		yearTextField.getStyleClass().clear(); yearTextField.getStyleClass().addAll("text-field", "text-input", "declineInput");
-		songTextField.setEditable(false);
-		artistTextField.setEditable(false);
-		albumTextField.setEditable(false);
-		yearTextField.setEditable(false);
+		displaySong.setEditable(false);
+		displayArtist.setEditable(false);
+		displayAlbum.setEditable(false);
+		displayYear.setEditable(false);
+		
+		displaySong.getStyleClass().clear(); displaySong.getStyleClass().addAll("text-field", "text-input", "declineInput");
+		displayArtist.getStyleClass().clear(); displayArtist.getStyleClass().addAll("text-field", "text-input", "declineInput");
+		displayAlbum.getStyleClass().clear(); displayAlbum.getStyleClass().addAll("text-field", "text-input", "declineInput");
+		displayYear.getStyleClass().clear(); displayYear.getStyleClass().addAll("text-field", "text-input", "declineInput");
+
+		displaySong.setText(songs.get(0).getSongName());
+		displayArtist.setText(songs.get(0).getArtistName());
+		displayAlbum.setText(songs.get(0).getAlbumName());
+		displayYear.setText(songs.get(0).getYear());
+		
 	}
 	
 	public int searchForSong(ArrayList<Song> songs, String songName, String artistName){
