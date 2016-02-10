@@ -30,7 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.ChoiceBox;
 
-public class SongLibApp extends Application { //get functionality for javaFX application
+public class SongLib extends Application { //get functionality for javaFX application
 	private Stage primaryStage;
 	private AnchorPane rootLayout;
 	public static ArrayList<Song> arrayListSongObjects;
