@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
 public class SongLibController {
 	
 	@FXML ListView<String> songListView;
@@ -73,8 +72,16 @@ public class SongLibController {
 	 
 	 public void showItem(Stage main){
 		 int index = songListView.getSelectionModel().getSelectedIndex();
-		 System.out.println("index = "+index);
+		 if (index == -1) {
+			 for (int i = 0; i < songs.size(); i++) {
+				 if (songs.get(i).getNewestSong()){
+					 index = i;
+					 break;
+				 }
+			 }
+		 }
 		 if (index == -1) index = 0;
+		 songListView.getSelectionModel().clearAndSelect(index);
 		 displaySong.setText(songs.get(index).getSongName());
 		 displayArtist.setText(songs.get(index).getArtistName());
 		 displayAlbum.setText(songs.get(index).getAlbumName());
@@ -88,8 +95,7 @@ public class SongLibController {
 	 * 
 	 */
 	public void addButtonClicked(ActionEvent e){ 
-		System.out.println("Add BUTTON CLICKED!");
-		
+		songListView.getSelectionModel().clearSelection();
 		Dialog<ButtonType> dialog = new Dialog<ButtonType>();
 		dialog.setTitle("Add New Song");
 		dialog.setHeaderText("Enter song name, artist, album, and year.");
@@ -140,11 +146,16 @@ public class SongLibController {
 			
 			if (indexOfSong == -1) {
 				// Add the song
-				System.out.println("Line 175");
 				Song newSong = new Song(song, artist, album, year);
+				for(int i = 0; i < songs.size(); i++) songs.get(i).setNewestSong(false);
+				newSong.setNewestSong(true);
 				songs.add(newSong);
 				Collections.sort(songs, new CustomComparator());
-				obsList.add(song);
+				obsList.clear();
+				int index = 0;
+				for(int i = 0; i < songs.size(); i++) obsList.add(songs.get(i).getSongName());
+				for(int i = 0; i < songs.size(); i++) if(songs.get(i).getNewestSong()) index = i;;
+				songListView.getSelectionModel().clearAndSelect(index);
 				FXCollections.sort(obsList, String.CASE_INSENSITIVE_ORDER);
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -167,9 +178,7 @@ public class SongLibController {
 	 * 
 	 */
 	public void editButtonClicked(ActionEvent e){ 
-		System.out.println("Edit BUTTON CLICKED!");
 		
-
 		// Make field editable and apply styling
 		displaySong.setEditable(true);
 		displayArtist.setEditable(true);
@@ -192,7 +201,7 @@ public class SongLibController {
 	 */
 	
 	public void deleteButtonClicked(ActionEvent e){ 
-		System.out.println("Delete BUTTON CLICKED!");
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Delete Song");
 		alert.setHeaderText("Are you sure you want to delete?");
@@ -214,7 +223,6 @@ public class SongLibController {
 	 * 
 	 */
 	public void confirmEditClicked(ActionEvent e){ 
-		System.out.println("Confirm Edit BUTTON CLICKED!");
 		
 		// Check to see if the user hit accept and they were not editing!
 		if(displaySong.isEditable() == false){
@@ -230,7 +238,6 @@ public class SongLibController {
 		
 		obsList.set(index, song);
 		
-		System.out.println("index line 224 = "+index);
 		songs.get(index).editSong(song);
 		songs.get(index).editArtist(artist);
 		songs.get(index).editAlbum(album);
@@ -258,7 +265,6 @@ public class SongLibController {
 	 * 
 	 */
 	public void cancelEditClicked(ActionEvent e){ 
-		System.out.println("Cancel Edit BUTTON CLICKED!");
 		
 		if(displaySong.isEditable() == false){
 			return;
@@ -285,7 +291,6 @@ public class SongLibController {
 		
 		for (int j = 0; j < songs.size(); j++){
 			if (songs.get(j).equals(songName, artistName)){
-				System.out.println("Found same song!");
 				return j;
 			}
 		}
