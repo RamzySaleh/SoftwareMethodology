@@ -68,7 +68,7 @@ public class Song {
 	public static class CustomComparator implements Comparator<Song> {
 	    @Override
 	    public int compare(Song o1, Song o2) {
-	        return o1.getSongName().compareTo(o2.getSongName());
+	        return o1.getSongName().compareToIgnoreCase(o2.getSongName());
 	    }
 	}
 }
