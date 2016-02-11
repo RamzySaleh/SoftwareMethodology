@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- Ramzy Saleh -->
 <!-- Sara Zayed -->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -68,29 +70,29 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="displaySong" editable="false" GridPane.columnIndex="1" styleClass="declineInput">
+                        <TextField fx:id="displaySong" editable="false" styleClass="declineInput" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="displayArtist" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="declineInput">
+                        <TextField fx:id="displayArtist" editable="false" styleClass="declineInput" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="displayAlbum" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="declineInput">
+                        <TextField fx:id="displayAlbum" editable="false" styleClass="declineInput" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="displayYear" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="declineInput">
+                        <TextField fx:id="displayYear" editable="false" styleClass="declineInput" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                            </GridPane.margin>
                         </TextField>
                      </children>
                   </GridPane>
-		  <Label layoutX="74.0" layoutY="31.0" prefHeight="33.0" prefWidth="159.0" text="Song Details" textFill="#4f1fff">
+		  <Label layoutX="74.0" layoutY="31.0" prefHeight="33.0" prefWidth="159.0" text="Song Details">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
