@@ -226,6 +226,22 @@ public class SongLibController {
 			songs.remove(i);
 			obsList.remove(i);
 		}
+		obsList.clear();
+		for(int i = 0; i < songs.size(); i++) obsList.add(songs.get(i).getSongName());
+		songListView.getSelectionModel().clearAndSelect(0);
+		if (songs.size() >= 1){
+			displaySong.setText(songs.get(0).getSongName());
+			displayArtist.setText(songs.get(0).getArtistName());
+			displayAlbum.setText(songs.get(0).getAlbumName());
+			displayYear.setText(songs.get(0).getYear());
+		}
+		if (songs.size() == 0){
+			displaySong.clear();
+			displayArtist.clear();
+			displayAlbum.clear();
+			displayYear.clear();
+		}
+		
 	}
 	
 	
