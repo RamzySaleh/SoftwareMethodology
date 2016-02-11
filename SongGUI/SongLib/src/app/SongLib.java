@@ -74,14 +74,6 @@ public class SongLib extends Application { //get functionality for javaFX applic
 		// Check if the file exists. If so, load the songs
 		if (fp.exists()) loadSongsFromTextFile(fp);
 		
-		
-		System.out.println("Size of arraylistsong = " + arrayListSongObjects.size());
-		
-		for(int i = 0; i < arrayListSongObjects.size(); i++){
-		
-			System.out.println("Testing: "+ arrayListSongObjects.get(i).getSongName());
-			
-		}
 		launch(args);
 		
 		saveSongsToTextFile();
