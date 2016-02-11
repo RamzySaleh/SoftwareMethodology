@@ -20,8 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -219,21 +217,31 @@ public class SongLibController {
 		alert.setTitle("Delete Song");
 		alert.setHeaderText("Are you sure you want to delete?");
 		Optional<ButtonType> result = alert.showAndWait();
+		
+		int index;
+		
 		if(result.get() == ButtonType.OK){
 			String name = displaySong.getText();
 			String artist = displayArtist.getText();
 			int i = searchForSong(songs, name, artist);
+			index = i;
+			if(index == (songs.size()-1)) index--;
 			songs.remove(i);
 			obsList.remove(i);
+		} else {
+			return;
 		}
+
+		
 		obsList.clear();
 		for(int i = 0; i < songs.size(); i++) obsList.add(songs.get(i).getSongName());
-		songListView.getSelectionModel().clearAndSelect(0);
+		songListView.getSelectionModel().clearAndSelect(index);
+		
 		if (songs.size() >= 1){
-			displaySong.setText(songs.get(0).getSongName());
-			displayArtist.setText(songs.get(0).getArtistName());
-			displayAlbum.setText(songs.get(0).getAlbumName());
-			displayYear.setText(songs.get(0).getYear());
+			displaySong.setText(songs.get(index).getSongName());
+			displayArtist.setText(songs.get(index).getArtistName());
+			displayAlbum.setText(songs.get(index).getAlbumName());
+			displayYear.setText(songs.get(index).getYear());
 		}
 		if (songs.size() == 0){
 			displaySong.clear();
@@ -265,8 +273,26 @@ public class SongLibController {
 
 		int index = songListView.getSelectionModel().getSelectedIndex();
 		
-		obsList.set(index, song);
+		int indexOfSong = searchForSong(songs, song, artist);
 		
+		if(song.equals("") || song == null || artist.equals("") || artist == null){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error");
+			alert.setContentText("Songs require both a SONG NAME and ARTIST!");
+			alert.show();
+			return;
+		}
+		
+		
+		if (indexOfSong != -1){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Error");
+			alert.setContentText("Song already exists! Try again.");
+			alert.show();
+			return;
+		}
+		
+		obsList.set(index, song);
 		songs.get(index).editSong(song);
 		songs.get(index).editArtist(artist);
 		songs.get(index).editAlbum(album);
