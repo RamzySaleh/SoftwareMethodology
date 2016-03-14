@@ -1,5 +1,10 @@
 package chess;
-
+/**
+ * Group 22
+ * @author Ramzy Saleh
+ * @author Sara Zayed
+ *
+ */
 import java.util.Scanner;
 
 public class Chess {

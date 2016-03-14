@@ -1,5 +1,10 @@
 package pieces;
-
+/**
+ * Group 22
+ * @author Ramzy Saleh
+ * @author Sara Zayed
+ *
+ */
 public class King extends ChessPiece {
 	
 	
