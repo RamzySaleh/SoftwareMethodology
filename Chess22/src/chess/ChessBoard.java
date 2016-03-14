@@ -172,14 +172,98 @@ public class ChessBoard {
 	/**
 	 * 
 	 * @param chessPiece - piece for which we want to check if its path is clear
-	 * @return If the path is clear (i.e. 
+	 * @return If the path is clear, return true. 
 	 */
-	public boolean isPathClear(ChessPiece chessPiece){
-		
-		boolean isPathClear = false;
+	public boolean isPathClear(ChessPiece chessPiece, String destination){
 		
 		
-		return isPathClear;
+		if (!chessPiece.isPathValid(destination)) return false;
+		
+		
+		String destLetter = destination.substring(0, 1);
+		String destNumber = destination.substring(1, 2);
+		
+		String startingLetter = chessPiece.currentPosition.substring(0, 1);
+		String startingNumber = chessPiece.currentPosition.substring(1, 2);
+		
+		int destI = 8-Integer.parseInt(destNumber);
+		int destJ = destLetter.charAt(0) - 'a';
+		
+		int startI = 8-Integer.parseInt(startingNumber);
+		int startJ = startingLetter.charAt(0) - 'a';
+		
+		
+		// Horizontal movement
+		if (destI == startI){
+			if (destJ < startJ){
+				for(int j = destJ+1; j < startJ; j++){
+					if(chessBoard[startI][j] != null){
+						return false;
+					}
+				}
+				// If they are all null, return true.
+				return true;
+			} else if (destJ > startJ){
+				for(int j = startJ+1; j < destJ; j++){
+					if(chessBoard[startI][j] != null){
+						return false;
+					}
+				}
+				// If they are all null, return true.
+				return true;
+			} else { 
+				// Trying to move to the same position. Invalid move
+				return false;
+			}
+		}
+		
+		// Vertical Movement
+		if (destJ == startJ){
+			if (destI < startI){
+				for(int i = destI+1; i < startI; i++){
+					if(chessBoard[i][startJ] != null){
+						return false;
+					}
+				}
+				// If they are all null, return true.
+				return true;
+			} else if (destI > startI){
+				for(int i = startI+1; i < destI; i++){
+					if(chessBoard[i][startJ] != null){
+						return false;
+					}
+				}
+				// If they are all null, return true.
+				return true;
+			} else { 
+				// Trying to move to the same position. Invalid move
+				return true;
+			}
+		}
+		
+		// Diagonal movement
+		if (Math.abs(destJ-startJ) == Math.abs(destI - startI)){ // Slope is 1.
+			
+			int endingDiagI = Math.max(destI, startI);
+			int startingDiagI = Math.min(destI, startI);
+			
+			int startingDiagJ = Math.min(destJ, startJ);
+			
+			for(int i = startingDiagI+1; i < endingDiagI; i++){
+				startingDiagJ++;
+				if(chessBoard[i][startingDiagJ] != null){
+					return false;
+				}
+			} 
+			// If they are all null, return true.
+			return true;
+		}
+		
+		/** Path is valid, which is checked in the beginning. The movement is not
+		 *  horizontal, diagonal, or vertical, so it is a knight. Leaping is
+		 *  is valid so return true. 
+		 */
+		return true;
 		
 	}
 	
