@@ -11,10 +11,19 @@ import pieces.*;
 public class ChessBoard {
 	
 	ChessPiece[][] chessBoard;
+	int[] whiteKingLocation;
+	int[] blackKingLocation;
 	
 	public ChessBoard(){
 		chessBoard = new ChessPiece[8][8];
 		initializeBoard();
+		whiteKingLocation = new int[2];
+		blackKingLocation = new int[2];
+		whiteKingLocation[0] = 7;
+		whiteKingLocation[1] = 4;
+		blackKingLocation[0] = 0;
+		blackKingLocation[1] = 4;
+		
 	}
 	
 	/**
@@ -148,6 +157,52 @@ public class ChessBoard {
 		}
 		
 	}
+	
+	public boolean isCheckDetected(String lastTurn){
+		
+		boolean isCheckFound = false;
+		
+		findKings();
+		
+		
+		return isCheckFound;
+	}
+	
+	
+	/**
+	 * 
+	 * @param chessPiece - piece for which we want to check if its path is clear
+	 * @return If the path is clear (i.e. 
+	 */
+	public boolean isPathClear(ChessPiece chessPiece){
+		
+		boolean isPathClear = false;
+		
+		
+		return isPathClear;
+		
+	}
+	
+	
+	public void findKings(){
+		for(int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				if (chessBoard[i][j]!=null){
+					if(chessBoard[i][j].toString().equals("bK")){
+						blackKingLocation[0] = i;
+						blackKingLocation[1] = j;
+					} else if(chessBoard[i][j].toString().equals("wK")){
+						whiteKingLocation[0] = i;
+						whiteKingLocation[1] = j;
+					}
+				}
+				
+			}
+			
+		}
+	}
+	
+	
 	
 	
 	
