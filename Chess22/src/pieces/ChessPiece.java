@@ -7,7 +7,10 @@ package pieces;
  */
 public class ChessPiece {
 	
-	String currentPosition;
-	String color;
+	public String currentPosition;
+	public String color;
 	
+	public boolean isPathValid(String destination){
+		return false;
+	}
 }

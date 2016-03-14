@@ -7,7 +7,7 @@ package pieces;
  */
 public class Pawn extends ChessPiece {
 	
-	boolean firstMove;
+	public boolean firstMove;
 	
 	public Pawn(String position, String pieceColor){
 		firstMove = true;
