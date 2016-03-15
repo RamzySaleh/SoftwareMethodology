@@ -1,4 +1,6 @@
 package chess;
+import java.util.ArrayList;
+
 import pieces.*;
 
 /**
@@ -68,8 +70,8 @@ public class ChessBoard {
 		for(int i = 0; i < 8; i++){	
 			Pawn newBlackPawn = new Pawn(Chess.intToChar(i)+"7", "black");
 			Pawn newWhitePawn = new Pawn(Chess.intToChar(i)+"2", "white");
-			newBlackPawn.setFirstMove(true);
-			newWhitePawn.setFirstMove(true);
+			newBlackPawn.setFirstMoveBoolean(true);
+			newWhitePawn.setFirstMoveBoolean(true);
 			chessBoard[1][i] = newBlackPawn;
 			chessBoard[6][i] = newWhitePawn;
 		}
@@ -158,11 +160,34 @@ public class ChessBoard {
 		
 	}
 	
-	public boolean isCheckDetected(String lastTurn){
+	public String[] isCheckDetected(){
 		
-		boolean isCheckFound = false;
-		
+		String[] isCheckFound = new String[2];
+		// isCheckFound[0] = 'true' or 'false'
+		// isCheckFound[1] = 'white' if white's king is in check
+		// 					 'black' if black's king is in check
 		findKings();
+				
+		/**
+		 * Check for all white pieces, see if they can attack the black king.
+		 * Loop through the chess board. Find all the white pieces.
+		 * Check if their path directly to the king is valid and if the path is
+		 * clear. If it is true for at least one, declare check by indicating
+		 * it in isCheckFound[0] and setting isCheckFound[1] to 'black'.
+		 * 
+		 * Check for all black pieces, see if they can attack the white king.
+		 * Again, loop and try to attack directly.
+		 * 
+		 */
+		ArrayList<ChessPiece> whitePieces = new ArrayList<ChessPiece>();
+		ArrayList<ChessPiece> blackPieces = new ArrayList<ChessPiece>();
+	
+		/**
+		 * TODO Finish implementation
+		 * 
+		 */
+
+		
 		
 		
 		return isCheckFound;
@@ -267,6 +292,19 @@ public class ChessBoard {
 		
 	}
 	
+	public ChessPiece findPieceAtLocation(String location){
+		
+		if (location.length() != 2) return null;
+		
+		String requestedLetter = location.substring(0, 1);
+		String requestedNumber = location.substring(1, 2);
+		
+		int requestI = 8-Integer.parseInt(requestedNumber);
+		int requestJ = requestedLetter.charAt(0) - 'a';
+		if (requestI > 7 || requestI < 0 || requestJ > 7 || requestJ < 0) return null;
+		return chessBoard[requestI][requestJ];
+
+	}
 	
 	public void findKings(){
 		for(int i = 0; i < 8; i++){
