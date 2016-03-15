@@ -7,8 +7,10 @@ package pieces;
  */
 public class King extends ChessPiece {
 	
+	public boolean firstMove;
 	
 	public King(String position, String pieceColor){
+		firstMove = true;
 		currentPosition = position;
 		color = pieceColor;
 	}
@@ -20,6 +22,10 @@ public class King extends ChessPiece {
 	public boolean isPathValid(String destination){
 		
 		return false;
+	}
+	
+	public void setFirstMoveBoolean(boolean firstMoveValue){
+		this.firstMove = firstMoveValue;
 	}
 	
 	public String toString(){
