@@ -19,13 +19,14 @@ public class Pawn extends ChessPiece {
 	 * TODO Finish implementation
 	 * Only check if path is valid. DOES NOT CHECK LEAPING.
 	 * If user wants to move two spaces, check if it is the first move.
+	 * Does not check for enpassant.
 	 */
 	public boolean isPathValid(String destination){
 		
 		return false;
 	}
 	
-	public void setFirstMove (boolean firstMoveValue){
+	public void setFirstMoveBoolean(boolean firstMoveValue){
 		this.firstMove = firstMoveValue;
 	}
 	
