@@ -7,6 +7,8 @@ package chess;
  */
 import java.util.Scanner;
 
+import pieces.*;
+
 public class Chess {
 
 	/**
@@ -35,14 +37,121 @@ public class Chess {
 		
 		while (!drawAccepted && !resign && !checkMate && staleMate) {
 			
+			chessBoard.printBoard();
+			System.out.println("");
 			System.out.print(turn);
 			String requestedMove = scanner.nextLine();
 			
+			
+			// Check if the user is requesting a draw.
+			// If there was no draw requested, then saying 'draw' is an illegal move.
+			// If there was a draw requested, then the game ends in a draw.
+			// If there is a resign, the game ends. 
 			if (drawRequested && requestedMove.equals("draw")){
 				drawAccepted = true; 
 				break;
+			} else if (!drawRequested && requestedMove.equals("draw")){
+				System.out.println("Illegal move, try again");
+				continue;
+			} else if (requestedMove.equals("resign")){
+				resign = true;
+				if(turn.equals("White's move:")){
+					winner = "Black wins";
+				} else {
+					winner = "White wins";
+				}
+				break;
 			}
+			
+			// Split the move based on spaces.
+			String[] requestedMoveArr = requestedMove.split("\\s+");
+			
+			// We should now check if the array is of size the right size.
+			// It should be of length 2 or 3. We checked the cases with one input,
+			// which is 'draw' or 'resign'. 
+			if(requestedMoveArr.length != 2 || requestedMoveArr.length != 3){
+				System.out.println("Illegal move, try again");
+				continue;
+			}
+			
+			// Find the piece the user wants to move.
+			ChessPiece movingPiece = chessBoard.findPieceAtLocation(requestedMoveArr[0]);
+			String destination = requestedMoveArr[1];
+			
+			// Either the user is trying to move a piece that is not in the
+			// requested spot, or the entered piece location is not of the right 
+			// form. (Examples include "ee1ee" or "t3" or "113232", etc.)
+			if (movingPiece == null) {
+				System.out.println("Illegal move, try again");
+				continue;
+			}
+			
+			
+			// Check if the user is moving their piece
+			if(turn.equals("White's move:")){
+				if (movingPiece.color.equals("black")) {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
+			} else {
+				if (movingPiece.color.equals("white")) {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
+			}
+			
+			// Checks if the piece can travel along this path and
+			// whether the path is clear.
+			if (!movingPiece.isPathValid(destination) || !chessBoard.isPathClear(movingPiece, destination)){
 				
+				// If it isn't a Pawn, we know right away that it is illegal.
+				// We will now check for enpassant in the else statement.
+				if(!(movingPiece instanceof Pawn)){
+					System.out.println("Illegal move, try again");
+					continue;
+				} else {
+					
+					// Cannot perform enpassant, if there is nothing in the destination.
+					if(chessBoard.findPieceAtLocation(destination) == null){
+						System.out.println("Illegal move, try again");
+						continue;
+					}
+					
+					ChessPiece destPiece = chessBoard.findPieceAtLocation(destination);
+					
+					int[] movingOrderedPair = movingPiece.positionStringToArr(movingPiece.currentPosition);
+					int[] destinOrderedPair = destPiece.positionStringToArr(destination);
+					
+					// If the Pawn is not a direct diagonal, then it is an illegal move.
+					if(Math.abs(movingOrderedPair[0]-destinOrderedPair[0])!=1 ||
+							Math.abs(movingOrderedPair[1]-destinOrderedPair[1])!=1){
+						System.out.println("Illegal move, try again");
+						continue;
+					}
+					
+				}
+			}
+			
+			
+			/**
+			 * TODO Finish implementation
+			 * 
+			 */
+			if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("draw")){
+				drawRequested = true;
+			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("Q")){
+				
+			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("N")){
+				
+			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("K")){
+				
+			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("B")){
+				
+			} else {
+				System.out.println("Illegal move, try again");
+				continue;
+			}
+			
 			/** 
 			 *  Split user input by space. 
 			 * 	Task 1: Check if they are moving their piece
