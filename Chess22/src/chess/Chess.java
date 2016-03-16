@@ -67,7 +67,7 @@ public class Chess {
 			String[] requestedMoveArr = requestedMove.split("\\s+");
 			
 			// We should now check if the array is of size the right size.
-			// It should be of length 2 or 3. We checked the cases with one input,
+			// It should be of length 2 or 3 - ex: "a5 e3 N" (promotion) or "a5 e3". We checked the cases with one input,
 			// which is 'draw' or 'resign'. 
 			if(requestedMoveArr.length != 2 || requestedMoveArr.length != 3){
 				System.out.println("Illegal move, try again");
