@@ -35,7 +35,7 @@ public class Chess {
 		
 		Scanner scanner = new Scanner (System.in);
 		
-		while (!drawAccepted && !resign && !checkMate && staleMate) {
+		while (!drawAccepted && !resign && !checkMate && !staleMate) {
 			
 			chessBoard.printBoard();
 			System.out.println("");
