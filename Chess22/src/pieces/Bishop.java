@@ -28,7 +28,12 @@ public class Bishop extends ChessPiece {
 		//Both number and letter need to change for the move to be diagonal.
 		//This check ensures not only that the destination is not the same spot, but also
 		//that the move is not a forward, backward, or side to side move.
-		//NEED TO REDO IMPLEMENTATION
+		if((orderedPair[0] == orderedPairCurrent[0]) || (orderedPair[1] == orderedPairCurrent[1])){
+			return false;
+		}
+		else if((Math.abs(orderedPair[0]-orderedPairCurrent[0])) == (Math.abs(orderedPair[1]-orderedPairCurrent[1]))){
+			return true;
+		}
 		
 		return false;
 	}
