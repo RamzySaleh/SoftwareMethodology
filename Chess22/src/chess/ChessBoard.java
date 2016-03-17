@@ -160,37 +160,47 @@ public class ChessBoard {
 		
 	}
 	
-	public String[] isCheckDetected(){
+	public boolean isCheckDetected(String color){
 		
-		String[] isCheckFound = new String[2];
-		// isCheckFound[0] = 'true' or 'false'
-		// isCheckFound[1] = 'white' if white's king is in check
-		// 					 'black' if black's king is in check
 		findKings();
-				
+		String blackKing = blackKingLocation[0]+blackKingLocation[1]+"";
+		String whiteKing = whiteKingLocation[0]+whiteKingLocation[1]+"";
+		
 		/**
-		 * Check for all white pieces, see if they can attack the black king.
-		 * Loop through the chess board. Find all the white pieces.
-		 * Check if their path directly to the king is valid and if the path is
-		 * clear. If it is true for at least one, declare check by indicating
-		 * it in isCheckFound[0] and setting isCheckFound[1] to 'black'.
-		 * 
-		 * Check for all black pieces, see if they can attack the white king.
-		 * Again, loop and try to attack directly.
-		 * 
+		 * If input is "white," this method checks if black's king is in check, and vice versa. 
+		 * Change association of input color and functionality if ambiguous.
 		 */
-		ArrayList<ChessPiece> whitePieces = new ArrayList<ChessPiece>();
-		ArrayList<ChessPiece> blackPieces = new ArrayList<ChessPiece>();
-	
-		/**
-		 * TODO Finish implementation
-		 * 
-		 */
-
 		
-		
-		
-		return isCheckFound;
+		if(color.equals("white")){
+			for(int i = 0; i < 8; i++){
+				for (int j = 0; j < 8; j++){
+					if (chessBoard[i][j]!=null){
+						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
+						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(blackKing)) && (isPathClear(chessBoard[i][j], blackKing))){
+							return true;
+						}
+					}
+					
+				}	
+			}
+		}
+		if(color.equals("black")){
+			for(int i = 0; i < 8; i++){
+				for (int j = 0; j < 8; j++){
+					if (chessBoard[i][j]!=null){
+						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
+						if((chessBoard[i][j].color.equals("black")) && (chessBoard[i][j].isPathValid(whiteKing)) && (isPathClear(chessBoard[i][j], whiteKing))){
+							return true;
+						}
+					}
+					
+				}	
+			}
+			
+			
+		}
+					
+		return false;
 	}
 	
 	

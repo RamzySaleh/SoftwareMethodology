@@ -27,9 +27,9 @@ public class Queen extends ChessPiece {
 				return false;
 			}
 		}
-		//Queen can move wherever she wants. Only necessary to check that destination is valid.
+		
 		if(coordinateValidCheck(orderedPair)){
-			return true;
+			//NEED TO REDO IMPLEMENTATION
 		}
 		return false;
 	}

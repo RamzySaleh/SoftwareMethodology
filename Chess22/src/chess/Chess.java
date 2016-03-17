@@ -104,7 +104,7 @@ public class Chess {
 			// whether the path is clear.
 			if (!movingPiece.isPathValid(destination) || !chessBoard.isPathClear(movingPiece, destination)){
 				
-				// If it isn't a Pawn, we know right away that it is illegal.
+				// If it isn't a Pawn or a King, we know right away that it is illegal.
 				// We will now check for enpassant in the else statement.
 				if(!(movingPiece instanceof Pawn)){
 					System.out.println("Illegal move, try again");
