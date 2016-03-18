@@ -20,7 +20,7 @@ public class Chess {
 		// TODO Auto-generated method stub
 
 		ChessBoard chessBoard = new ChessBoard();
-		chessBoard.printBoard();
+		//chessBoard.printBoard();
 		
 		Boolean drawRequested = false;
 		Boolean drawAccepted = false;
@@ -69,9 +69,11 @@ public class Chess {
 			// We should now check if the array is of size the right size.
 			// It should be of length 2 or 3 - ex: "a5 e3 N" (promotion) or "a5 e3". We checked the cases with one input,
 			// which is 'draw' or 'resign'. 
-			if(requestedMoveArr.length != 2 || requestedMoveArr.length != 3){
+			if(requestedMoveArr.length != 2){
+				if(requestedMoveArr.length != 3){
 				System.out.println("Illegal move, try again");
 				continue;
+				}
 			}
 			
 			// Find the piece the user wants to move.
