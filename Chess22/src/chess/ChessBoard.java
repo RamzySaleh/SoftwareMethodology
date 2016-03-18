@@ -343,6 +343,7 @@ public class ChessBoard {
 		if (requestK > 8 || requestK < 0 || requestL > 8 || requestL < 0) return null;
 		
 		chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
+		chessBoard[requestK][requestL].currentPosition = destination;
 		chessBoard[requestI][requestJ] = null;
 		return chessBoard;
 	}
