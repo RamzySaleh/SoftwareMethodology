@@ -149,21 +149,37 @@ public class Chess {
 			
 			
 			/**
-			 * TODO Finish implementation
-			 * 
+			 * Implicit promotion (pawn is promoted to queen without explicit choice) implemented elsewhere
+			 * EXPLICIT PROMOTION (player chooses desired promotion)
 			 */
 			if(requestedMoveArr.length == 3){
+				if(requestedMoveArr[2].equals("draw?")){
+					drawRequested = true;
+					break;
+				}
+				//Checking to see if the pawn actually reached the end of the board
+				if((movingPiece instanceof Pawn) && (destination.charAt(1) == '8' || destination.charAt(1) == '1')){
 				switch(requestedMoveArr[2]){
-				case "draw":
 				case "Q":
+					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'Q');
+					break;
 				case "N":
+					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'N');
+					break;
 				case "K":
+					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'K');
+					break;
 				case "B":
+					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'B');
+					break;
+				case "R":
+					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'R');
+					break;
 				default:
 					System.out.println("Illegal move, try again");
 					continue;
 				}
-				
+				}
 			}
 			
 			legalMove = true;
@@ -202,7 +218,7 @@ public class Chess {
 			
 			if (legalMove) {
 				System.out.println("In here!!!!");
-				chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1]);
+				chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'x');
 				if(turn.equals("White's move:")){
 					turn = "Black's move:";
 				} else {

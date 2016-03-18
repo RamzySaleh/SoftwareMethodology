@@ -323,7 +323,7 @@ public class ChessBoard {
 
 	}
 	
-	public ChessPiece[][] movePiece(String origin, String destination){
+	public ChessPiece[][] movePiece(String origin, String destination, char promotion){
 		
 		if(origin.length() != 2 || destination.length() != 2){
 			return null;
@@ -342,11 +342,31 @@ public class ChessBoard {
 		int requestL = requestedLetter2.charAt(0) - 'a';
 		if (requestK > 8 || requestK < 0 || requestL > 8 || requestL < 0) return null;
 		
-		chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
-		chessBoard[requestK][requestL].currentPosition = destination;
-		chessBoard[requestI][requestJ] = null;
+		switch(promotion){
+		case 'Q':
+			chessBoard[requestK][requestL] = new Queen(destination, chessBoard[requestI][requestJ].color);
+			break;
+		case 'N':
+			chessBoard[requestK][requestL] = new Knight(destination, chessBoard[requestI][requestJ].color);
+			break;
+		case 'K':
+			chessBoard[requestK][requestL] = new King(destination, chessBoard[requestI][requestJ].color);
+			break;
+		case 'B':
+			chessBoard[requestK][requestL] = new Bishop(destination, chessBoard[requestI][requestJ].color);
+			break;
+		case 'R':
+			chessBoard[requestK][requestL] = new Rook(destination, chessBoard[requestI][requestJ].color);
+			break;
+		default:
+			chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
+			chessBoard[requestK][requestL].currentPosition = destination;
+			chessBoard[requestI][requestJ] = null;
+		}
 		return chessBoard;
 	}
+	
+	
 	
 	public void findKings(){
 		for(int i = 0; i < 8; i++){
