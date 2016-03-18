@@ -132,6 +132,20 @@ public class Chess {
 					
 				}
 			}
+			//Ensure that player cannot capture member of their own team
+			if(turn.equals("White's move:")){
+				if((chessBoard.findPieceAtLocation(destination)).color.equals("white")){
+					System.out.println("Error 20 Illegal move, try again");
+					continue;
+				}
+			}
+			else{
+				if((chessBoard.findPieceAtLocation(destination)).color.equals("black")){
+					System.out.println("Error 21 Illegal move, try again");
+					continue;
+				}
+				
+			}
 			
 			
 			/**
