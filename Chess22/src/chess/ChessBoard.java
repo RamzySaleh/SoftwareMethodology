@@ -344,19 +344,24 @@ public class ChessBoard {
 		
 		switch(promotion){
 		case 'Q':
-			chessBoard[requestK][requestL] = new Queen(destination, chessBoard[requestI][requestJ].color);
+			Queen queenPromo = new Queen(destination, chessBoard[requestI][requestJ].color);
+			chessBoard[requestK][requestL] = queenPromo;
 			break;
 		case 'N':
-			chessBoard[requestK][requestL] = new Knight(destination, chessBoard[requestI][requestJ].color);
+			Knight knightPromo = new Knight(destination, chessBoard[requestI][requestJ].color);
+			chessBoard[requestK][requestL] = knightPromo;
 			break;
 		case 'K':
-			chessBoard[requestK][requestL] = new King(destination, chessBoard[requestI][requestJ].color);
+			King kingPromo = new King(destination, chessBoard[requestI][requestJ].color);
+			chessBoard[requestK][requestL] = kingPromo;
 			break;
 		case 'B':
-			chessBoard[requestK][requestL] = new Bishop(destination, chessBoard[requestI][requestJ].color);
+			Bishop bishopPromo = new Bishop(destination, chessBoard[requestI][requestJ].color);
+			chessBoard[requestK][requestL] = bishopPromo;
 			break;
 		case 'R':
-			chessBoard[requestK][requestL] = new Rook(destination, chessBoard[requestI][requestJ].color);
+			Rook rookPromo = new Rook(destination, chessBoard[requestI][requestJ].color);
+			chessBoard[requestK][requestL] = rookPromo;
 			break;
 		default:
 			chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];

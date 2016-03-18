@@ -30,7 +30,6 @@ public class Pawn extends ChessPiece {
 		}
 		if(orderedPair[0] != orderedPairCurrent[0]){
 			//letter is different, which means illegal diagonal movement is being made. 
-			System.out.println("Failed here 2");
 			return false;
 		}
 		if(orderedPairCurrent[0] == orderedPair[0]){

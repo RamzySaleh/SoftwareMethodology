@@ -134,13 +134,13 @@ public class Chess {
 			}
 			//Ensure that player cannot capture member of their own team
 			if(turn.equals("White's move:")){
-				if((chessBoard.findPieceAtLocation(destination)).color.equals("white")){
+				if((chessBoard.findPieceAtLocation(destination) != null) &&(chessBoard.findPieceAtLocation(destination)).color.equals("white")){
 					System.out.println("Error 20 Illegal move, try again");
 					continue;
 				}
 			}
 			else{
-				if((chessBoard.findPieceAtLocation(destination)).color.equals("black")){
+				if(((chessBoard.findPieceAtLocation(destination) != null) && (chessBoard.findPieceAtLocation(destination)).color.equals("black"))){
 					System.out.println("Error 21 Illegal move, try again");
 					continue;
 				}
@@ -162,41 +162,31 @@ public class Chess {
 				switch(requestedMoveArr[2]){
 				case "Q":
 					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'Q');
-					break;
+					continue;
 				case "N":
 					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'N');
-					break;
+					continue;
 				case "K":
 					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'K');
-					break;
+					continue;
 				case "B":
 					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'B');
-					break;
+					continue;
 				case "R":
 					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'R');
-					break;
+					continue;
 				default:
 					System.out.println("Illegal move, try again");
 					continue;
 				}
 				}
+				else {
+					System.out.println("Illegal move, try again");
+					continue;
+				}
 			}
 			
 			legalMove = true;
-			/*if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("draw")){
-				drawRequested = true;
-			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("Q")){
-				
-			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("N")){
-				
-			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("K")){
-				
-			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("B")){
-				
-			} else {
-				System.out.println("Illegal move 6008, try again");
-				continue;
-			}*/
 			
 			/** 
 			 *  Split user input by space. 
