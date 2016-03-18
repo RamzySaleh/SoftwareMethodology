@@ -31,13 +31,13 @@ public class ChessPiece {
 		orderedPair[0] = -1;		
 		orderedPair[1] = -1;		
 		 			
-		position = position.toLowerCase();		
+		position = position.toLowerCase();	
 		 			
 		if (position.length() != 2) return orderedPair;		
-		 			
+		
 		int letterToInt = position.charAt(0)-'a'+1;		
 		orderedPair[0] = letterToInt;		
-		orderedPair[1] = (int)position.charAt(1);		
+		orderedPair[1] = Integer.parseInt(position.charAt(1)+"");		
 		 			
 		return orderedPair;				
 	}

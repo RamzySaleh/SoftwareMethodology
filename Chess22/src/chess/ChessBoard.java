@@ -311,7 +311,7 @@ public class ChessBoard {
 		
 		int requestI = 8-Integer.parseInt(requestedNumber);
 		int requestJ = requestedLetter.charAt(0) - 'a';
-		if (requestI > 7 || requestI < 0 || requestJ > 7 || requestJ < 0) return null;
+		if (requestI > 8 || requestI < 0 || requestJ > 8 || requestJ < 0) return null;
 		return chessBoard[requestI][requestJ];
 
 	}

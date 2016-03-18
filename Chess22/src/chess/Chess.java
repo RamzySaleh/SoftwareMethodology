@@ -71,7 +71,7 @@ public class Chess {
 			// which is 'draw' or 'resign'. 
 			if(requestedMoveArr.length != 2){
 				if(requestedMoveArr.length != 3){
-				System.out.println("Illegal move, try again");
+				System.out.println("Error 1 Illegal move, try again");
 				continue;
 				}
 			}
@@ -84,7 +84,7 @@ public class Chess {
 			// requested spot, or the entered piece location is not of the right 
 			// form. (Examples include "ee1ee" or "t3" or "113232", etc.)
 			if (movingPiece == null) {
-				System.out.println("Illegal move, try again");
+				System.out.println("Error 2 Illegal move, try again");
 				continue;
 			}
 			
@@ -92,12 +92,12 @@ public class Chess {
 			// Check if the user is moving their piece
 			if(turn.equals("White's move:")){
 				if (movingPiece.color.equals("black")) {
-					System.out.println("Illegal move, try again");
+					System.out.println("Error 6 Illegal move, try again");
 					continue;
 				}
 			} else {
 				if (movingPiece.color.equals("white")) {
-					System.out.println("Illegal move, try again");
+					System.out.println("Error 7 Illegal move, try again");
 					continue;
 				}
 			}
@@ -109,13 +109,13 @@ public class Chess {
 				// If it isn't a Pawn or a King, we know right away that it is illegal.
 				// We will now check for enpassant in the else statement.
 				if(!(movingPiece instanceof Pawn)){
-					System.out.println("Illegal move, try again");
+					System.out.println("Error 3 Illegal move, try again");
 					continue;
 				} else {
 					
 					// Cannot perform enpassant, if there is nothing in the destination.
 					if(chessBoard.findPieceAtLocation(destination) == null){
-						System.out.println("Illegal move, try again");
+						System.out.println("Error 4 Illegal move, try again");
 						continue;
 					}
 					
@@ -127,7 +127,7 @@ public class Chess {
 					// If the Pawn is not a direct diagonal, then it is an illegal move.
 					if(Math.abs(movingOrderedPair[0]-destinOrderedPair[0])!=1 ||
 							Math.abs(movingOrderedPair[1]-destinOrderedPair[1])!=1){
-						System.out.println("Illegal move, try again");
+						System.out.println("Illegal move 600, try again");
 						continue;
 					}
 					
@@ -139,7 +139,22 @@ public class Chess {
 			 * TODO Finish implementation
 			 * 
 			 */
-			if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("draw")){
+			if(requestedMoveArr.length == 3){
+				switch(requestedMoveArr[2]){
+				case "draw":
+				case "Q":
+				case "N":
+				case "K":
+				case "B":
+				default:
+					System.out.println("Illegal move, try again");
+					continue;
+				}
+				
+			}
+			
+			legalMove = true;
+			/*if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("draw")){
 				drawRequested = true;
 			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("Q")){
 				
@@ -150,9 +165,9 @@ public class Chess {
 			} else if (requestedMoveArr.length == 3 && requestedMoveArr[2].equals("B")){
 				
 			} else {
-				System.out.println("Illegal move, try again");
+				System.out.println("Illegal move 6008, try again");
 				continue;
-			}
+			}*/
 			
 			/** 
 			 *  Split user input by space. 

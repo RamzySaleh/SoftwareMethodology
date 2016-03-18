@@ -24,16 +24,19 @@ public class Pawn extends ChessPiece {
 	public boolean isPathValid(String destination){
 		int[] orderedPairCurrent = positionStringToArr(this.currentPosition);
 		int[] orderedPair = positionStringToArr(destination);
+		
 		if(!coordinateValidCheck(orderedPair)){
 			return false;
 		}
 		if(orderedPair[0] != orderedPairCurrent[0]){
 			//letter is different, which means illegal diagonal movement is being made. 
+			System.out.println("Failed here 2");
 			return false;
 		}
 		if(orderedPairCurrent[0] == orderedPair[0]){
 			if(orderedPairCurrent[1] == orderedPair[1]){
 				//Same spot is invalid
+				System.out.println("Failed here 3");
 				return false;
 			}
 			if(firstMove){
@@ -42,12 +45,12 @@ public class Pawn extends ChessPiece {
 					return true;
 				}
 			}
-			else if(orderedPair[1] == orderedPairCurrent[1]+1){
+			if(orderedPair[1] == orderedPairCurrent[1]+1){
 				//Pawn can only move forward in single steps
 				return true;
 			}
 		}
-		
+		System.out.println("Failed here 4");
 		return false;
 	}
 	
