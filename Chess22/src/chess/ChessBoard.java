@@ -28,6 +28,13 @@ public class ChessBoard {
 		
 	}
 	
+	public void movePiece(int[] origin, int[] destination){
+		chessBoard[origin[0]][origin[1]] = chessBoard[destination[0]][destination[1]];
+	}
+	public void clear(int[] location){
+		chessBoard[location[0]][location[1]] = null;
+	}
+	
 	/**
 	 * ___________________________________________________________________
 	 * Chess board array indices:
@@ -314,6 +321,30 @@ public class ChessBoard {
 		if (requestI > 8 || requestI < 0 || requestJ > 8 || requestJ < 0) return null;
 		return chessBoard[requestI][requestJ];
 
+	}
+	
+	public ChessPiece[][] movePiece(String origin, String destination){
+		
+		if(origin.length() != 2 || destination.length() != 2){
+			return null;
+		}
+		String requestedLetter = origin.substring(0, 1);
+		String requestedNumber = origin.substring(1, 2);
+		
+		int requestI = 8-Integer.parseInt(requestedNumber);
+		int requestJ = requestedLetter.charAt(0) - 'a';
+		if (requestI > 8 || requestI < 0 || requestJ > 8 || requestJ < 0) return null;
+		
+		String requestedLetter2 = destination.substring(0, 1);
+		String requestedNumber2 = destination.substring(1, 2);
+		
+		int requestK = 8-Integer.parseInt(requestedNumber2);
+		int requestL = requestedLetter2.charAt(0) - 'a';
+		if (requestK > 8 || requestK < 0 || requestL > 8 || requestL < 0) return null;
+		
+		chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
+		chessBoard[requestI][requestJ] = null;
+		return chessBoard;
 	}
 	
 	public void findKings(){

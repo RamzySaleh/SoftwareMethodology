@@ -6,7 +6,6 @@ package chess;
  *
  */
 import java.util.Scanner;
-
 import pieces.*;
 
 public class Chess {
@@ -188,6 +187,8 @@ public class Chess {
 			*/
 			
 			if (legalMove) {
+				System.out.println("In here!!!!");
+				chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1]);
 				if(turn.equals("White's move:")){
 					turn = "Black's move:";
 				} else {

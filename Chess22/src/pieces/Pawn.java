@@ -40,12 +40,12 @@ public class Pawn extends ChessPiece {
 				return false;
 			}
 			if(firstMove){
-				if(orderedPair[1] == orderedPairCurrent[1]+2){
+				if(Math.abs(orderedPair[1]-orderedPairCurrent[1]) == 2){
 					//Pawn can jump two steps on its first move
 					return true;
 				}
 			}
-			if(orderedPair[1] == orderedPairCurrent[1]+1){
+			if(Math.abs(orderedPair[1]-orderedPairCurrent[1]) == 1){
 				//Pawn can only move forward in single steps
 				return true;
 			}
