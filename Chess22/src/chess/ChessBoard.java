@@ -346,22 +346,27 @@ public class ChessBoard {
 		case 'Q':
 			Queen queenPromo = new Queen(destination, chessBoard[requestI][requestJ].color);
 			chessBoard[requestK][requestL] = queenPromo;
-			break;
+			chessBoard[requestI][requestJ] = null;
+			return chessBoard;
 		case 'N':
 			Knight knightPromo = new Knight(destination, chessBoard[requestI][requestJ].color);
 			chessBoard[requestK][requestL] = knightPromo;
+			chessBoard[requestI][requestJ] = null;
 			break;
 		case 'K':
 			King kingPromo = new King(destination, chessBoard[requestI][requestJ].color);
 			chessBoard[requestK][requestL] = kingPromo;
+			chessBoard[requestI][requestJ] = null;
 			break;
 		case 'B':
 			Bishop bishopPromo = new Bishop(destination, chessBoard[requestI][requestJ].color);
 			chessBoard[requestK][requestL] = bishopPromo;
+			chessBoard[requestI][requestJ] = null;
 			break;
 		case 'R':
 			Rook rookPromo = new Rook(destination, chessBoard[requestI][requestJ].color);
 			chessBoard[requestK][requestL] = rookPromo;
+			chessBoard[requestI][requestJ] = null;
 			break;
 		default:
 			chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];

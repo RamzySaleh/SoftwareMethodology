@@ -146,10 +146,15 @@ public class Chess {
 				}
 				
 			}
-			
+			/**
+			 * IMPLICIT PROMOTION (pawn is promoted to queen without explicit choice)
+			 */
+			if((movingPiece instanceof Pawn) && (destination.charAt(1) == '8' || destination.charAt(1) == '1') && (requestedMoveArr.length != 3)){
+				chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'Q');
+				continue;
+			}
 			
 			/**
-			 * Implicit promotion (pawn is promoted to queen without explicit choice) implemented elsewhere
 			 * EXPLICIT PROMOTION (player chooses desired promotion)
 			 */
 			if(requestedMoveArr.length == 3){
