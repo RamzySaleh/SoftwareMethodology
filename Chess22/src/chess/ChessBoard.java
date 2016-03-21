@@ -224,6 +224,8 @@ public class ChessBoard {
 		boolean whiteThreatened = isCheckDetected("black");
 		boolean blackThreatened = isCheckDetected("white");
 		
+		System.out.println("whiteThreatened = "+whiteThreatened);
+		System.out.println("blackThreatened = "+blackThreatened);
 		findKings();
 		int a = (int) 'a';
 		
@@ -246,6 +248,7 @@ public class ChessBoard {
 							possibleAttackers[countOfAttackers][0] = i;
 							possibleAttackers[countOfAttackers][1] = j;
 							countOfAttackers ++;
+							System.out.println("attacker at [i][j] = ["+i+"]["+j+"]");
 						}
 					}
 				}	
@@ -286,9 +289,11 @@ public class ChessBoard {
 								temp.movePiece(savior, meanGuy, 'x');
 								
 								if (temp.isCheckDetected("black")) {
+									System.out.println("Savior at failed at m,n = "+i+","+j);
 									continue;
 								} else {
 									// We found someone to bail us out.
+									System.out.println("Savior at success at m,n = "+i+","+j);
 									return false;
 								}
 							}
