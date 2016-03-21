@@ -41,13 +41,17 @@ public class Pawn extends ChessPiece {
 				return false;
 			}
 			if(firstMove){
-				if(Math.abs(orderedPair[1]-orderedPairCurrent[1]) == 2){
+				if(orderedPair[1]-orderedPairCurrent[1] == -2 && color.equals("black")){
 					//Pawn can jump two steps on its first move
+					return true;
+				} else if (orderedPair[1]-orderedPairCurrent[1] == 2 && color.equals("white")){
 					return true;
 				}
 			}
-			if(Math.abs(orderedPair[1]-orderedPairCurrent[1]) == 1){
+			if(orderedPair[1]-orderedPairCurrent[1] == -1 && color.equals("black")){
 				//Pawn can only move forward in single steps
+				return true;
+			} else if (orderedPair[1]-orderedPairCurrent[1] == 1 && color.equals("white")){
 				return true;
 			}
 		}
