@@ -8,9 +8,11 @@ package pieces;
 public class Pawn extends ChessPiece {
 	
 	public boolean firstMove;
+	public boolean justMovedTwo;
 	
 	public Pawn(String position, String pieceColor){
 		firstMove = true;
+		justMovedTwo = false;
 		currentPosition = position;
 		color = pieceColor;
 	}

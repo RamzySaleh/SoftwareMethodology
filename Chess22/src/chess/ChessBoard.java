@@ -338,6 +338,23 @@ public class ChessBoard {
 
 	}
 	
+	public ChessPiece[][] enPassant(String origin, String destination, String toRemove){
+		if(origin.length() != 2 || destination.length() != 2){
+			return null;
+		}
+		String requestedLetter = toRemove.substring(0, 1);
+		String requestedNumber = toRemove.substring(1, 2);
+		
+		int requestI = 8-Integer.parseInt(requestedNumber);
+		int requestJ = requestedLetter.charAt(0) - 'a';
+		if (requestI > 8 || requestI < 0 || requestJ > 8 || requestJ < 0) return null;
+		
+		chessBoard[requestI][requestJ] = null;
+		movePiece(origin,destination,'x');
+		
+		return chessBoard;
+	}
+	
 	public ChessPiece[][] movePiece(String origin, String destination, char promotion){
 		
 		if(origin.length() != 2 || destination.length() != 2){
@@ -379,9 +396,21 @@ public class ChessBoard {
 			chessBoard[requestI][requestJ] = null;
 			break;
 		default:
-			chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
-			chessBoard[requestK][requestL].currentPosition = destination;
-			chessBoard[requestI][requestJ] = null;
+			if (chessBoard[requestI][requestJ] instanceof Pawn) {
+				Pawn tempPawn = (Pawn) chessBoard[requestI][requestJ];
+				tempPawn.firstMove = false;
+				if(Math.abs(requestI - requestK) == 2){
+	            tempPawn.justMovedTwo = true;
+	            } 
+				else{
+	            tempPawn.justMovedTwo = false;
+	            }
+				chessBoard[requestI][requestJ] = tempPawn;
+				}
+				chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
+				chessBoard[requestK][requestL].currentPosition = destination;
+				chessBoard[requestI][requestJ] = null;
+				
 		}
 		return chessBoard;
 	}

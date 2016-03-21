@@ -114,6 +114,23 @@ public class Chess {
 					
 					// Cannot perform enpassant, if there is nothing in the destination.
 					if(chessBoard.findPieceAtLocation(destination) == null){
+						int test;
+						if(movingPiece.color.equals("white")){
+							test = (Character.getNumericValue(destination.charAt(1)))-1;
+						}
+						else{
+							test = (Character.getNumericValue(destination.charAt(1)))+1;
+						}
+						
+						String newDest = destination.charAt(0)+(Integer.toString(test));
+
+						if((chessBoard.findPieceAtLocation(newDest) != null) && ((chessBoard.findPieceAtLocation(newDest) instanceof Pawn))){
+							Pawn tempPawn = (Pawn) (chessBoard.findPieceAtLocation(newDest));
+							if(tempPawn.justMovedTwo == true){
+								chessBoard.enPassant(requestedMoveArr[0], destination, newDest);
+								continue;
+							}
+						}
 						System.out.println("Error 4 Illegal move, try again");
 						continue;
 					}
@@ -160,10 +177,9 @@ public class Chess {
 			if(requestedMoveArr.length == 3){
 				if(requestedMoveArr[2].equals("draw?")){
 					drawRequested = true;
-					break;
 				}
 				//Checking to see if the pawn actually reached the end of the board
-				if((movingPiece instanceof Pawn) && (destination.charAt(1) == '8' || destination.charAt(1) == '1')){
+				else if((movingPiece instanceof Pawn) && (destination.charAt(1) == '8' || destination.charAt(1) == '1')){
 				switch(requestedMoveArr[2]){
 				case "Q":
 					chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'Q');
