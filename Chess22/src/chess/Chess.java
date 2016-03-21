@@ -51,7 +51,13 @@ public class Chess {
 			System.out.println("");
 			chessBoard.printBoard();
 			System.out.println("");
-			if(isCheckDetected) System.out.println("Check");
+			if(isCheckDetected){ 
+				if (chessBoard.checkForCheckmate()){
+					checkMate = true;
+					break;
+				}
+				System.out.println("Check");
+			}
 			System.out.print(turn);
 			String requestedMove = scanner.nextLine();
 			
