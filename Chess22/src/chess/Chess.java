@@ -130,7 +130,102 @@ public class Chess {
 			
 			// Checks if the piece can travel along this path and whether the path is clear.
 			if (!movingPiece.isPathValid(destination) || !chessBoard.isPathClear(movingPiece, destination)){
-				
+				/**
+				 * CASTLING
+				 */
+				if((movingPiece instanceof King)){
+					King tempKingCheck = (King) movingPiece;
+					if(tempKingCheck.firstMove != true){
+						System.out.println("Error a jillion Illegal move, try again");
+						continue;
+					}
+					if(movingPiece.color.equals("white")){
+						switch(destination){
+						case "g1":
+							if((chessBoard.findPieceAtLocation("f1") != null) || (chessBoard.findPieceAtLocation("g1") != null) ||(chessBoard.findPieceAtLocation("h1") == null)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							if((chessBoard.movePiece("e1", "f1", 'x') == false) || (chessBoard.movePiece("e1", "g1", 'x') == false)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							Rook tempRookCheck = (Rook) chessBoard.findPieceAtLocation("h1");
+							if(tempRookCheck.firstMove != true){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							else{
+								chessBoard.movePiece("e1", destination, 'x');
+								chessBoard.movePiece("h1", "f1", 'x');
+							}
+						case "c1":
+							if((chessBoard.findPieceAtLocation("d1") != null) || (chessBoard.findPieceAtLocation("c1") != null) || (chessBoard.findPieceAtLocation("b1") != null) || (chessBoard.findPieceAtLocation("a1") == null)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							if((chessBoard.movePiece("e1", "d1", 'x') == false) || (chessBoard.movePiece("e1", "c1", 'x') == false)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							Rook tempRookCheck2 = (Rook) chessBoard.findPieceAtLocation("a1");
+							if(tempRookCheck2.firstMove != true){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							else{
+								chessBoard.movePiece("e1", destination, 'x');
+								chessBoard.movePiece("a1", "d1", 'x');
+							}
+						default:
+							System.out.println("Error a quadrillion Illegal move, try again");
+							continue;
+						}
+					}
+					else{
+						switch(destination){
+						case "g8":
+							if((chessBoard.findPieceAtLocation("f8") != null) || (chessBoard.findPieceAtLocation("g8") != null) ||(chessBoard.findPieceAtLocation("h8") == null)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							if((chessBoard.movePiece("e8", "f8", 'x') == false) || (chessBoard.movePiece("e8", "g8", 'x') == false)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							Rook tempRookCheck = (Rook) chessBoard.findPieceAtLocation("h8");
+							if(tempRookCheck.firstMove != true){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							else{
+								chessBoard.movePiece("e8", destination, 'x');
+								chessBoard.movePiece("h8", "f8", 'x');
+							}
+						case "c8":
+							if((chessBoard.findPieceAtLocation("d8") != null) || (chessBoard.findPieceAtLocation("c8") != null) || (chessBoard.findPieceAtLocation("b8") != null) || (chessBoard.findPieceAtLocation("a8") == null)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							if((chessBoard.movePiece("e8", "d8", 'x') == false) || (chessBoard.movePiece("e8", "c8", 'x') == false)){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							Rook tempRookCheck2 = (Rook) chessBoard.findPieceAtLocation("a8");
+							if(tempRookCheck2.firstMove != true){
+								System.out.println("Illegal move, try again");
+								continue;
+							}
+							else{
+								chessBoard.movePiece("e8", destination, 'x');
+								chessBoard.movePiece("a8", "d8", 'x');
+							}
+						default:
+							System.out.println("Illegal move, try again");
+							continue;
+						}
+					}	
+				}
 				// If it isn't a Pawn or a King, we know right away that it is illegal.
 				if(!(movingPiece instanceof Pawn)){
 					System.out.println("Error 3 Illegal move, try again");
