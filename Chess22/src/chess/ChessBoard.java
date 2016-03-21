@@ -1,5 +1,4 @@
 package chess;
-import java.util.ArrayList;
 
 import pieces.*;
 
@@ -171,31 +170,30 @@ public class ChessBoard {
 		
 		findKings();
 		int a = (int) 'a';
-		int let = blackKingLocation[1]+a;
-		char letter = (char) let;
 		
+		int letB = blackKingLocation[1]+a;
+		char letterB = (char) letB;
+		int mB = 8 - blackKingLocation[0];
+		String numberB = Integer.toString(mB);
+		String blackKing = letterB+numberB;
 		
-		
-		int m = 8 - blackKingLocation[0];
-		String number = Integer.toString(m);
-		String blackKing = letter+number;
-		String whiteKing = whiteKingLocation[0]+whiteKingLocation[1]+"";
+		int letW = whiteKingLocation[1]+a;
+		char letterW = (char) letW;
+		int mW = 8 - whiteKingLocation[0];
+		String numberW = Integer.toString(mW);
+		String whiteKing = letterW+numberW;
 		
 		/**
 		 * If input is "white," this method checks if black's king is in check, and vice versa. 
 		 * Change association of input color and functionality if ambiguous.
 		 */
-		
+
 		if(color.equals("white")){
 			for(int i = 0; i < 8; i++){
 				for (int j = 0; j < 8; j++){
-					if (chessBoard[i][j]!=null){
-						if((chessBoard[i][j].color.equals("black"))){
-						continue;	
-						}
+					if (chessBoard[i][j]!= null){
 						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
 						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(blackKing)) && (isPathClear(chessBoard[i][j], blackKing))){
-							System.out.println("Check");
 							return true;
 						}
 					}
@@ -203,24 +201,114 @@ public class ChessBoard {
 				}	
 			}
 		}
+		
 		if(color.equals("black")){
 			for(int i = 0; i < 8; i++){
 				for (int j = 0; j < 8; j++){
 					if (chessBoard[i][j]!=null){
-						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
+						//if the piece is black, & its path to the king is both valid and clear, then the opponent's king is in check
 						if((chessBoard[i][j].color.equals("black")) && (chessBoard[i][j].isPathValid(whiteKing)) && (isPathClear(chessBoard[i][j], whiteKing))){
-							System.out.println("Check");
 							return true;
 						}
 					}
-					
 				}	
-			}
-			
-			
+			}	
 		}
 					
 		return false;
+	}
+	
+	
+	public boolean checkForCheckMate(){
+		
+		boolean whiteThreatened = isCheckDetected("black");
+		boolean blackThreatened = isCheckDetected("white");
+		
+		findKings();
+		int a = (int) 'a';
+		
+		if (whiteThreatened){
+			
+			int letW = whiteKingLocation[1]+a;
+			char letterW = (char) letW;
+			int mW = 8 - whiteKingLocation[0];
+			String numberW = Integer.toString(mW);
+			String whiteKing = letterW+numberW;
+			int i,j = 10;
+			for(i = 0; i < 8; i++){
+				for (j = 0; j < 8; j++){
+					if (chessBoard[i][j]!=null){
+						//if the piece is black, & its path to the king is both valid and clear, then the opponent's king is in check
+						if((chessBoard[i][j].color.equals("black")) && (chessBoard[i][j].isPathValid(whiteKing)) && (isPathClear(chessBoard[i][j], whiteKing))){
+							break;
+						}
+					}
+				}	
+			}	
+			
+			int letMean = j+a;
+			char letterMean = (char) letMean;
+			int mMean = 8 - i;
+			String numberMean = Integer.toString(mMean);
+			String meanGuy = letterMean+numberMean;
+			
+			for(i = 0; i < 8; i++){
+				for (j = 0; j < 8; j++){
+					if (chessBoard[i][j]!=null){
+						//if the piece is black, & its path to the king is both valid and clear, then the opponent's king is in check
+						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(meanGuy)) && (isPathClear(chessBoard[i][j], meanGuy))){
+							break;
+						}
+					}
+				}
+			}
+			if (i == 7 && j == 7 && !chessBoard[i][j].isPathValid(meanGuy)) {
+				// Cannot get to mean guy. Lets try moving, if that doesn't work, checkmate!
+				
+			} else {
+				// We can kill the mean guy, but does this put us out of check?
+				ChessPiece[][] tempPtr = new ChessPiece[8][8];
+				ChessBoard temp = new ChessBoard();
+				temp.chessBoard = tempPtr;
+				
+				for (int m = 0; i < 8; i++){
+					for (int n = 0; j < 8; j++){
+						tempPtr[m][n] = (ChessPiece) chessBoard[m][n];
+					}
+				}
+				
+				int letSave = j+a;
+				char letterSave = (char) letSave;
+				int mSave = 8 - i;
+				String numberSave = Integer.toString(mSave);
+				String savior = letterSave+numberSave;
+				
+				temp.movePiece(savior, meanGuy, 'x');
+				
+				if (temp.isCheckDetected("black")) {
+					// try moving king in original board, if that doesn't work, checkmate!
+				}
+			}
+			
+			
+			return false;
+		} else if (blackThreatened){
+			
+			int letB = blackKingLocation[1]+a;
+			char letterB = (char) letB;
+			int mB = 8 - blackKingLocation[0];
+			String numberB = Integer.toString(mB);
+			String blackKing = letterB+numberB;
+			/**
+			 * NEEDS IMPLEMENTATION, SAME A WHITE, BUT FLIP ALL COLORS
+			 */
+			
+			return false;
+		} else {
+			return false;
+		}
+		
+		
 	}
 	
 	
@@ -292,26 +380,38 @@ public class ChessBoard {
 				return true;
 			} else { 
 				// Trying to move to the same position. Invalid move
-				return true;
+				return false;
 			}
 		}
 		
 		// Diagonal movement
 		if (Math.abs(destJ-startJ) == Math.abs(destI - startI)){ // Slope is 1.
 			
-			int endingDiagI = Math.max(destI, startI);
-			int startingDiagI = Math.min(destI, startI);
+			if (Math.abs(destJ-startJ) == 1) return true;
 			
-			int startingDiagJ = Math.min(destJ, startJ);
-			System.out.println("initial starting diag j"+startingDiagJ);
-			for(int i = startingDiagI+1; i < endingDiagI; i++){
-				startingDiagJ++;
-				System.out.println("starting diag j"+startingDiagJ);
-				System.out.println("i value "+i);
-				if(chessBoard[i][startingDiagJ] != null){
-					return false;
-				}
-			} 
+			int j;
+			
+			if (destJ > startJ){
+				j = startJ;
+			} else {
+				j = destJ;	
+			}
+			
+			if (destI > startI){
+				for(int i = startI+1; i < destI; i++){
+					j++;
+					if(chessBoard[i][j] != null){
+						return false;
+					}
+				} 
+			} else {
+				for(int i = destI+1; i < startI; i++){
+					j++;
+					if(chessBoard[i][j] != null){
+						return false;
+					}
+				} 
+			}
 			// If they are all null, return true.
 			return true;
 		}
@@ -338,6 +438,132 @@ public class ChessBoard {
 
 	}
 	
+	public boolean movePiece(String origin, String destination, char promotion){
+		
+		ChessPiece[][] tempPtr = new ChessPiece[8][8];
+		ChessBoard temp = new ChessBoard();
+		temp.chessBoard = tempPtr;
+		
+		for (int i = 0; i < 8; i++){
+			for (int j = 0; j < 8; j++){
+				tempPtr[i][j] = (ChessPiece) chessBoard[i][j];
+			}
+		}
+		
+		if(origin.length() != 2 || destination.length() != 2){
+			return false;
+		}
+		
+		String requestedLetter = origin.substring(0, 1);
+		String requestedNumber = origin.substring(1, 2);
+		
+		int requestI = 8-Integer.parseInt(requestedNumber);
+		int requestJ = requestedLetter.charAt(0) - 'a';
+		if (requestI > 8 || requestI < 0 || requestJ > 8 || requestJ < 0) return false;
+		
+		String requestedLetter2 = destination.substring(0, 1);
+		String requestedNumber2 = destination.substring(1, 2);
+		
+		int requestK = 8-Integer.parseInt(requestedNumber2);
+		int requestL = requestedLetter2.charAt(0) - 'a';
+		
+		if (requestK > 8 || requestK < 0 || requestL > 8 || requestL < 0) return false;
+		
+		switch(promotion){
+		case 'Q':
+			Queen queenPromo = new Queen(destination, chessBoard[requestI][requestJ].color);
+			tempPtr[requestK][requestL] = queenPromo;
+			tempPtr[requestI][requestJ] = null;
+			if (chessBoard[requestI][requestJ].color.equals("white")){
+				if (temp.isCheckDetected("black")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			} else {
+				if (temp.isCheckDetected("white")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			}
+		case 'N':
+			Knight knightPromo = new Knight(destination, chessBoard[requestI][requestJ].color);
+			tempPtr[requestK][requestL] = knightPromo;
+			tempPtr[requestI][requestJ] = null;
+			if (chessBoard[requestI][requestJ].color.equals("white")){
+				if (temp.isCheckDetected("black")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			} else {
+				if (temp.isCheckDetected("white")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			}
+		case 'B':
+			Bishop bishopPromo = new Bishop(destination, chessBoard[requestI][requestJ].color);
+			tempPtr[requestK][requestL] = bishopPromo;
+			tempPtr[requestI][requestJ] = null;
+			if (chessBoard[requestI][requestJ].color.equals("white")){
+				if (temp.isCheckDetected("black")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			} else {
+				if (temp.isCheckDetected("white")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			}
+		case 'R':
+			Rook rookPromo = new Rook(destination, chessBoard[requestI][requestJ].color);
+			tempPtr[requestK][requestL] = rookPromo;
+			tempPtr[requestI][requestJ] = null;
+			if (chessBoard[requestI][requestJ].color.equals("white")){
+				if (temp.isCheckDetected("black")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			} else {
+				if (temp.isCheckDetected("white")) return false;
+				this.chessBoard = tempPtr;
+				return true;
+			}
+		default:
+			if (tempPtr[requestI][requestJ] instanceof Pawn) {
+				Pawn tempPawn = (Pawn) tempPtr[requestI][requestJ];
+				tempPawn.firstMove = false;
+				if (Math.abs(requestJ - requestL) == 2){
+					tempPawn.justMovedTwo = true;
+				} else {
+					tempPawn.justMovedTwo = false;
+				}
+				tempPtr[requestI][requestJ] = tempPawn;
+			} else if (tempPtr[requestI][requestJ] instanceof King) {
+				King tempKing = (King) tempPtr[requestI][requestJ];
+				tempKing.firstMove = false;
+				tempPtr[requestI][requestJ] = tempKing;
+			} else if (tempPtr[requestI][requestJ] instanceof Rook) {
+				Rook tempRook = (Rook) tempPtr[requestI][requestJ];
+				tempRook.firstMove = false;
+				tempPtr[requestI][requestJ] = tempRook;
+			}
+			tempPtr[requestK][requestL] = tempPtr[requestI][requestJ];
+			tempPtr[requestK][requestL].currentPosition = destination;
+			tempPtr[requestI][requestJ] = null;
+			if (this.chessBoard[requestI][requestJ].color.equals("white")){
+				if (temp.isCheckDetected("black")){
+					System.out.println("disregarded check!");
+					return false;
+				}
+				System.out.println("here 456");
+				this.chessBoard = tempPtr;
+				return true;
+			} else {
+				if (temp.isCheckDetected("white")) {
+					System.out.println("disregarded check!");
+					return false;
+				}
+				System.out.println("here 464");
+				this.chessBoard = tempPtr;
+				return true;
+			}
+		}	
+	}
+	
 	public ChessPiece[][] enPassant(String origin, String destination, String toRemove){
 		if(origin.length() != 2 || destination.length() != 2){
 			return null;
@@ -355,68 +581,6 @@ public class ChessBoard {
 		return chessBoard;
 	}
 	
-	public ChessPiece[][] movePiece(String origin, String destination, char promotion){
-		
-		if(origin.length() != 2 || destination.length() != 2){
-			return null;
-		}
-		String requestedLetter = origin.substring(0, 1);
-		String requestedNumber = origin.substring(1, 2);
-		
-		int requestI = 8-Integer.parseInt(requestedNumber);
-		int requestJ = requestedLetter.charAt(0) - 'a';
-		if (requestI > 8 || requestI < 0 || requestJ > 8 || requestJ < 0) return null;
-		
-		String requestedLetter2 = destination.substring(0, 1);
-		String requestedNumber2 = destination.substring(1, 2);
-		
-		int requestK = 8-Integer.parseInt(requestedNumber2);
-		int requestL = requestedLetter2.charAt(0) - 'a';
-		if (requestK > 8 || requestK < 0 || requestL > 8 || requestL < 0) return null;
-		
-		switch(promotion){
-		case 'Q':
-			Queen queenPromo = new Queen(destination, chessBoard[requestI][requestJ].color);
-			chessBoard[requestK][requestL] = queenPromo;
-			chessBoard[requestI][requestJ] = null;
-			return chessBoard;
-		case 'N':
-			Knight knightPromo = new Knight(destination, chessBoard[requestI][requestJ].color);
-			chessBoard[requestK][requestL] = knightPromo;
-			chessBoard[requestI][requestJ] = null;
-			break;
-		case 'B':
-			Bishop bishopPromo = new Bishop(destination, chessBoard[requestI][requestJ].color);
-			chessBoard[requestK][requestL] = bishopPromo;
-			chessBoard[requestI][requestJ] = null;
-			break;
-		case 'R':
-			Rook rookPromo = new Rook(destination, chessBoard[requestI][requestJ].color);
-			chessBoard[requestK][requestL] = rookPromo;
-			chessBoard[requestI][requestJ] = null;
-			break;
-		default:
-			if (chessBoard[requestI][requestJ] instanceof Pawn) {
-				Pawn tempPawn = (Pawn) chessBoard[requestI][requestJ];
-				tempPawn.firstMove = false;
-				if(Math.abs(requestI - requestK) == 2){
-	            tempPawn.justMovedTwo = true;
-	            } 
-				else{
-	            tempPawn.justMovedTwo = false;
-	            }
-				chessBoard[requestI][requestJ] = tempPawn;
-				}
-				chessBoard[requestK][requestL] = chessBoard[requestI][requestJ];
-				chessBoard[requestK][requestL].currentPosition = destination;
-				chessBoard[requestI][requestJ] = null;
-				
-		}
-		return chessBoard;
-	}
-	
-	
-	
 	public void findKings(){
 		for(int i = 0; i < 8; i++){
 			for (int j = 0; j < 8; j++){
@@ -429,9 +593,7 @@ public class ChessBoard {
 						whiteKingLocation[1] = j;
 					}
 				}
-				
 			}
-			
 		}
 	}
 	
