@@ -26,7 +26,6 @@ public class Chess {
 		Boolean staleMate = false;
 		Scanner scanner = new Scanner (System.in);
 		
-		System.out.println(intToChar(0));
 		while (!drawAccepted && !resign && !checkMate && !staleMate) {
 
 			/** 
