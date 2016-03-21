@@ -501,6 +501,18 @@ public class ChessBoard {
 		
 	}
 	
+	public boolean validityCheck(String location){
+		if (location.length() != 2) return false;
+		
+		String requestedLetter = location.substring(0, 1);
+		String requestedNumber = location.substring(1, 2);
+		if(!(requestedLetter.matches("[a-zA-Z]")) || !(requestedNumber.matches("[1-8]"))){
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public ChessPiece findPieceAtLocation(String location){
 		
 		if (location.length() != 2) return null;

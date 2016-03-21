@@ -99,6 +99,10 @@ public class Chess {
 			}
 			
 			// Find the piece the user wants to move.
+			if(!(chessBoard.validityCheck(requestedMoveArr[0])) || !(chessBoard.validityCheck(requestedMoveArr[1]))){
+				System.out.println("Illegal move, try again");
+				continue;
+			}
 			ChessPiece movingPiece = chessBoard.findPieceAtLocation(requestedMoveArr[0]);
 			String destination = requestedMoveArr[1];
 			
