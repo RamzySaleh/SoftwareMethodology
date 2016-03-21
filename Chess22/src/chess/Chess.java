@@ -215,8 +215,10 @@ public class Chess {
 				System.out.println("In here!!!!");
 				chessBoard.movePiece(requestedMoveArr[0], requestedMoveArr[1], 'x');
 				if(turn.equals("White's move:")){
+					chessBoard.isCheckDetected("white");
 					turn = "Black's move:";
 				} else {
+					chessBoard.isCheckDetected("black");
 					turn = "White's move:";
 				}
 			}

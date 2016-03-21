@@ -170,7 +170,11 @@ public class ChessBoard {
 	public boolean isCheckDetected(String color){
 		
 		findKings();
-		String blackKing = blackKingLocation[0]+blackKingLocation[1]+"";
+		int l = blackKingLocation[0] + 'a';
+		String letter = Integer.toString(l);
+		int m = blackKingLocation[1] + 8;
+		String number = Integer.toString(m);
+		String blackKing = letter+number;
 		String whiteKing = whiteKingLocation[0]+whiteKingLocation[1]+"";
 		
 		/**
@@ -184,6 +188,7 @@ public class ChessBoard {
 					if (chessBoard[i][j]!=null){
 						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
 						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(blackKing)) && (isPathClear(chessBoard[i][j], blackKing))){
+							System.out.println("Check");
 							return true;
 						}
 					}
@@ -197,6 +202,7 @@ public class ChessBoard {
 					if (chessBoard[i][j]!=null){
 						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
 						if((chessBoard[i][j].color.equals("black")) && (chessBoard[i][j].isPathValid(whiteKing)) && (isPathClear(chessBoard[i][j], whiteKing))){
+							System.out.println("Check");
 							return true;
 						}
 					}
@@ -351,11 +357,6 @@ public class ChessBoard {
 		case 'N':
 			Knight knightPromo = new Knight(destination, chessBoard[requestI][requestJ].color);
 			chessBoard[requestK][requestL] = knightPromo;
-			chessBoard[requestI][requestJ] = null;
-			break;
-		case 'K':
-			King kingPromo = new King(destination, chessBoard[requestI][requestJ].color);
-			chessBoard[requestK][requestL] = kingPromo;
 			chessBoard[requestI][requestJ] = null;
 			break;
 		case 'B':
