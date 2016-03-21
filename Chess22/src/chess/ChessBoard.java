@@ -219,7 +219,7 @@ public class ChessBoard {
 	}
 	
 	
-	public boolean checkForCheckMate(){
+	public boolean checkForCheckmate(){
 		
 		boolean whiteThreatened = isCheckDetected("black");
 		boolean blackThreatened = isCheckDetected("white");
@@ -235,63 +235,72 @@ public class ChessBoard {
 			String numberW = Integer.toString(mW);
 			String whiteKing = letterW+numberW;
 			int i,j = 10;
+			int[][] possibleAttackers = new int[16][2];
+			int countOfAttackers = 0;
+			
+			// Find all attackers
 			for(i = 0; i < 8; i++){
 				for (j = 0; j < 8; j++){
 					if (chessBoard[i][j]!=null){
-						//if the piece is black, & its path to the king is both valid and clear, then the opponent's king is in check
 						if((chessBoard[i][j].color.equals("black")) && (chessBoard[i][j].isPathValid(whiteKing)) && (isPathClear(chessBoard[i][j], whiteKing))){
-							break;
+							possibleAttackers[countOfAttackers][0] = i;
+							possibleAttackers[countOfAttackers][1] = j;
+							countOfAttackers ++;
 						}
 					}
 				}	
-			}	
+			}
+			// Single check
+			if (countOfAttackers == 1) {
+				j = possibleAttackers[0][1];
+				i = possibleAttackers[0][0];
+				int letMean = j+a;
+				char letterMean = (char) letMean;
+				int mMean = 8 - i;
+				String numberMean = Integer.toString(mMean);
+				String meanGuy = letterMean+numberMean;
 			
-			int letMean = j+a;
-			char letterMean = (char) letMean;
-			int mMean = 8 - i;
-			String numberMean = Integer.toString(mMean);
-			String meanGuy = letterMean+numberMean;
-			
-			for(i = 0; i < 8; i++){
-				for (j = 0; j < 8; j++){
-					if (chessBoard[i][j]!=null){
-						//if the piece is black, & its path to the king is both valid and clear, then the opponent's king is in check
-						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(meanGuy)) && (isPathClear(chessBoard[i][j], meanGuy))){
-							break;
+				for(i = 0; i < 8; i++){
+					for (j = 0; j < 8; j++){
+						if (chessBoard[i][j]!=null){
+							if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(meanGuy)) && (isPathClear(chessBoard[i][j], meanGuy))){
+								
+								// We found a piece to kill the mean guy, lets see if it gets us out of check!
+								
+								ChessPiece[][] tempPtr = new ChessPiece[8][8];
+								ChessBoard temp = new ChessBoard();
+								temp.chessBoard = tempPtr;
+								
+								for (int m = 0; m < 8; m ++){
+									for (int n = 0; n < 8; n++){
+										tempPtr[m][n] = (ChessPiece) chessBoard[m][n];
+									}
+								}
+								
+								int letSave = j+a;
+								char letterSave = (char) letSave;
+								int mSave = 8 - i;
+								String numberSave = Integer.toString(mSave);
+								String savior = letterSave+numberSave;
+								
+								temp.movePiece(savior, meanGuy, 'x');
+								
+								if (temp.isCheckDetected("black")) {
+									continue;
+								} else {
+									// We found someone to bail us out.
+									return false;
+								}
+							}
 						}
 					}
 				}
-			}
-			if (i == 7 && j == 7 && !chessBoard[i][j].isPathValid(meanGuy)) {
-				// Cannot get to mean guy. Lets try moving, if that doesn't work, checkmate!
-				
-			} else {
-				// We can kill the mean guy, but does this put us out of check?
-				ChessPiece[][] tempPtr = new ChessPiece[8][8];
-				ChessBoard temp = new ChessBoard();
-				temp.chessBoard = tempPtr;
-				
-				for (int m = 0; i < 8; i++){
-					for (int n = 0; j < 8; j++){
-						tempPtr[m][n] = (ChessPiece) chessBoard[m][n];
-					}
-				}
-				
-				int letSave = j+a;
-				char letterSave = (char) letSave;
-				int mSave = 8 - i;
-				String numberSave = Integer.toString(mSave);
-				String savior = letterSave+numberSave;
-				
-				temp.movePiece(savior, meanGuy, 'x');
-				
-				if (temp.isCheckDetected("black")) {
-					// try moving king in original board, if that doesn't work, checkmate!
-				}
-			}
+			} 
+			// Double check or we cannot get anyone to save us. So, we must try to move
+			
+			return !tryMovingKing("white");
 			
 			
-			return false;
 		} else if (blackThreatened){
 			
 			int letB = blackKingLocation[1]+a;
@@ -299,11 +308,74 @@ public class ChessBoard {
 			int mB = 8 - blackKingLocation[0];
 			String numberB = Integer.toString(mB);
 			String blackKing = letterB+numberB;
-			/**
-			 * NEEDS IMPLEMENTATION, SAME A WHITE, BUT FLIP ALL COLORS
-			 */
+			int i,j = 10;
+			int[][] possibleAttackers = new int[16][2];
+			int countOfAttackers = 0;
 			
-			return false;
+			// Find all attackers
+			for(i = 0; i < 8; i++){
+				for (j = 0; j < 8; j++){
+					if (chessBoard[i][j]!=null){
+						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(blackKing)) && (isPathClear(chessBoard[i][j], blackKing))){
+							possibleAttackers[countOfAttackers][0] = i;
+							possibleAttackers[countOfAttackers][1] = j;
+							countOfAttackers ++;
+						}
+					}
+				}	
+			}
+			// Single check
+			if (countOfAttackers == 1) {
+				j = possibleAttackers[0][1];
+				i = possibleAttackers[0][0];
+				int letMean = j+a;
+				char letterMean = (char) letMean;
+				int mMean = 8 - i;
+				String numberMean = Integer.toString(mMean);
+				String meanGuy = letterMean+numberMean;
+			
+				for(i = 0; i < 8; i++){
+					for (j = 0; j < 8; j++){
+						if (chessBoard[i][j]!=null){
+							if((chessBoard[i][j].color.equals("black")) && (chessBoard[i][j].isPathValid(meanGuy)) && (isPathClear(chessBoard[i][j], meanGuy))){
+								
+								// We found a piece to kill the mean guy, lets see if it gets us out of check!
+								
+								ChessPiece[][] tempPtr = new ChessPiece[8][8];
+								ChessBoard temp = new ChessBoard();
+								temp.chessBoard = tempPtr;
+								
+								for (int m = 0; m < 8; m ++){
+									for (int n = 0; n < 8; n++){
+										tempPtr[m][n] = (ChessPiece) chessBoard[m][n];
+									}
+								}
+								
+								int letSave = j+a;
+								char letterSave = (char) letSave;
+								int mSave = 8 - i;
+								String numberSave = Integer.toString(mSave);
+								String savior = letterSave+numberSave;
+								
+								temp.movePiece(savior, meanGuy, 'x');
+								
+								if (temp.isCheckDetected("white")) {
+									continue;
+								} else {
+									// We found someone to bail us out.
+									return false;
+								}
+							}
+						}
+					}
+				}
+			} 
+			// Double check or we cannot get anyone to save us. So, we must try to move
+			
+			return !tryMovingKing("black");
+			
+			
+			
 		} else {
 			return false;
 		}
@@ -598,6 +670,154 @@ public class ChessBoard {
 	}
 	
 	
+	/**
+	 * 
+	 * @param color - color of king you are trying to save
+	 * @return true - if moving King gets you out of check, false otherwise 
+	 */
+	public boolean tryMovingKing(String color){
+		
+		ChessPiece[][] tempPtr = new ChessPiece[8][8];
+		ChessBoard temp = new ChessBoard();
+		temp.chessBoard = tempPtr;
+		
+		for (int m = 0; m < 8; m++){
+			for (int n = 0; m < 8; m++){
+				tempPtr[m][n] = (ChessPiece) chessBoard[m][n];
+			}
+		}
+		
+		temp.findKings();
+		
+		if (color.equals("white")) {
+			int kingI = temp.whiteKingLocation[0];
+			int kingJ = temp.whiteKingLocation[1];
+			int origin[] = new int[2];
+			int dest[] = new int[2];
+			origin[0] = kingI;
+			origin[1] = kingJ;
+			
+			if (kingI+1 <= 7){
+				if (tempPtr[kingI+1][kingJ] == null){
+					dest[0] = kingI+1;
+					dest[1] = kingJ;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+				if (kingJ+1 <= 7 && tempPtr[kingI+1][kingJ+1] == null){
+					dest[0] = kingI+1;
+					dest[1] = kingJ+1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+				if (kingJ+1 <= 7 && tempPtr[kingI][kingJ+1] == null){
+					dest[0] = kingI;
+					dest[1] = kingJ+1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+				if (kingJ-1 >= 0 && tempPtr[kingI+1][kingJ-1] == null){
+					dest[0] = kingI+1;
+					dest[1] = kingJ-1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+				if (kingJ-1 >= 0 && tempPtr[kingI][kingJ-1] == null){
+					dest[0] = kingI;
+					dest[1] = kingJ-1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+			} 
+			if (kingI-1 >= 0){
+				if (tempPtr[kingI-1][kingJ] == null){
+					dest[0] = kingI-1;
+					dest[1] = kingJ;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+				if (kingJ+1 <= 7 && tempPtr[kingI-1][kingJ+1] == null){
+					dest[0] = kingI-1;
+					dest[1] = kingJ+1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+				if (kingJ-1 >= 0 && tempPtr[kingI-1][kingJ-1] == null){
+					dest[0] = kingI-1;
+					dest[1] = kingJ-1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("black")) return true;
+				}
+			}
+			
+			return false;
+		} else {
+			int kingI = temp.blackKingLocation[0];
+			int kingJ = temp.blackKingLocation[1];
+			int origin[] = new int[2];
+			int dest[] = new int[2];
+			origin[0] = kingI;
+			origin[1] = kingJ;
+			
+			if (kingI+1 <= 7){
+				if (tempPtr[kingI+1][kingJ] == null){
+					dest[0] = kingI+1;
+					dest[1] = kingJ;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+				if (kingJ+1 <= 7 && tempPtr[kingI+1][kingJ+1] == null){
+					dest[0] = kingI+1;
+					dest[1] = kingJ+1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+				if (kingJ+1 <= 7 && tempPtr[kingI][kingJ+1] == null){
+					dest[0] = kingI;
+					dest[1] = kingJ+1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+				if (kingJ-1 >= 0 && tempPtr[kingI+1][kingJ-1] == null){
+					dest[0] = kingI+1;
+					dest[1] = kingJ-1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+				if (kingJ-1 >= 0 && tempPtr[kingI][kingJ-1] == null){
+					dest[0] = kingI;
+					dest[1] = kingJ-1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+			} 
+			if (kingI-1 >= 0){
+				if (tempPtr[kingI-1][kingJ] == null){
+					dest[0] = kingI-1;
+					dest[1] = kingJ;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+				if (kingJ+1 <= 7 && tempPtr[kingI-1][kingJ+1] == null){
+					dest[0] = kingI-1;
+					dest[1] = kingJ+1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+				if (kingJ-1 >= 0 && tempPtr[kingI-1][kingJ-1] == null){
+					dest[0] = kingI-1;
+					dest[1] = kingJ-1;
+					temp.movePiece(origin, dest);
+					if(!temp.isCheckDetected("white")) return true;
+				}
+			}
+			
+			return false;
+		}
+		
+		
+		
+	}
 	
 	
 	
