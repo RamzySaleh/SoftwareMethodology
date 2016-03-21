@@ -49,7 +49,7 @@ public class Pawn extends ChessPiece {
 				return true;
 			}
 		}
-		System.out.println("Failed here 4");
+		
 		return false;
 	}
 	

@@ -170,9 +170,13 @@ public class ChessBoard {
 	public boolean isCheckDetected(String color){
 		
 		findKings();
-		int l = blackKingLocation[0] + 'a';
-		String letter = Integer.toString(l);
-		int m = blackKingLocation[1] + 8;
+		int a = (int) 'a';
+		int let = blackKingLocation[1]+a;
+		char letter = (char) let;
+		
+		
+		
+		int m = 8 - blackKingLocation[0];
 		String number = Integer.toString(m);
 		String blackKing = letter+number;
 		String whiteKing = whiteKingLocation[0]+whiteKingLocation[1]+"";
@@ -186,6 +190,9 @@ public class ChessBoard {
 			for(int i = 0; i < 8; i++){
 				for (int j = 0; j < 8; j++){
 					if (chessBoard[i][j]!=null){
+						if((chessBoard[i][j].color.equals("black"))){
+						continue;	
+						}
 						//if the piece is white, & its path to the king is both valid and clear, then the opponent's king is in check
 						if((chessBoard[i][j].color.equals("white")) && (chessBoard[i][j].isPathValid(blackKing)) && (isPathClear(chessBoard[i][j], blackKing))){
 							System.out.println("Check");
@@ -296,9 +303,11 @@ public class ChessBoard {
 			int startingDiagI = Math.min(destI, startI);
 			
 			int startingDiagJ = Math.min(destJ, startJ);
-			
+			System.out.println("initial starting diag j"+startingDiagJ);
 			for(int i = startingDiagI+1; i < endingDiagI; i++){
 				startingDiagJ++;
+				System.out.println("starting diag j"+startingDiagJ);
+				System.out.println("i value "+i);
 				if(chessBoard[i][startingDiagJ] != null){
 					return false;
 				}
