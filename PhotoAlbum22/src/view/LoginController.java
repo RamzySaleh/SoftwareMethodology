@@ -27,10 +27,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
+import view.MainController;
 
 public class LoginController{
 	
-	private MainController main;
+	@FXML MainController main = new MainController();
 	@FXML AnchorPane window;
 	@FXML TextField username;
 	@FXML Button enter;
@@ -84,8 +85,8 @@ public class LoginController{
 		return -1;
 	}
 	
-	public void init(MainController main){
-		this.main = main;
+	public void init(MainController mainControl){
+		main = mainControl;
 	}
 
 }

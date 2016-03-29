@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
 import app.User;
+import view.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,12 +29,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
 public class AdminController {
 	
-	private MainController main;
+	MainController main = new MainController();
 	
 	@FXML Button logOut;
 	
-	public void init(MainController main){
-		this.main = main;
+	public void init(MainController mainControl){
+		main = mainControl;
+	}
+	
+	public void logOutButtonClicked(ActionEvent e){
+		/**
+		 * TODO
+		 * Make sure any changes are saved
+		 */
+		try{
+		main.logOutButtonClicked();
+		}
+		catch(Exception r){
+			r.printStackTrace();
+		}
 	}
 
 }

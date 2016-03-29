@@ -3,6 +3,7 @@ package app;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import view.LoginController;
 import javafx.scene.Scene;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -12,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 public class PhotoAlbum extends Application {
 	private Stage primaryStage;
 	private AnchorPane rootLayout;
+	private LoginController loginController;
 	@Override
 	
 	
@@ -26,13 +28,6 @@ public class PhotoAlbum extends Application {
 			primaryStage.setTitle("Sign in");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			/**
-			 * BorderPane root = new BorderPane();
-			 * Scene scene = new Scene(root,400,400);
-			 * scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			 * primaryStage.setScene(scene);
-			 * primaryStage.show();
-			 */
 			
 		} catch(Exception e) {
 			e.printStackTrace();
