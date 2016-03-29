@@ -43,7 +43,7 @@ public class AdminController {
 		 * Make sure any changes are saved
 		 */
 		try{
-		main.logOutButtonClicked();
+		main.logOutButtonClicked(e);
 		}
 		catch(Exception r){
 			r.printStackTrace();
