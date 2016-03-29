@@ -1,5 +1,5 @@
-ABC~five~2~minimum
-Hello~Adele~5~2015
-Hello2~it's me~hear me~can you
+ABC~five~minimum~2
+Hello~Adele~2015~5
+Hello2~it's me~can you~hear me
 Hi~2011~ ~ 
-Zebra~2016~three~ 
+Zebra~2016~ ~three

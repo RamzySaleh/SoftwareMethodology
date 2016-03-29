@@ -30,12 +30,9 @@ public class LoginController {
 	ArrayList<User> users;
 	
 	public void enterButtonClicked(ActionEvent e){
-		if(username.isEditable() == false){
-			//User did not input username
-			return;
-		}
+
 		String user = username.getText();
-		if(user.equals("") || user == null){
+		if(user.equals("") || user == null || username.isEditable()){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setHeaderText("Error");
 			alert.setContentText("Must input a username");
