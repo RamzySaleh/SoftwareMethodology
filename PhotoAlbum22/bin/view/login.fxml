@@ -6,26 +6,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="243.0" prefWidth="363.0" text="Sign In" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-         <children>
-            <Button layoutX="144.0" layoutY="154.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="73.0" text="Enter">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Button>
-            <TextField layoutX="159.0" layoutY="92.0" prefHeight="34.0" prefWidth="161.0" />
-            <Label layoutX="33.0" layoutY="90.0" prefHeight="38.0" prefWidth="128.0" text="username">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label layoutX="122.0" layoutY="28.0" prefHeight="53.0" prefWidth="117.0" text="Sign In">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
-  </content>
-</TitledPane>
+<AnchorPane fx:controller="view.LoginController" fx:id="window" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="enter" layoutX="144.0" layoutY="146.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="73.0" text="Enter" onAction="#enterButtonClicked">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="username" layoutX="167.0" layoutY="92.0" prefHeight="34.0" prefWidth="161.0" />
+      <Label layoutX="45.0" layoutY="90.0" prefHeight="38.0" prefWidth="128.0" text="username">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="122.0" layoutY="28.0" prefHeight="53.0" prefWidth="117.0" text="Sign In">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
