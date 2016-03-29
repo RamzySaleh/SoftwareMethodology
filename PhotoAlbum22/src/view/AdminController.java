@@ -32,12 +32,20 @@ public class AdminController {
 	MainController main = new MainController();
 	
 	@FXML Button logOut;
+	@FXML TextField newUser;
+	@FXML Button listButton;
+	@FXML Button createButton;
+	@FXML ListView userListView;
+	@FXML AnchorPane userCreateView;
+	
+	
 	
 	public void init(MainController mainControl){
 		main = mainControl;
 	}
 	
 	public void logOutButtonClicked(ActionEvent e){
+		
 		/**
 		 * TODO
 		 * Make sure any changes are saved
@@ -48,6 +56,13 @@ public class AdminController {
 		catch(Exception r){
 			r.printStackTrace();
 		}
+	}
+	
+	public void listButtonClicked(ActionEvent e){
+		
+	}
+	public void createButtonClicked(ActionEvent e){
+		
 	}
 
 }
