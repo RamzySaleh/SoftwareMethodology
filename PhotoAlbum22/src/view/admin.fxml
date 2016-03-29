@@ -11,7 +11,7 @@
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Button layoutX="51.0" layoutY="312.0" mnemonicParsing="false" text="Log Out">
+            <Button fx:id="logOut" layoutX="51.0" layoutY="312.0" mnemonicParsing="false" text="Log Out">
                <font>
                   <Font size="15.0" />
                </font>
