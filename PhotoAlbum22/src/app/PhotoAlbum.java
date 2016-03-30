@@ -1,5 +1,7 @@
 package app;
 	
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -14,8 +16,8 @@ public class PhotoAlbum extends Application {
 	private Stage primaryStage;
 	private AnchorPane rootLayout;
 	private LoginController loginController;
-	@Override
 	
+	@Override
 	
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;

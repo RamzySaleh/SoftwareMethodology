@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
+
 import app.User;
 import view.MainController;
 import javafx.event.ActionEvent;
@@ -35,14 +36,38 @@ public class AdminController {
 	@FXML TextField newUser;
 	@FXML Button listButton;
 	@FXML Button createButton;
+	@FXML Label addSuccess;
+	@FXML Label addFail;
 	@FXML ListView<String> userListView;
 	@FXML AnchorPane userCreateView;
+	public static ArrayList<User> users = new ArrayList<User>();
+	public static ArrayList<User> getUsers(){
+		return users;
+	}
+	private ObservableList<String> obsList;
 	
-	
+	public void start() {
+		 // create an ObservableList
+		 // from an ArrayList
+			 obsList = FXCollections.observableArrayList();
+			 for(int i = 0; i < users.size(); i++){
+				 if(users.isEmpty()) break;
+				 obsList.add(users.get(i).getName());
+			 }
+			
+			 userListView.setItems(obsList);
+			 userListView.getSelectionModel().select(0);
+
+			 userListView
+		 	.getSelectionModel()
+		 	.selectedItemProperty();
+			 
+		 }
 	
 	public void init(MainController mainControl){
 		main = mainControl;
 	}
+	
 	
 	public void logOutButtonClicked(ActionEvent e){
 		
@@ -62,7 +87,26 @@ public class AdminController {
 		
 	}
 	public void createButtonClicked(ActionEvent e){
-		
+		addFail.setVisible(false);
+		addSuccess.setVisible(false);
+		if((searchForUser(newUser.getText()) == 1) || newUser.getText().equalsIgnoreCase("admin")){
+		addFail.setVisible(true);
+		}
+		else{
+		User addUser = new User(newUser.getText());
+		users.add(addUser);
+		addSuccess.setVisible(true);
+		start();
+		}
+	}
+	public int searchForUser(String username){
+		if(users == null) return -1;
+		for(int i = 0; i < users.size(); i++){
+			if(users.get(i).getName().equals(username)){
+				return 1;
+			}
+		}
+		return -1;
 	}
 
 }

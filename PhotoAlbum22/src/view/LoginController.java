@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
+
+import app.PhotoAlbum;
 import app.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,7 +37,7 @@ public class LoginController{
 	@FXML AnchorPane window;
 	@FXML TextField username;
 	@FXML Button enter;
-	ArrayList<User> users;
+	ArrayList<User> users = AdminController.getUsers();
 	
 	public void enterButtonClicked(ActionEvent e){
 
