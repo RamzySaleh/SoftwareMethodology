@@ -34,7 +34,7 @@ public class AdminController {
 	
 	@FXML Button logOut;
 	@FXML TextField newUser;
-	@FXML Button listButton;
+	@FXML Button deleteButton;
 	@FXML Button createButton;
 	@FXML Label addSuccess;
 	@FXML Label addFail;
@@ -46,9 +46,16 @@ public class AdminController {
 	}
 	private ObservableList<String> obsList;
 	
+	/**
+	 * TODO
+	 * Must implement persistence.
+	 */
+	
 	public void start() {
 		 // create an ObservableList
 		 // from an ArrayList
+			 addSuccess.setVisible(false);
+			 addFail.setVisible(false);
 			 obsList = FXCollections.observableArrayList();
 			 for(int i = 0; i < users.size(); i++){
 				 if(users.isEmpty()) break;
@@ -70,7 +77,6 @@ public class AdminController {
 	
 	
 	public void logOutButtonClicked(ActionEvent e){
-		
 		/**
 		 * TODO
 		 * Make sure any changes are saved
@@ -83,13 +89,27 @@ public class AdminController {
 		}
 	}
 	
-	public void listButtonClicked(ActionEvent e){
-		
+	public void deleteButtonClicked(ActionEvent e){
+		if(obsList.isEmpty()){
+			
+		}
+		else{
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Delete user");
+			alert.setContentText("Are you sure you want to delete user "+userListView.getSelectionModel().getSelectedItem()+"?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if(result.get() == ButtonType.OK){
+				int index = searchForUser(userListView.getSelectionModel().getSelectedItem());
+				users.remove(index);
+				start();
+			}
+		}
 	}
 	public void createButtonClicked(ActionEvent e){
 		addFail.setVisible(false);
 		addSuccess.setVisible(false);
-		if((searchForUser(newUser.getText()) == 1) || newUser.getText().equalsIgnoreCase("admin")){
+		if((searchForUser(newUser.getText()) != -1) || newUser.getText().equalsIgnoreCase("admin")){
 		addFail.setVisible(true);
 		}
 		else{
@@ -97,13 +117,14 @@ public class AdminController {
 		users.add(addUser);
 		addSuccess.setVisible(true);
 		start();
+		newUser.clear();
 		}
 	}
 	public int searchForUser(String username){
 		if(users == null) return -1;
 		for(int i = 0; i < users.size(); i++){
 			if(users.get(i).getName().equals(username)){
-				return 1;
+				return i;
 			}
 		}
 		return -1;
