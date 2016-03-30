@@ -1,8 +1,11 @@
 package app;
 
+import java.util.ArrayList;
+
 public class User {
 	//holds all information associated with a user
 	String name = "";
+	ArrayList<Album> albums;
 	
 	public String getName() {
 		return name;

@@ -35,7 +35,7 @@ public class AdminController {
 	@FXML TextField newUser;
 	@FXML Button listButton;
 	@FXML Button createButton;
-	@FXML ListView userListView;
+	@FXML ListView<String> userListView;
 	@FXML AnchorPane userCreateView;
 	
 	
