@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Optional;
-
 import app.User;
 import view.MainController;
 import javafx.event.ActionEvent;
