@@ -51,16 +51,13 @@ public class AdminController {
 	 */
 	
 	public void start() {
-		 // create an ObservableList
-		 // from an ArrayList
-			 addSuccess.setVisible(false);
+		
 			 addFail.setVisible(false);
 			 obsList = FXCollections.observableArrayList();
 			 for(int i = 0; i < users.size(); i++){
 				 if(users.isEmpty()) break;
 				 obsList.add(users.get(i).getName());
 			 }
-			
 			 userListView.setItems(obsList);
 			 userListView.getSelectionModel().select(0);
 

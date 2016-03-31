@@ -17,10 +17,12 @@ import javafx.scene.layout.AnchorPane;
 public class MainController {
 	@FXML AdminController adminController;
 	@FXML LoginController loginController;
+	@FXML UserMainController userMainController;
 
 	@FXML public void initialize(){
 		adminController.init(this);
 		loginController.init(this);
+		userMainController.init(this);
 	}
 
 	@FXML public void logOutButtonClicked(ActionEvent e) {

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane fx:controller="view.UserMainController" dividerPositions="0.19838056680161945" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="743.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AdminController">
+<SplitPane dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserMainController">
   <items>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="175.0">
          <children>
@@ -22,43 +22,37 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Label layoutX="22.0" layoutY="72.0" text="username">
+            <Label fx:id="username" layoutX="16.0" layoutY="76.0" prefHeight="32.0" prefWidth="116.0" textAlignment="CENTER">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
          </children></AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="692.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="457.0">
          <children>
-            <ListView fx:id="userListView" layoutY="-2.0" prefHeight="335.0" prefWidth="292.0" />
-            <Button fx:id="deleteButton" layoutX="115.0" layoutY="353.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="31.0" prefWidth="63.0" text="Delete">
+            <ListView fx:id="albumListView" layoutY="-2.0" prefHeight="335.0" prefWidth="292.0" />
+            <Button fx:id="deleteButton" layoutX="115.0" layoutY="348.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefHeight="31.0" prefWidth="63.0" text="Delete">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <AnchorPane fx:id="userCreateView" layoutX="292.0" layoutY="-2.0" prefHeight="335.0" prefWidth="309.0">
+            <AnchorPane layoutX="292.0" prefHeight="335.0" prefWidth="169.0">
                <children>
-                  <Label layoutX="109.0" layoutY="40.0" text="Albums">
+                  <Label layoutX="73.0" layoutY="44.0" text="Albums">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label layoutX="107.0" layoutY="120.0" text="username:">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="newUser" layoutX="72.0" layoutY="168.0" />
                   <Label fx:id="addSuccess" layoutX="99.0" layoutY="212.0" text="ADD SUCCESSFUL" textFill="#2bee34" visible="false" />
-                  <Label fx:id="addFail" layoutX="81.0" layoutY="212.0" text="USER EXISTS. TRY AGAIN" textFill="#d01313" visible="false" />
+                  <Label fx:id="addFail" layoutX="81.0" layoutY="212.0" text="ALBUM EXISTS. TRY AGAIN" textFill="#d01313" visible="false" />
                </children>
             </AnchorPane>
-            <Button fx:id="createButton" layoutX="20.0" layoutY="353.0" mnemonicParsing="false" onAction="#createButtonClicked" text="Create">
+            <Button fx:id="createButton" layoutX="21.0" layoutY="348.0" mnemonicParsing="false" onAction="#createButtonClicked" text="Create">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button layoutX="212.0" layoutY="353.0" mnemonicParsing="false" text="Search">
+            <Button fx:id="searchButton" layoutX="212.0" layoutY="348.0" mnemonicParsing="false" onAction="#searchButtonClicked" text="Search">
                <font>
                   <Font size="15.0" />
                </font>

@@ -26,9 +26,66 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Alert.AlertType;
 
 public class UserMainController {
 
+	@FXML Button logOut;
+	@FXML Button deleteButton;
+	@FXML Button createButton;
+	@FXML Button searchButton;
+	@FXML Label username;
+	@FXML Label addSuccess;
+	@FXML Label addFail;
+	@FXML ListView<String> albumListView;
+	MainController main = new MainController();
+	
+	public void init(MainController mainControl){
+		main = mainControl;
+	}
+	private ObservableList<String> obsList;
+	
+	public void start() {
+		 // create an ObservableList
+		 // from an ArrayList
+			 username.setVisible(true);
+			 User currentUser = LoginController.currentUser;
+			 username.setText(currentUser.getName());
+			 username.setTextAlignment(TextAlignment.CENTER);
+			 addSuccess.setVisible(false);
+			 addFail.setVisible(false);
+			 obsList = FXCollections.observableArrayList();
+			 for(int i = 0; i < (currentUser.getAlbums()).size(); i++){
+				 if((currentUser.getAlbums()).isEmpty()) break;
+				 obsList.add((currentUser.getAlbums()).get(i).getName());
+			 }
+			
+			 albumListView.setItems(obsList);
+			 albumListView.getSelectionModel().select(0);
+
+			 albumListView
+		 	.getSelectionModel()
+		 	.selectedItemProperty();
+			 
+		 }
+	
+	public void logOutButtonClicked(ActionEvent e){
+		try{
+			main.logOutButtonClicked(e);
+			}
+			catch(Exception r){
+				r.printStackTrace();
+			}
+	}
+	public void deleteButtonClicked(ActionEvent e){
+		
+	}
+	public void createButtonClicked(ActionEvent e){
+		
+	}
+	public void searchButtonClicked(ActionEvent e){
+		
+	}
 	
 }

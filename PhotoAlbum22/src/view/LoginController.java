@@ -38,6 +38,7 @@ public class LoginController{
 	@FXML TextField username;
 	@FXML Button enter;
 	ArrayList<User> users = AdminController.getUsers();
+	static User currentUser;
 	
 	public void enterButtonClicked(ActionEvent e){
 
@@ -73,7 +74,26 @@ public class LoginController{
 			alert.show();
 			return;
 		}
-		System.out.println("User found, click successful");
+		else if(searchForUser(users, user) != -1){
+			currentUser = users.get(searchForUser(users, user));
+			try {
+				Stage stage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("userMain.fxml"));
+				SplitPane rootLayout = (SplitPane) loader.load();
+				UserMainController userMainController = loader.getController();
+				userMainController.start();
+				Scene scene = new Scene(rootLayout);
+				scene.getStylesheets().add("/view/application.css");
+				stage.setScene(scene);
+				((Node)e.getSource()).getScene().getWindow().hide();
+				stage.show();	
+				
+			} catch (IOException m) {
+				m.printStackTrace();
+			}
+			
+		}
 		
 	}
 	
@@ -81,7 +101,7 @@ public class LoginController{
 		if(users == null) return -1;
 		for(int i = 0; i < users.size(); i++){
 			if(users.get(i).getName().equals(username)){
-				return 1;
+				return i;
 			}
 		}
 		return -1;
