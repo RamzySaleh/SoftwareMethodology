@@ -45,17 +45,18 @@
                   </Label>
                   <Label fx:id="addSuccess" layoutX="59.0" layoutY="168.0" text="ADD SUCCESSFUL" textFill="#2bee34" visible="false" />
                   <Label fx:id="addFail" layoutX="41.0" layoutY="168.0" text="ALBUM EXISTS. TRY AGAIN" textFill="#d01313" visible="false" />
-                  <Button fx:id="albumCreate" layoutX="46.0" layoutY="229.0" mnemonicParsing="false" text="OK" onAction="#OKButtonClicked">
+                  <Button fx:id="albumCreate" layoutX="46.0" layoutY="229.0" mnemonicParsing="false" onAction="#OKButtonClicked" text="OK">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="albumCreateCancel" layoutX="121.0" layoutY="229.0" mnemonicParsing="false" text="Cancel" onAction="#cancelButtonClicked">
+                  <Button fx:id="back" layoutX="121.0" layoutY="229.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <TextField layoutX="38.0" layoutY="115.0" promptText="Album name" />
+                  <TextField fx:id="newAlbumName" layoutX="38.0" layoutY="115.0" promptText="Album name" />
+                  <Label fx:id="mustInputText" layoutX="64.0" layoutY="160.0" text="MUST INPUT TEXT" textFill="#cd1515" visible="false" />
                </children>
             </AnchorPane>
             <Button fx:id="createButton" layoutX="21.0" layoutY="348.0" mnemonicParsing="false" text="Create">

@@ -39,10 +39,12 @@ public class UserCreateController {
 	@FXML Button deleteButton;
 	@FXML Label addSuccess;
 	@FXML Label addFail;
+	@FXML Label mustInputText;
 	@FXML Button albumCreate;
-	@FXML Button albumCreateCancel;
+	@FXML Button back;
 	@FXML Button createButton;
 	@FXML Button searchButton;
+	@FXML TextField newAlbumName;
 	MainController main = new MainController();
 	
 	public void init(MainController mainControl){
@@ -57,7 +59,6 @@ public class UserCreateController {
 		 User currentUser = LoginController.currentUser;
 		 username.setText(currentUser.getName());
 		 username.setTextAlignment(TextAlignment.CENTER);
-		 addSuccess.setVisible(false);
 		 addFail.setVisible(false);
 		 obsList = FXCollections.observableArrayList();
 		 for(int i = 0; i < (currentUser.getAlbums()).size(); i++){
@@ -74,10 +75,57 @@ public class UserCreateController {
 	}
 	
 	public void OKButtonClicked(ActionEvent e){
-		
+		addFail.setVisible(false);
+		addSuccess.setVisible(false);
+		mustInputText.setVisible(false);
+		if(!newAlbumName.getText().trim().isEmpty()){
+			mustInputText.setVisible(true);
+			return;
+		}
+		if((searchForAlbum(newAlbumName.getText()) != -1)){
+		addFail.setVisible(true);
+		}
+		else{
+		Album addAlbum = new Album(newAlbumName.getText());
+		ArrayList<Album> albumList = (LoginController.currentUser.getAlbums());
+		albumList.add(addAlbum);
+		LoginController.currentUser.albums = albumList;
+		addSuccess.setVisible(true);
+		start();
+		newAlbumName.clear();
+		}
 		
 	}
-	public void cancelButtonClicked(ActionEvent e){
+	public void backButtonClicked(ActionEvent e){
+		
+		if(!newAlbumName.getText().trim().isEmpty()){
+			Alert warning = new Alert(AlertType.CONFIRMATION);
+			warning.setTitle("Unsaved changes");
+			warning.setContentText("Are you sure you want to go back? You haven't saved your changes.");
+			Optional<ButtonType> result = warning.showAndWait();
+			
+			if(result.get() == ButtonType.OK){
+				try {
+					Stage stage = new Stage();
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("userMain.fxml"));
+					SplitPane rootLayout = (SplitPane) loader.load();
+					UserMainController userMainController = loader.getController();
+					userMainController.start();
+					Scene scene = new Scene(rootLayout);
+					scene.getStylesheets().add("/view/application.css");
+					stage.setScene(scene);
+					((Node)e.getSource()).getScene().getWindow().hide();
+					stage.show();	
+					
+				} catch (IOException m) {
+					m.printStackTrace();
+				}
+				
+			}
+			else return;
+		}
+		
 		
 	}
 	
@@ -97,6 +145,15 @@ public class UserCreateController {
 	public void deleteButtonClicked(ActionEvent e){
 		
 	}
-	
+	public int searchForAlbum(String name){
+		ArrayList<Album> albums = LoginController.currentUser.getAlbums();
+		
+		for(int i = 0; i < albums.size(); i++){
+			if(albums.get(i).getName().equals(name)){
+				return 1;
+			}
+		}
+		return -1;
+	}
 
 }

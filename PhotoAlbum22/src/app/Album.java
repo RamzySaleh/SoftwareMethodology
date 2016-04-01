@@ -10,6 +10,9 @@ public class Album {
 	Timestamp oldestPhoto;
 	Timestamp newestPhoto;
 	
+	public Album(String name){
+		this.name = name;
+	}
 	public String getName() {
 		return name;
 	}

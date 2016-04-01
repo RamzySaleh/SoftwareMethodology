@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class User {
 	//holds all information associated with a user
 	String name = "";
-	ArrayList<Album> albums = new ArrayList<Album>();
+	public ArrayList<Album> albums = new ArrayList<Album>();
 	
 	public String getName() {
 		return name;
