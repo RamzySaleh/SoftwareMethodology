@@ -83,6 +83,23 @@ public class UserMainController {
 	}
 	public void createButtonClicked(ActionEvent e){
 		
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("userCreate.fxml"));
+			SplitPane rootLayout = (SplitPane) loader.load();
+			UserCreateController userCreateController = loader.getController();
+			userCreateController.start();
+			Scene scene = new Scene(rootLayout);
+			scene.getStylesheets().add("/view/application.css");
+			stage.setScene(scene);
+			((Node)e.getSource()).getScene().getWindow().hide();
+			stage.show();	
+			
+		} catch (IOException m) {
+			m.printStackTrace();
+		}
+		
 	}
 	public void searchButtonClicked(ActionEvent e){
 		
