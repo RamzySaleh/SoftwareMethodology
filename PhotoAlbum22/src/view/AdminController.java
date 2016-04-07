@@ -105,7 +105,15 @@ public class AdminController {
 	public void createButtonClicked(ActionEvent e){
 		addFail.setVisible(false);
 		addSuccess.setVisible(false);
-		if((searchForUser(newUser.getText()) != -1) || newUser.getText().equalsIgnoreCase("admin")){
+		if(newUser.getText().trim().isEmpty()){
+		addFail.setVisible(false);
+		addFail.setVisible(false);
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("No input");
+		alert.setContentText("Must input username");
+		alert.show();
+		}
+		else if((searchForUser(newUser.getText()) != -1) || newUser.getText().equalsIgnoreCase("admin")){
 		addFail.setVisible(true);
 		}
 		else{

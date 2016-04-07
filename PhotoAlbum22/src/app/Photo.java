@@ -1,5 +1,6 @@
 package app;
 import java.sql.Timestamp;
+import java.util.Calendar;
 
 public class Photo {
 	
@@ -10,12 +11,12 @@ public class Photo {
 	public void setCaption(String caption) {
 		this.caption = caption;
 	}
-	public Timestamp getTimeOfCapture() {
+	public Calendar getTimeOfCapture() {
 		return timeOfCapture;
 	}
-	public void setTimeOfCapture(Timestamp timeOfCapture) {
+	public void setTimeOfCapture(Calendar timeOfCapture) {
 		this.timeOfCapture = timeOfCapture;
 	}
-	Timestamp timeOfCapture;
+	Calendar timeOfCapture;
 
 }

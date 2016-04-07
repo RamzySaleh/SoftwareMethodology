@@ -38,13 +38,55 @@
             </Button>
             <AnchorPane layoutX="292.0" prefHeight="335.0" prefWidth="169.0">
                <children>
-                  <Label layoutX="73.0" layoutY="44.0" text="Albums">
+                  <Label fx:id="albums" layoutX="73.0" layoutY="44.0" text="Albums">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
                   <Label fx:id="addSuccess" layoutX="99.0" layoutY="212.0" text="ADD SUCCESSFUL" textFill="#2bee34" visible="false" />
                   <Label fx:id="addFail" layoutX="81.0" layoutY="212.0" text="ALBUM EXISTS. TRY AGAIN" textFill="#d01313" visible="false" />
+                  <AnchorPane fx:id="createAlbumAnchor" layoutY="7.0" prefHeight="335.0" prefWidth="169.0" visible="false">
+                     <children>
+                        <Label layoutX="46.0" layoutY="39.0" text="Create Album">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="albumCreate" layoutX="46.0" layoutY="229.0" mnemonicParsing="false" onAction="#OKButtonClicked" text="OK">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="back" layoutX="121.0" layoutY="229.0" mnemonicParsing="false" onAction="#backButtonClicked" text="Back">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="newAlbumName" layoutX="38.0" layoutY="115.0" promptText="Album name" />
+                        <Label fx:id="mustInputText" layoutX="64.0" layoutY="160.0" text="MUST INPUT TEXT" textFill="#cd1515" visible="false" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="searchAnchor" layoutX="4.0" layoutY="7.0" prefHeight="321.0" prefWidth="212.0" visible="false">
+                     <children>
+                        <Label layoutX="74.0" layoutY="35.0" text="Search">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="76.0" layoutY="67.0" text="Date Range" />
+                        <TextField fx:id="monthLow" layoutX="21.0" layoutY="98.0" prefHeight="25.0" prefWidth="41.0" promptText="MM" />
+                        <TextField fx:id="dayLow" layoutX="76.0" layoutY="98.0" prefHeight="25.0" prefWidth="41.0" promptText="DD" />
+                        <TextField fx:id="yearLow" layoutX="130.0" layoutY="98.0" prefHeight="25.0" prefWidth="62.0" promptText="YYYY" />
+                        <Label layoutX="91.0" layoutY="123.0" text="to" />
+                        <TextField fx:id="monthHigh" layoutX="21.0" layoutY="140.0" prefHeight="25.0" prefWidth="41.0" promptText="MM" />
+                        <TextField fx:id="dayHigh" layoutX="77.0" layoutY="140.0" prefHeight="25.0" prefWidth="41.0" promptText="DD" />
+                        <TextField fx:id="yearHigh" layoutX="130.0" layoutY="140.0" prefHeight="25.0" prefWidth="62.0" promptText="YYYY" />
+                        <Label layoutX="91.0" layoutY="185.0" text="Tags" />
+                        <TextArea layoutX="24.0" layoutY="208.0" prefHeight="71.0" prefWidth="166.0" promptText="ex: healthy,happy,nyc" />
+                        <Button fx:id="searchOK" layoutX="48.0" layoutY="282.0" mnemonicParsing="false" text="OK" onAction="#searchOKButtonClicked"/>
+                        <Button fx:id="searchBack" layoutX="118.0" layoutY="282.0" mnemonicParsing="false" text="Back" onAction="#searchBackButtonClicked"/>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
             <Button fx:id="createButton" layoutX="21.0" layoutY="348.0" mnemonicParsing="false" onAction="#createButtonClicked" text="Create">
