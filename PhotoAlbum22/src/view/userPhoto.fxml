@@ -6,10 +6,9 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:controller="view.UserPhotoController" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane fx:controller="view.UserPhotoController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane  dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="681.0">
+      <SplitPane dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="681.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="175.0">
                <children>
@@ -34,14 +33,22 @@
                <children>
                   <AnchorPane layoutX="292.0" prefHeight="335.0" prefWidth="169.0">
                      <children>
-                        <Label layoutX="73.0" layoutY="44.0" text="Albums">
+                        <Label layoutX="85.0" layoutY="44.0" text="Albums">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
-                  <TilePane fx:id="tilePane" prefHeight="335.0" prefWidth="308.0" />
+                  <ScrollPane fx:id="scrollPane" prefHeight="335.0" prefWidth="310.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TilePane fx:id="tilePane" prefHeight="335.0" prefWidth="310.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
          </items>

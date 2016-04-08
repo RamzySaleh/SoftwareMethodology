@@ -17,9 +17,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +38,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class UserPhotoController {
 	@FXML TilePane tilePane;
+	@FXML ScrollPane scrollPane;
 	MainController main = new MainController();
 	private ObservableList<String> obsList;
 	
@@ -43,15 +47,41 @@ public class UserPhotoController {
 	}
 	
 	public void start(){
+		
+		 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Horizontal
+		 scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Vertical scroll bar
+		 scrollPane.setFitToWidth(true);
+		 scrollPane.setContent(tilePane);
 		 tilePane.setPadding(new Insets(15,15,15,15));
 		 tilePane.setHgap(15);
-		 Label test = new Label("labelin");
-		 Label test2 = new Label("labelin");
-		 Label test3 = new Label("labelin");
-		 Label test4 = new Label("labelin");
-		 Label test5 = new Label("labelin");
-		 Label test6 = new Label("labelin");
-		 tilePane.getChildren().addAll(test,test2,test3,test4,test5,test6);
+		 tilePane.setVgap(15);
+		 ImageView image = new ImageView("/view/shirt.jpg");
+		 ImageView image2 = new ImageView("/view/shirt.jpg");
+		 ImageView image3 = new ImageView("/view/shirt.jpg");
+		 ImageView image4 = new ImageView("/view/shirt.jpg");
+		 ImageView image5 = new ImageView("/view/shirt.jpg");
+		 ImageView image6 = new ImageView("/view/shirt.jpg");
+		 ImageView image7 = new ImageView("/view/shirt.jpg");
+		 ImageView image8 = new ImageView("/view/shirt.jpg");
+		 ImageView image9 = new ImageView("/view/shirt.jpg");
+		 ImageView image10 = new ImageView("/view/shirt.jpg");
+		 ArrayList<ImageView> images = new ArrayList<ImageView>();
+		 images.add(image);
+		 images.add(image2);
+		 images.add(image3);
+		 images.add(image4);
+		 images.add(image5);
+		 images.add(image6);
+		 images.add(image7);
+		 images.add(image8);
+		 images.add(image9);
+		 images.add(image10);
+		 for(int i = 0; i < images.size(); i++){
+			 images.get(i).setFitWidth(100);
+			 images.get(i).setFitHeight(100);
+		 }
+		 
+		 tilePane.getChildren().addAll(images);
 	}
 	
 	public void logOutButtonClicked(){

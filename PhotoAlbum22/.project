@@ -20,4 +20,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/view/shirt.jpg</name>
+			<type>1</type>
+			<location>C:/Users/Sara/Desktop/Photos/shirt.jpg</location>
+		</link>
+	</linkedResources>
 </projectDescription>
