@@ -112,8 +112,35 @@ public class UserMainController {
 			 albumListView
 		 	.getSelectionModel()
 		 	.selectedItemProperty();
+			
+			 albumListView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+				 @Override
+				 public void handle(MouseEvent click){
+					 if(click.getClickCount() == 2){
+						 try {
+								Stage stage = new Stage();
+								FXMLLoader loader = new FXMLLoader();
+								loader.setLocation(getClass().getResource("userPhoto.fxml"));
+								AnchorPane rootLayout = (AnchorPane) loader.load();
+								UserPhotoController userPhotoController = loader.getController();
+								userPhotoController.start();
+								Scene scene = new Scene(rootLayout);
+								scene.getStylesheets().add("/view/application.css");
+								stage.setScene(scene);
+								((Node)click.getSource()).getScene().getWindow().hide();
+								stage.show();	
+								
+							} catch (IOException m) {
+								m.printStackTrace();
+							}
+						 
+					 }
+				 }
+				 
+			 });
 			 
 		 }
+	
 	
 	public void logOutButtonClicked(ActionEvent e){
 		try{

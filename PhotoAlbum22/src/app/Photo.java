@@ -2,9 +2,20 @@ package app;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+import javafx.scene.image.Image;
+
 public class Photo {
 	
+	Image image;
 	String caption;
+	
+
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
 	public String getCaption() {
 		return caption;
 	}
