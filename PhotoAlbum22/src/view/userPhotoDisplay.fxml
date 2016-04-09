@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoController">
+   <children>
+      <SplitPane dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="681.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="175.0">
+               <children>
+                  <Button fx:id="logOut" layoutX="35.0" layoutY="261.0" mnemonicParsing="false" onAction="#logOutButtonClicked" text="Log Out">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="52.0" layoutY="44.0" text="user:">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="username" layoutX="16.0" layoutY="76.0" prefHeight="32.0" prefWidth="116.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="457.0">
+               <children>
+                  <AnchorPane layoutX="292.0" prefHeight="335.0" prefWidth="169.0">
+                     <children>
+                        <Label layoutX="47.0" layoutY="46.0" text="Time of Capture">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="timeOfCapture" layoutX="47.0" layoutY="73.0" prefHeight="69.0" prefWidth="138.0" text="Date time capture here">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="tags" layoutX="59.0" layoutY="154.0" prefHeight="123.0" prefWidth="126.0" text="Tags go here" />
+                        <Label layoutX="85.0" layoutY="148.0" text="Tags">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <TextArea layoutX="6.0" layoutY="301.0" prefHeight="63.0" prefWidth="318.0" />
+                  <BorderPane fx:id="borderPane" layoutX="6.0" layoutY="27.0" prefHeight="264.0" prefWidth="302.0" />
+                  <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Back" />
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
