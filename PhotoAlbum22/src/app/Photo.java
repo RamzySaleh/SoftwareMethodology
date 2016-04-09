@@ -1,10 +1,11 @@
 package app;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
 import javafx.scene.image.Image;
 
-public class Photo {
+public class Photo implements Serializable {
 	
 	Image image;
 	String caption;

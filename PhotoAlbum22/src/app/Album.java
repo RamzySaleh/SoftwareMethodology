@@ -1,9 +1,10 @@
 package app;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Album {
+public class Album implements Serializable {
 	
 	String name;
 	int numOfPhotos;

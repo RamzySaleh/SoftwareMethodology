@@ -1,8 +1,9 @@
 package app;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable {
 	//holds all information associated with a user
 	String name = "";
 	public ArrayList<Album> albums = new ArrayList<Album>();
