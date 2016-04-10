@@ -57,6 +57,8 @@ public class LoginController{
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("admin.fxml"));
 				SplitPane rootLayout = (SplitPane) loader.load();
+				AdminController adminController = loader.getController();
+				adminController.start();
 				Scene scene = new Scene(rootLayout);
 				scene.getStylesheets().add("/view/application.css");
 				stage.setScene(scene);
