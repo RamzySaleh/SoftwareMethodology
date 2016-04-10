@@ -45,6 +45,9 @@ public class UserPhotoExpandController {
 	
 	@FXML BorderPane borderPane;
 	@FXML Button back;
+	@FXML Label timeOfCapture;
+	@FXML Label tags;
+	Album currentAlbum;
 	
 	MainController main = new MainController();
 	private ObservableList<String> obsList;
@@ -59,7 +62,7 @@ public class UserPhotoExpandController {
 			loader.setLocation(getClass().getResource("userPhoto.fxml"));
 			AnchorPane rootLayout = (AnchorPane) loader.load();
 			UserPhotoController userPhotoController = loader.getController();
-			userPhotoController.start();
+			userPhotoController.start(currentAlbum);
 			Scene scene = new Scene(rootLayout);
 			stage.setScene(scene);
 			stage.show();
@@ -78,7 +81,8 @@ public class UserPhotoExpandController {
 			r.printStackTrace();
 		}
 	}
-	public void startPhotoExpand(ImageView image){
+	public void startPhotoExpand(ImageView image, Album album){
+		currentAlbum = album;
 		image.setFitWidth(225);
 		image.setFitHeight(225);
 		image.setSmooth(true);

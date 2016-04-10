@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.sun.javafx.iio.ImageStorage;
 
 import app.Album;
+import app.Photo;
 import app.User;
 import view.MainController;
 import javafx.event.ActionEvent;
@@ -47,8 +48,6 @@ public class UserPhotoController {
 	@FXML TilePane tilePane;
 	@FXML ScrollPane scrollPane;
 	@FXML BorderPane borderPane;
-	@FXML Label timeOfCapture;
-	@FXML Label tags;
 	@FXML ImageView currentImage = new ImageView();
 	MainController main = new MainController();
 	private ObservableList<String> obsList;
@@ -57,7 +56,7 @@ public class UserPhotoController {
 		main = mainControl;
 	}
 	
-	public void start(){
+	public void start(Album album){
 		 int i = 0;
 		 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Horizontal
 		 scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Vertical scroll bar
@@ -66,27 +65,16 @@ public class UserPhotoController {
 		 tilePane.setPadding(new Insets(15,15,15,15));
 		 tilePane.setHgap(15);
 		 tilePane.setVgap(15);
-		 ImageView image = new ImageView("/view/shirt.jpg");
-		 ImageView image2 = new ImageView("/view/shirt.jpg");
-		 ImageView image3 = new ImageView("/view/shirt.jpg");
-		 ImageView image4 = new ImageView("/view/shirt.jpg");
-		 ImageView image5 = new ImageView("/view/shirt.jpg");
-		 ImageView image6 = new ImageView("/view/shirt.jpg");
-		 ImageView image7 = new ImageView("/view/shirt.jpg");
-		 ImageView image8 = new ImageView("/view/shirt.jpg");
-		 ImageView image9 = new ImageView("/view/shirt.jpg");
-		 ImageView image10 = new ImageView("/view/shirt.jpg");
+		 ArrayList<Photo> photos = new ArrayList<Photo>();
+		 photos = album.getPhotos();
+		 if(photos.size() == 0){
+			 return;
+		 }
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
-		 images.add(image);
-		 images.add(image2);
-		 images.add(image3);
-		 images.add(image4);
-		 images.add(image5);
-		 images.add(image6);
-		 images.add(image7);
-		 images.add(image8);
-		 images.add(image9);
-		 images.add(image10);
+		 for(int x = 0; x < photos.size(); x++){
+			 //Adding all ImageViews from the Photo object to ArrayList for display
+			 images.add(photos.get(i).getImage());
+		 }
 		 for(i=0; i < images.size();i++){
 			 ImageView currentImage = images.get(i);
 			 images.get(i).setFitWidth(75);
@@ -105,7 +93,7 @@ public class UserPhotoController {
 							loader.setLocation(getClass().getResource("userPhotoDisplay.fxml"));
 							AnchorPane rootLayout = (AnchorPane) loader.load();
 							UserPhotoExpandController userPhotoExpandController = loader.getController();
-							userPhotoExpandController.startPhotoExpand(currentImage);
+							userPhotoExpandController.startPhotoExpand(currentImage, album);
 							Scene scene = new Scene(rootLayout);
 							stage.setScene(scene);
 							stage.show();
@@ -123,7 +111,7 @@ public class UserPhotoController {
 			 });
 			 
 		 }
-		 System.out.println(images.size());
+		 
 		 tilePane.getChildren().addAll(images);
 		 
 	}

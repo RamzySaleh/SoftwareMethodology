@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import app.Album;
+import app.Photo;
 import app.User;
 import view.MainController;
 import javafx.event.ActionEvent;
@@ -77,6 +78,8 @@ public class UserMainController {
 		}
 		else{
 		Album addAlbum = new Album(newAlbumName.getText());
+		ArrayList<Photo> photos = new ArrayList<Photo>();
+		addAlbum.setPhotos(photos);
 		ArrayList<Album> albumList = (LoginController.currentUser.getAlbums());
 		albumList.add(addAlbum);
 		LoginController.currentUser.albums = albumList;
@@ -91,6 +94,7 @@ public class UserMainController {
 	public void start() {
 		 // create an ObservableList
 		 // from an ArrayList
+			 ArrayList<Album> albumList = LoginController.currentUser.getAlbums();
 			 deleteButton.setDisable(true);
 			 username.setVisible(true);
 			 User currentUser = LoginController.currentUser;
@@ -123,7 +127,7 @@ public class UserMainController {
 								loader.setLocation(getClass().getResource("userPhoto.fxml"));
 								AnchorPane rootLayout = (AnchorPane) loader.load();
 								UserPhotoController userPhotoController = loader.getController();
-								userPhotoController.start();
+								userPhotoController.start(albumList.get(searchForAlbum(albumListView.getSelectionModel().getSelectedItem())));
 								Scene scene = new Scene(rootLayout);
 								scene.getStylesheets().add("/view/application.css");
 								stage.setScene(scene);

@@ -8,6 +8,7 @@ public class Album implements Serializable {
 	
 	String name;
 	int numOfPhotos;
+	ArrayList<Photo> photos = new ArrayList<Photo>();
 	Timestamp oldestPhoto;
 	Timestamp newestPhoto;
 	
@@ -44,5 +45,5 @@ public class Album implements Serializable {
 	public void setPhotos(ArrayList<Photo> photos) {
 		this.photos = photos;
 	}
-	ArrayList<Photo> photos;
+
 }
