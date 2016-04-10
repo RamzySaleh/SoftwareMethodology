@@ -39,7 +39,7 @@ public class AdminController {
 	@FXML Label addFail;
 	@FXML ListView<String> userListView;
 	@FXML AnchorPane userCreateView;
-	public static ArrayList<User> users = new ArrayList<User>();
+	public static ArrayList<User> users;
 	public static ArrayList<User> getUsers(){
 		return users;
 	}
@@ -52,6 +52,7 @@ public class AdminController {
 	
 	public void start() {
 		
+			 if(users == null) users = new ArrayList<User>();
 			 addFail.setVisible(false);
 			 obsList = FXCollections.observableArrayList();
 			 for(int i = 0; i < users.size(); i++){
@@ -65,7 +66,7 @@ public class AdminController {
 		 	.getSelectionModel()
 		 	.selectedItemProperty();
 			 
-		 }
+	}
 	
 	public void init(MainController mainControl){
 		main = mainControl;
@@ -78,7 +79,7 @@ public class AdminController {
 		 * Make sure any changes are saved
 		 */
 		try{
-		main.logOutButtonClicked(e);
+			main.logOutButtonClicked(e);
 		}
 		catch(Exception r){
 			r.printStackTrace();
@@ -87,7 +88,7 @@ public class AdminController {
 	
 	public void deleteButtonClicked(ActionEvent e){
 		if(obsList.isEmpty()){
-			
+			return;
 		}
 		else{
 			Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -105,23 +106,25 @@ public class AdminController {
 	public void createButtonClicked(ActionEvent e){
 		addFail.setVisible(false);
 		addSuccess.setVisible(false);
+		
 		if(newUser.getText().trim().isEmpty()){
-		addFail.setVisible(false);
-		addFail.setVisible(false);
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("No input");
-		alert.setContentText("Must input username");
-		alert.show();
+			addFail.setVisible(false);
+			addFail.setVisible(false);
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("No input");
+			alert.setContentText("Must input username");
+			alert.show();
 		}
-		else if((searchForUser(newUser.getText()) != -1) || newUser.getText().equalsIgnoreCase("admin")){
-		addFail.setVisible(true);
+		else if ((searchForUser(newUser.getText()) != -1) || newUser.getText().equalsIgnoreCase("admin")){
+			addFail.setVisible(true);
 		}
-		else{
-		User addUser = new User(newUser.getText());
-		users.add(addUser);
-		addSuccess.setVisible(true);
-		start();
-		newUser.clear();
+		else {
+			User addUser = new User(newUser.getText());
+			if(users == null) users = new ArrayList<User>();
+			users.add(addUser);
+			addSuccess.setVisible(true);
+			start();
+			newUser.clear();
 		}
 	}
 	public int searchForUser(String username){
