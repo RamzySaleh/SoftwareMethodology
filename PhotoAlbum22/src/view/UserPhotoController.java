@@ -28,6 +28,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,6 +59,7 @@ public class UserPhotoController {
 	
 	public void start(Album album){
 		 int i = 0;
+		 User currentUser = LoginController.currentUser;
 		 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Horizontal
 		 scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Vertical scroll bar
 		 scrollPane.setFitToWidth(true);
@@ -67,16 +69,17 @@ public class UserPhotoController {
 		 tilePane.setVgap(15);
 		 ArrayList<Photo> photos = new ArrayList<Photo>();
 		 photos = album.getPhotos();
-		 if(photos.size() == 0){
-			 return;
-		 }
+		 
+		 ImageView image = new ImageView("/view/shirt.jpg");
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
+		 images.add(image);
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
 			 images.add(photos.get(i).getImage());
 		 }
 		 for(i=0; i < images.size();i++){
 			 ImageView currentImage = images.get(i);
+			 int currentValue = i;
 			 images.get(i).setFitWidth(75);
 			 images.get(i).setFitHeight(75);
 			 images.get(i).setOnMouseClicked(new EventHandler<MouseEvent>(){
@@ -102,6 +105,28 @@ public class UserPhotoController {
 						} catch (IOException m) {
 							m.printStackTrace();
 						}
+						
+					}
+					
+				}
+				 
+				 
+			 });
+			 images.get(i).setOnDragDetected(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					// TODO Auto-generated method stub
+					
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("Delete photo");
+					alert.setContentText("Are you sure you want to delete this photo?");
+					
+					Optional<ButtonType> result = alert.showAndWait();
+					
+					if(result.get() == ButtonType.OK){
+						//what we'd have to do here is find the relevant album, reset it to the new album without the deleted photo, and restart
+						ArrayList<Album> albums = currentUser.getAlbums();
 						
 					}
 					
