@@ -8,14 +8,14 @@ public class User implements Serializable {
 	//holds all information associated with a user
 	String name = "";
 	public ArrayList<Album> albums = new ArrayList<Album>();
-	public Hashtable<String,Photo> tags = new Hashtable<String,Photo>();
+	public ArrayList<Hashtable> arrayHashTable = new ArrayList<Hashtable>();
 	
-	public Hashtable<String, Photo> getTags() {
-		return tags;
+	public ArrayList<Hashtable> getTags() {
+		return arrayHashTable;
 	}
 
-	public void setTags(Hashtable<String, Photo> tags) {
-		this.tags = tags;
+	public void setTags(ArrayList<Hashtable> arrayHashTable) {
+		this.arrayHashTable = arrayHashTable;
 	}
 
 	public String getName() {
