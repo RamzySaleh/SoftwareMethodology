@@ -126,7 +126,10 @@ public class UserPhotoController {
 					
 					if(result.get() == ButtonType.OK){
 						//what we'd have to do here is find the relevant album, reset it to the new album without the deleted photo, and restart
-						ArrayList<Album> albums = currentUser.getAlbums();
+						Album albumForDeletion = searchForAlbum(album.getName());
+						albumForDeletion.getPhotos().remove(currentValue);
+						LoginController.currentUser.getAlbums().remove(getAlbumIndex(album.getName()));
+						LoginController.currentUser.getAlbums().add(albumForDeletion);
 						
 					}
 					
@@ -150,6 +153,28 @@ public class UserPhotoController {
 			r.printStackTrace();
 		}
 		
+	}
+	
+	public Album searchForAlbum(String name){
+		User currentUser = LoginController.currentUser;
+		for(int i = 0; i < currentUser.albums.size(); i++){
+			if(currentUser.albums.get(i).getName().equals(name)){
+				return currentUser.albums.get(i);
+			}
+		}
+		
+		return null;
+	}
+	
+	public int getAlbumIndex(String name){
+		User currentUser = LoginController.currentUser;
+		for(int i = 0; i < currentUser.albums.size(); i++){
+			if(currentUser.albums.get(i).getName().equals(name)){
+				return i;
+			}
+		}
+		
+		return -1;
 	}
 	
 	
