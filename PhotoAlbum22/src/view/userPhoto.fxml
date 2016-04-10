@@ -23,7 +23,7 @@
                   </Button>
                   <Label layoutX="52.0" layoutY="44.0" text="user:">
                      <font>
-                        <Font size="19.0" />
+                        <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
                   <Label fx:id="username" layoutX="16.0" layoutY="76.0" prefHeight="32.0" prefWidth="116.0" textAlignment="CENTER">
@@ -37,14 +37,14 @@
                <children>
                   <AnchorPane layoutX="292.0" layoutY="-3.0" prefHeight="335.0" prefWidth="169.0">
                      <children>
-                        <Label layoutX="87.0" layoutY="12.0" text="Album:">
+                        <Label layoutX="22.0" layoutY="25.0" text="Album:">
                            <font>
-                              <Font size="22.0" />
+                              <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label id="albumName" fx:id="albumName" layoutX="39.0" layoutY="36.0" prefHeight="32.0" prefWidth="166.0" textAlignment="CENTER">
+                        <Label id="albumName" fx:id="albumName" layoutX="97.0" layoutY="12.0" prefHeight="50.0" prefWidth="146.0" textAlignment="CENTER" wrapText="true">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="16.0" />
                            </font>
                         </Label>
                         <Label layoutX="38.0" layoutY="71.0" prefHeight="32.0" prefWidth="166.0" text="Double click to open." textAlignment="CENTER" textFill="#16a6da">
@@ -63,7 +63,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker id="oldestPhotoDate" fx:id="oldestPhotoDate" editable="false" layoutX="32.0" layoutY="200.0" />
+                        <DatePicker id="oldestPhotoDate" fx:id="oldestPhotoDate" disable="true" editable="false" layoutX="32.0" layoutY="200.0" />
                         <Separator layoutX="18.0" layoutY="177.0" prefHeight="3.0" prefWidth="211.0" />
                         <Separator layoutX="19.0" layoutY="237.0" prefHeight="3.0" prefWidth="211.0" />
                         <Label id="numberOfPhotos" fx:id="numberOfPhotos" layoutX="133.0" layoutY="134.0" prefHeight="32.0" prefWidth="78.0" textAlignment="CENTER">
@@ -81,9 +81,9 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker id="newestPhotoRange" fx:id="newestPhotoRange" editable="false" layoutX="32.0" layoutY="307.0" />
-                        <DatePicker id="oldestPhotoRange" fx:id="oldestPhotoRange" editable="false" layoutX="33.0" layoutY="262.0" />
-                        <Label fx:id="username211" layoutX="106.0" layoutY="288.0" prefHeight="18.0" prefWidth="21.0" text="to" textAlignment="CENTER">
+                        <DatePicker id="newestPhotoRange" fx:id="newestPhotoRange" disable="true" editable="false" layoutX="32.0" layoutY="307.0" />
+                        <DatePicker id="oldestPhotoRange" fx:id="oldestPhotoRange" disable="true" editable="false" layoutX="33.0" layoutY="262.0" />
+                        <Label layoutX="106.0" layoutY="288.0" prefHeight="18.0" prefWidth="21.0" text="to" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
