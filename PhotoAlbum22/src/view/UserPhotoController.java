@@ -70,9 +70,11 @@ public class UserPhotoController {
 		 ArrayList<Photo> photos = new ArrayList<Photo>();
 		 photos = album.getPhotos();
 		 
-		 ImageView image = new ImageView("/view/shirt.jpg");
+		 if(photos.isEmpty()){
+			 return;
+		 }
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
-		 images.add(image);
+		 
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
 			 images.add(photos.get(i).getImage());
@@ -130,7 +132,7 @@ public class UserPhotoController {
 						albumForDeletion.getPhotos().remove(currentValue);
 						LoginController.currentUser.getAlbums().remove(getAlbumIndex(album.getName()));
 						LoginController.currentUser.getAlbums().add(albumForDeletion);
-						
+						start(albumForDeletion);
 					}
 					
 				}
