@@ -2,22 +2,16 @@ package app;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//holds all information associated with a user
 	String name = "";
 	public ArrayList<Album> albums = new ArrayList<Album>();
-	public ArrayList<Hashtable> arrayHashTable = new ArrayList<Hashtable>();
 	
-	public ArrayList<Hashtable> getTags() {
-		return arrayHashTable;
-	}
-
-	public void setTags(ArrayList<Hashtable> arrayHashTable) {
-		this.arrayHashTable = arrayHashTable;
-	}
-
 	public String getName() {
 		return name;
 	}

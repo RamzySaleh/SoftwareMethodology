@@ -2,19 +2,20 @@ package app;
 	
 import java.io.*;
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import view.AdminController;
 import view.LoginController;
 import javafx.scene.Scene;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 
 
 public class PhotoAlbum extends Application implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Stage primaryStage;
 	private AnchorPane rootLayout;
 	private LoginController loginController;

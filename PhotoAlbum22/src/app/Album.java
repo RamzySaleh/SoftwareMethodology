@@ -6,6 +6,10 @@ import java.sql.Timestamp;
 
 public class Album implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String name;
 	int numOfPhotos;
 	ArrayList<Photo> photos = new ArrayList<Photo>();
