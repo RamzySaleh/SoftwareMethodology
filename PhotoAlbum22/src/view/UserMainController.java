@@ -74,18 +74,18 @@ public class UserMainController {
 			return;
 		}
 		if((searchForAlbum(newAlbumName.getText()) != -1)){
-		addFail.setVisible(true);
+			addFail.setVisible(true);
 		}
 		else{
-		Album addAlbum = new Album(newAlbumName.getText());
-		ArrayList<Photo> photos = new ArrayList<Photo>();
-		addAlbum.setPhotos(photos);
-		ArrayList<Album> albumList = (LoginController.currentUser.getAlbums());
-		albumList.add(addAlbum);
-		LoginController.currentUser.albums = albumList;
-		addSuccess.setVisible(true);
-		start();
-		newAlbumName.clear();
+			Album addAlbum = new Album(newAlbumName.getText());
+			ArrayList<Photo> photos = new ArrayList<Photo>();
+			addAlbum.setPhotos(photos);
+			ArrayList<Album> albumList = (LoginController.currentUser.getAlbums());
+			albumList.add(addAlbum);
+			LoginController.currentUser.albums = albumList;
+			addSuccess.setVisible(true);
+			start();
+			newAlbumName.clear();
 		}
 		
 	}
