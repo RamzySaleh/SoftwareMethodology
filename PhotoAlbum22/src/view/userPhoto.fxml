@@ -76,14 +76,14 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="66.0" layoutY="233.0" prefHeight="32.0" prefWidth="116.0" text="Date Range:" textAlignment="CENTER">
+                        <Label layoutX="71.0" layoutY="233.0" prefHeight="32.0" prefWidth="116.0" text="Date Range:" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <DatePicker id="newestPhotoRange" fx:id="newestPhotoRange" editable="false" layoutX="32.0" layoutY="307.0" />
                         <DatePicker id="oldestPhotoRange" fx:id="oldestPhotoRange" editable="false" layoutX="33.0" layoutY="262.0" />
-                        <Label fx:id="username211" layoutX="94.0" layoutY="288.0" prefHeight="18.0" prefWidth="21.0" text="to" textAlignment="CENTER">
+                        <Label fx:id="username211" layoutX="106.0" layoutY="288.0" prefHeight="18.0" prefWidth="21.0" text="to" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
