@@ -37,7 +37,6 @@ public class LoginController{
 	@FXML AnchorPane window;
 	@FXML TextField username;
 	@FXML Button enter;
-	
 	ArrayList<User> users = AdminController.getUsers();
 	static User currentUser;
 	

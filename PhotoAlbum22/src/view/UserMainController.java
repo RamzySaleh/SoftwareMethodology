@@ -145,10 +145,10 @@ public class UserMainController {
 	public void logOutButtonClicked(ActionEvent e){
 		try{
 			main.logOutButtonClicked(e);
-			}
-			catch(Exception r){
-				r.printStackTrace();
-			}
+		}
+		catch(Exception r){
+			r.printStackTrace();
+		}
 	}
 	public void deleteButtonClicked(ActionEvent e){
 		
