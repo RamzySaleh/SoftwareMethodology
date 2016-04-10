@@ -2,11 +2,7 @@ package view;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
-
-import com.sun.javafx.iio.ImageStorage;
-
 import app.Album;
 import app.Photo;
 import app.User;
@@ -18,30 +14,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Alert.AlertType;
 
 public class UserPhotoController {
@@ -50,16 +34,34 @@ public class UserPhotoController {
 	@FXML ScrollPane scrollPane;
 	@FXML BorderPane borderPane;
 	@FXML ImageView currentImage = new ImageView();
+	@FXML Label username;
+	@FXML Button addPhoto;
+	@FXML Button moveToAlbum;
+	@FXML Button backToAlbumList;
+	@FXML Button slideshow;
+	@FXML Button logOut;
+	@FXML Label albumName;
+	@FXML Label numberOfPhotos;
+	@FXML DatePicker oldestPhotoDate;
+	@FXML DatePicker oldestPhotoRange;
+	@FXML DatePicker newestPhotoRange;
 	MainController main = new MainController();
-	private ObservableList<String> obsList;
 	
 	public void init(MainController mainControl){
 		main = mainControl;
 	}
 	
 	public void start(Album album){
+		
+		 ColorAdjust normal = new ColorAdjust();
+         normal.setBrightness(0);
+         ColorAdjust dark = new ColorAdjust();
+         dark.setBrightness(-0.3);
+         
+		 username.setText(LoginController.currentUser.getName());		 
+		 albumName.setText(album.getName());
+		 
 		 int i = 0;
-		 User currentUser = LoginController.currentUser;
 		 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Horizontal
 		 scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Vertical scroll bar
 		 scrollPane.setFitToWidth(true);
@@ -67,14 +69,25 @@ public class UserPhotoController {
 		 tilePane.setPadding(new Insets(15,15,15,15));
 		 tilePane.setHgap(15);
 		 tilePane.setVgap(15);
+		 
+		 
 		 ArrayList<Photo> photos = new ArrayList<Photo>();
 		 photos = album.getPhotos();
 		 
-		 if(photos.isEmpty()){
-			 return;
-		 }
+		 
+		 ImageView image13 = new ImageView("/view/shirt.jpg");
+		 ImageView image12 = new ImageView("/view/shirt.jpg");
+		 ImageView image10 = new ImageView("/view/shirt.jpg");
+	
+		 
+		 //if(photos.isEmpty()){
+			// return;
+		 // }
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
 		 
+		 images.add(image10);
+		 images.add(image12);
+		 images.add(image13);
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
 			 images.add(photos.get(i).getImage());
@@ -98,7 +111,7 @@ public class UserPhotoController {
 							loader.setLocation(getClass().getResource("userPhotoDisplay.fxml"));
 							AnchorPane rootLayout = (AnchorPane) loader.load();
 							UserPhotoExpandController userPhotoExpandController = loader.getController();
-							userPhotoExpandController.startPhotoExpand(currentImage, album);
+							userPhotoExpandController.startPhotoExpand(currentImage, album, currentValue);
 							Scene scene = new Scene(rootLayout);
 							stage.setScene(scene);
 							stage.show();
@@ -108,6 +121,9 @@ public class UserPhotoController {
 							m.printStackTrace();
 						}
 						
+					} else if (event.getClickCount() == 1){
+						for (int j = 0; j < images.size(); j++) images.get(j).setEffect(dark);
+						currentImage.setEffect(normal);
 					}
 					
 				}
@@ -141,9 +157,7 @@ public class UserPhotoController {
 			 });
 			 
 		 }
-		 
 		 tilePane.getChildren().addAll(images);
-		 
 	}
 	
 	public void logOutButtonClicked(ActionEvent e){
