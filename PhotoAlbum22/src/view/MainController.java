@@ -1,6 +1,5 @@
 package view;
 
-import java.io.IOException;
 import java.util.Optional;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -11,7 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 
 public class MainController {
