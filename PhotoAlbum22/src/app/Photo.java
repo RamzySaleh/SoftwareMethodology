@@ -4,17 +4,18 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Photo implements Serializable {
 	
-	Image image;
+	ImageView image;
 	String caption;
 	
 
-	public Image getImage() {
+	public ImageView getImage() {
 		return image;
 	}
-	public void setImage(Image image) {
+	public void setImage(ImageView image) {
 		this.image = image;
 	}
 	public String getCaption() {

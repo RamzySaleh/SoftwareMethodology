@@ -31,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -42,6 +43,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Alert.AlertType;
 
 public class UserPhotoController {
+	@FXML AnchorPane mainWindow;
 	@FXML TilePane tilePane;
 	@FXML ScrollPane scrollPane;
 	@FXML BorderPane borderPane;
@@ -53,16 +55,6 @@ public class UserPhotoController {
 	
 	public void init(MainController mainControl){
 		main = mainControl;
-	}
-	
-	public void startPhotoExpand(ImageView image){
-		image.setFitWidth(225);
-		image.setFitHeight(225);
-		image.setSmooth(true);
-		image.setCache(true);
-		image.setDisable(true);
-		borderPane.setCenter(image);
-		
 	}
 	
 	public void start(){
@@ -95,7 +87,7 @@ public class UserPhotoController {
 		 images.add(image8);
 		 images.add(image9);
 		 images.add(image10);
-		 while(i < images.size()){
+		 for(i=0; i < images.size();i++){
 			 ImageView currentImage = images.get(i);
 			 images.get(i).setFitWidth(75);
 			 images.get(i).setFitHeight(75);
@@ -112,30 +104,38 @@ public class UserPhotoController {
 							FXMLLoader loader = new FXMLLoader();
 							loader.setLocation(getClass().getResource("userPhotoDisplay.fxml"));
 							AnchorPane rootLayout = (AnchorPane) loader.load();
-							UserPhotoController userPhotoController = loader.getController();
-							userPhotoController.startPhotoExpand(currentImage);
+							UserPhotoExpandController userPhotoExpandController = loader.getController();
+							userPhotoExpandController.startPhotoExpand(currentImage);
 							Scene scene = new Scene(rootLayout);
 							stage.setScene(scene);
-							stage.show();	
+							stage.show();
+							mainWindow.getScene().getWindow().hide();
 							
 						} catch (IOException m) {
 							m.printStackTrace();
 						}
+						
 					}
 					
 				}
 				 
 				 
 			 });
-			 i++;
+			 
 		 }
-		 
+		 System.out.println(images.size());
 		 tilePane.getChildren().addAll(images);
 		 
 	}
 	
-	public void logOutButtonClicked(){
+	public void logOutButtonClicked(ActionEvent e){
 		
+		try{
+			main.logOutButtonClicked(e);
+		}
+		catch(Exception r){
+			r.printStackTrace();
+		}
 		
 	}
 	

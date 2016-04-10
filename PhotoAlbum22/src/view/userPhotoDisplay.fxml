@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoExpandController">
    <children>
       <SplitPane dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="681.0">
          <items>
@@ -53,7 +53,7 @@
                   </AnchorPane>
                   <TextArea layoutX="6.0" layoutY="301.0" prefHeight="63.0" prefWidth="318.0" />
                   <BorderPane fx:id="borderPane" layoutX="6.0" layoutY="27.0" prefHeight="264.0" prefWidth="302.0" />
-                  <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Back" />
+                  <Button fx:id="back" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" text="Back" onAction="#backButtonClicked" />
                </children>
             </AnchorPane>
          </items>
