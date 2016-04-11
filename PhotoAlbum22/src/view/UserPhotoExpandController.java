@@ -94,9 +94,12 @@ public class UserPhotoExpandController {
 		tags = currentPhoto.getTagsWithKeyValues();
 		
 		if (tags != null) {
-		for (int i = 0; i < tags.length; i++) {
+		for (int i = 0; i < tags[0].length; i++) {
 			if (tags == null) continue;
-			if (tags[0][i] == null) continue;
+			if (tags[0][i] == null){
+				System.out.println("found null");
+				continue;
+			}
 			obsList.add(tags[0][i] + ": "+tags[1][i]);
 		}
 		}
@@ -163,9 +166,12 @@ public class UserPhotoExpandController {
 		Optional<String[]> result = dialog.showAndWait();
 		obsList.clear();
 		tags = currentPhoto.getTagsWithKeyValues();
-		for (int i = 0; i < tags.length; i++) {
+		for (int i = 0; i < tags[0].length; i++) {
 			if (tags == null) continue;
-			if (tags[0][i] == null) continue;
+			if (tags[0][i] == null) {
+				System.out.println("found null");
+				continue;
+			}
 			obsList.add(tags[0][i] + ": "+tags[1][i]);
 		}
 		tagListView.setItems(obsList);
