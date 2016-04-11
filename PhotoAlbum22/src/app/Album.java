@@ -49,5 +49,8 @@ public class Album implements Serializable {
 	public void setPhotos(ArrayList<Photo> photos) {
 		this.photos = photos;
 	}
+	public void addOnePhoto(Photo photo){
+		photos.add(photo);
+	}
 
 }
