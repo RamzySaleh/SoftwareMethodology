@@ -26,7 +26,7 @@ public class Photo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	transient Image image;
-	String caption;
+	String caption = "";
     private Map<String, ArrayList<String>> tagsHashTable = new HashMap<>();
 	Calendar timeOfCapture;
 
