@@ -37,6 +37,11 @@ public class UserPhotoExpandController {
 	
 	@FXML BorderPane borderPane;
 	@FXML Button back;
+	@FXML Button deleteTagButton;
+	@FXML Button addTagButton;
+	@FXML Button editCaptionButton;
+	@FXML Button acceptCaption;
+	@FXML Button cancelButton;
 	@FXML Label timeOfCapture;
 	@FXML Label username;
 	@FXML ListView<String> tagListView;
@@ -84,6 +89,7 @@ public class UserPhotoExpandController {
 		username.setText(LoginController.currentUser.getName());
 		currentAlbum = album;
 		currentPhoto = album.getPhotos().get(index);
+		caption.setText(currentPhoto.getCaption());
 		image.setFitWidth(225);
 		image.setFitHeight(225);
 		image.setSmooth(true);
@@ -204,9 +210,58 @@ public class UserPhotoExpandController {
 		}
 		tagListView.setItems(obsList);
 		if (tagListView.getItems().size() > 0) tagListView.getSelectionModel().clearAndSelect(0);
+	}
+	
+	public void editCaptionButton(ActionEvent e){
+		
+		caption.setEditable(true);
+		
+		editCaptionButton.setDisable(true);
+		editCaptionButton.setVisible(false);
+		
+		acceptCaption.setDisable(false);
+		acceptCaption.setVisible(true);
+		
+		cancelButton.setDisable(false);
+		cancelButton.setVisible(true);
 		
 	}
 	
+	public void acceptCaptionButton(ActionEvent e){
+		
+		currentPhoto.setCaption(caption.getText());
+		
+		caption.setEditable(false);
+		
+		editCaptionButton.setDisable(false);
+		editCaptionButton.setVisible(true);
+		
+		acceptCaption.setDisable(true);
+		acceptCaption.setVisible(false);
+		
+		cancelButton.setDisable(true);
+		cancelButton.setVisible(false);
+		
+		
+	}
+	
+	public void cancelCaptionButton(ActionEvent e){
+		
+		
+		caption.setText(currentPhoto.getCaption());
+		
+		caption.setEditable(false);
+		
+		editCaptionButton.setDisable(false);
+		editCaptionButton.setVisible(true);
+		
+		acceptCaption.setDisable(true);
+		acceptCaption.setVisible(false);
+		
+		cancelButton.setDisable(true);
+		cancelButton.setVisible(false);
+		
+	}
 	
 }
 

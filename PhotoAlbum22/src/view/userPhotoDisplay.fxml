@@ -55,6 +55,9 @@
                   <Button fx:id="back" layoutX="7.0" layoutY="3.0" mnemonicParsing="false" onAction="#backButtonClicked" text="&lt;- Back" />
                   <Button fx:id="deleteTagButton" layoutX="427.0" layoutY="364.0" mnemonicParsing="false" onAction="#deleteButtonClicked" style="-fx-background-color: red;" text="Delete Tag" textFill="WHITE" />
                   <Button fx:id="addTagButton" layoutX="349.0" layoutY="364.0" mnemonicParsing="false" onAction="#addButtonClicked" style="-fx-background-color: green;" text="Add Tag" textFill="WHITE" />
+                  <Button fx:id="editCaptionButton" layoutX="125.0" layoutY="370.0" mnemonicParsing="false" onAction="#editCaptionButton" text="Edit Caption" />
+                  <Button fx:id="acceptCaption" disable="true" layoutX="85.0" layoutY="370.0" mnemonicParsing="false" onAction="#acceptCaptionButton" text="Accept" visible="false" />
+                  <Button fx:id="cancelButton" disable="true" layoutX="208.0" layoutY="370.0" mnemonicParsing="false" onAction="#cancelCaptionButton" text="Cancel" visible="false" />
                </children>
             </AnchorPane>
          </items>
