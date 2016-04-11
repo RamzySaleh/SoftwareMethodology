@@ -1,8 +1,10 @@
 package view;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 import app.Album;
 import app.Photo;
@@ -226,23 +228,75 @@ public class UserMainController {
 		ArrayList<Album> albums = new ArrayList<Album>();
 		albums = currentUser.getAlbums();
 		
-		System.out.println("HERE WE ARE "+lowEndDate.getEditor().getText());
-		
 		 
 		if(lowEndDate.getValue() != null && highEndDate.getValue() == null){
 			LocalDate lowDate = lowEndDate.getValue();
-			System.out.print("IN HEREEEEEEEEE");
+			Date date = Date.from(lowDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Calendar lowerDate = null;
+			lowerDate.setTime(date);
+			lowerDate.set(Calendar.MILLISECOND, 0);
+			
 			for(int i = 0; i < albums.size(); i++){
 				//For each album belonging to user
 				for(int x = 0; x < albums.get(i).getPhotos().size(); x++){
 					//For each photo in the album
-					
+					if(albums.get(i).getPhotos().get(x).getTimeOfCapture().after(lowerDate)){
+						photos.add(albums.get(i).getPhotos().get(x));
+					}
 				}
 			}	
 			
 		}
 		else if(lowEndDate.getValue() == null && highEndDate.getValue() != null){
+			LocalDate highDate = highEndDate.getValue();
+			Date date = Date.from(highDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Calendar higherDate = null;
+			higherDate.setTime(date);
+			higherDate.set(Calendar.MILLISECOND, 0);
+			for(int i = 0; i < albums.size(); i++){
+				//For each album belonging to user
+				for(int x = 0; x < albums.get(i).getPhotos().size(); x++){
+					//For each photo in the album
+					if(albums.get(i).getPhotos().get(x).getTimeOfCapture().before(higherDate)){
+						photos.add(albums.get(i).getPhotos().get(x));
+					}
+				}
+			}
 			
+		}
+		else if(lowEndDate.getValue() != null && highEndDate.getValue() != null){
+			LocalDate lowDate = lowEndDate.getValue();
+			Date dateLow = Date.from(lowDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Calendar lowerDate = null;
+			lowerDate.setTime(dateLow);
+			lowerDate.set(Calendar.MILLISECOND, 0);
+			
+			LocalDate highDate = highEndDate.getValue();
+			Date dateHigh = Date.from(highDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			Calendar higherDate = null;
+			higherDate.setTime(dateHigh);
+			higherDate.set(Calendar.MILLISECOND, 0);
+			
+			for(int i = 0; i < albums.size(); i++){
+				//For each album belonging to user
+				for(int x = 0; x < albums.get(i).getPhotos().size(); x++){
+					//For each photo in the album
+					if(albums.get(i).getPhotos().get(x).getTimeOfCapture().before(higherDate) && albums.get(i).getPhotos().get(x).getTimeOfCapture().after(lowerDate)){
+						photos.add(albums.get(i).getPhotos().get(x));
+					}
+				}
+			}
+			
+		}
+		else if(lowEndDate.getValue() == null && highEndDate.getValue() == null){
+			for(int i = 0; i < albums.size(); i++){
+				//For each album belonging to user
+				for(int x = 0; x < albums.get(i).getPhotos().size(); x++){
+					//For each photo in the album
+					photos.add(albums.get(i).getPhotos().get(x));
+					
+				}
+			}
 		}
 		if(tags.getText().trim().isEmpty()){
 			searchComplete = true;

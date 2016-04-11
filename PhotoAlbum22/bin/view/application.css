@@ -1,1 +1,16 @@
+/* Ramzy Saleh */
+/* Sara Zayed */
+
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.acceptingInput {
+	-fx-border-color: green; 
+	-fx-border-width: 2px; 
+	-fx-background-color: white;
+}
+
+.declineInput {
+	-fx-border-color: red; 
+	-fx-border-width: 2px; 
+	-fx-background-color: #f2f2f2;
+}
