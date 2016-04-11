@@ -80,7 +80,6 @@ public class UserPhotoController {
 		 username.setText(LoginController.currentUser.getName());		 
 		 albumName.setText(album.getName());
 		 
-		 int i = 0;
 		 scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // Horizontal
 		 scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); // Vertical scroll bar
 		 scrollPane.setFitToWidth(true);
@@ -93,18 +92,20 @@ public class UserPhotoController {
 		 ArrayList<Photo> photos = new ArrayList<Photo>();
 		 photos = album.getPhotos();
 		
+		 numberOfPhotos.setText(String.valueOf(photos.size()));
+		 
 		 if(photos.isEmpty()){
 			return;
 		 }
 		 
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
-		 
+		 images.clear();
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
-			 images.add(new ImageView(photos.get(i).getImage()));
+			 images.add(new ImageView(photos.get(x).getImage()));
 		 }
 		
-		 for(i=0; i < images.size();i++){
+		 for(int i=0; i < images.size();i++){
 			 ImageView currentImage = images.get(i);
 			 int currentValue = i;
 			 images.get(i).setFitWidth(75);
@@ -246,7 +247,6 @@ public class UserPhotoController {
             Image im = null;
             WritableImage wr = null;
             BufferedImage bi = ImageIO.read(file);
-            
             if (bi != null) {
             	wr = new WritableImage(bi.getWidth(), bi.getHeight());
             	PixelWriter pw = wr.getPixelWriter();
@@ -258,8 +258,9 @@ public class UserPhotoController {
             }
             im = wr;
             newPhoto.setImage(im);
+            newPhoto.setTimeOfCapture(file);
             currentAlbum.addOnePhoto(newPhoto);
-            
+            start(currentAlbum);
         } catch (IOException ex) {
         	Alert alert = new Alert(AlertType.ERROR);
         	alert.setTitle("Error");
