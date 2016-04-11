@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -9,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoExpandController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoSlideshowController">
    <children>
       <SplitPane dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="681.0">
          <items>
@@ -36,17 +40,6 @@
                <children>
                   <AnchorPane layoutX="349.0" prefHeight="335.0" prefWidth="169.0">
                      <children>
-                        <Label layoutX="18.0" layoutY="32.0" text="Time of Capture">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="64.0" layoutY="94.0" text="Tags">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                        <ListView fx:id="tagListView" layoutX="6.0" layoutY="120.0" prefHeight="240.0" prefWidth="158.0" />
                         <Label fx:id="timeOfCapture" layoutX="18.0" layoutY="56.0" prefHeight="26.0" prefWidth="141.0">
                            <font>
                               <Font size="14.0" />
@@ -54,11 +47,14 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <TextArea fx:id="caption" editable="false" layoutX="6.0" layoutY="319.0" prefHeight="45.0" prefWidth="318.0" />
-                  <BorderPane fx:id="borderPane" layoutX="6.0" layoutY="31.0" prefHeight="272.0" prefWidth="318.0" />
-                  <Button fx:id="back" layoutX="7.0" layoutY="3.0" mnemonicParsing="false" onAction="#backButtonClicked" text="&lt;- Back" />
-                  <Button fx:id="deleteTagButton" layoutX="427.0" layoutY="364.0" mnemonicParsing="false" onAction="#deleteButtonClicked" style="-fx-background-color: red;" text="Delete Tag" textFill="WHITE" />
-                  <Button fx:id="addTagButton" layoutX="349.0" layoutY="364.0" mnemonicParsing="false" onAction="#addButtonClicked" style="-fx-background-color: green;" text="Add Tag" textFill="WHITE" />
+                  <BorderPane fx:id="borderPane" layoutX="6.0" layoutY="31.0" prefHeight="272.0" prefWidth="318.0">
+                     <right>
+                        <Button fx:id="forwardSlideshow" mnemonicParsing="false" text="-&gt;" BorderPane.alignment="CENTER" onAction="#forwardButtonClicked"/>
+                     </right>
+                     <left>
+                        <Button fx:id="backSlideshow" mnemonicParsing="false" text="&lt;-" BorderPane.alignment="CENTER" onAction="#backwardButtonClicked" />
+                     </left></BorderPane>
+                  
                </children>
             </AnchorPane>
          </items>

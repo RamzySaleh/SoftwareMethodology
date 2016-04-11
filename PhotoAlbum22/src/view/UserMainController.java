@@ -220,13 +220,12 @@ public class UserMainController {
 			alert.setContentText("Oops! At least one field is required to search.");
 			alert.show();
 		}
-		LocalDate date;
-		date = lowEndDate.getValue();
+		
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		ArrayList<Album> albums = new ArrayList<Album>();
 		albums = currentUser.getAlbums();
 		
-		System.out.println("HERE WE ARE "+date);
+		System.out.println("HERE WE ARE "+lowEndDate.getEditor().getText());
 		
 		 
 		if(lowEndDate.getValue() != null && highEndDate.getValue() == null){

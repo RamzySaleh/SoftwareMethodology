@@ -178,6 +178,23 @@ public class UserPhotoController {
 			 
 		 }
 	}
+	public void slideShowButtonClicked(ActionEvent e){
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("userPhotoSlideshow.fxml"));
+			AnchorPane rootLayout = (AnchorPane) loader.load();
+			UserPhotoSlideshowController userPhotoSlideshowController = loader.getController();
+			userPhotoSlideshowController.start(currentAlbum);
+			Scene scene = new Scene(rootLayout);
+			scene.getStylesheets().add("/view/application.css");
+			stage.setScene(scene);
+			stage.show();
+		}
+		catch (Exception z) {
+			z.printStackTrace();
+		}
+	}
 	
 	public void logOutButtonClicked(ActionEvent e){
 		

@@ -100,7 +100,7 @@
                     </content>
                   </ScrollPane>
                   <Separator layoutX="304.0" layoutY="334.0" prefHeight="3.0" prefWidth="220.0" />
-                  <Button fx:id="slideshow" layoutX="281.0" layoutY="339.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="85.0" text="View Slideshow" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="slideshow" layoutX="281.0" layoutY="339.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="85.0" text="View Slideshow" textAlignment="CENTER" wrapText="true" onAction="#slideShowButtonClicked"/>
                   <Button fx:id="addPhoto" layoutX="394.0" layoutY="354.0" mnemonicParsing="false" onAction="#addButtonClicked" style="-fx-background-color: green;" text="+ Add Photo" textFill="WHITE" />
                   <Button fx:id="moveToAlbum" layoutX="134.0" layoutY="339.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="114.0" text="Move to Another Album" textAlignment="CENTER" wrapText="true" />
                   <Button fx:id="backToAlbumList" layoutX="15.0" layoutY="339.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="85.0" text="Back to Album List" textAlignment="CENTER" wrapText="true" />
