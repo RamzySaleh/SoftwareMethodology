@@ -75,7 +75,7 @@ public class UserPhotoController {
 		 ColorAdjust normal = new ColorAdjust();
          normal.setBrightness(0);
          ColorAdjust dark = new ColorAdjust();
-         dark.setBrightness(-0.3);
+         dark.setBrightness(-0.5);
          
 		 username.setText(LoginController.currentUser.getName());		 
 		 albumName.setText(album.getName());
@@ -204,6 +204,10 @@ public class UserPhotoController {
 		catch(Exception r){
 			r.printStackTrace();
 		}
+		
+	}
+	
+	public void moveButtonClicked(ActionEvent e){
 		
 	}
 	
