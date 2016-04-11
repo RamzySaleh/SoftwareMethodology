@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -58,36 +57,36 @@
                            </font>
                         </Label>
                         <Separator layoutX="22.0" layoutY="125.0" prefWidth="200.0" />
-                        <Label layoutX="64.0" layoutY="174.0" prefHeight="32.0" prefWidth="116.0" text="Oldest Photo:" textAlignment="CENTER">
+                        <Label layoutX="71.0" layoutY="174.0" prefHeight="32.0" prefWidth="116.0" text="Oldest Photo:" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker id="oldestPhotoDate" fx:id="oldestPhotoDate" disable="true" editable="false" layoutX="32.0" layoutY="200.0" />
                         <Separator layoutX="18.0" layoutY="177.0" prefHeight="3.0" prefWidth="211.0" />
                         <Separator layoutX="19.0" layoutY="237.0" prefHeight="3.0" prefWidth="211.0" />
-                        <Label id="numberOfPhotos" fx:id="numberOfPhotos" layoutX="146.0" layoutY="136.0" prefHeight="32.0" prefWidth="78.0" textAlignment="CENTER">
+                        <Label id="numberOfPhotos" fx:id="numberOfPhotos" layoutX="133.0" layoutY="136.0" prefHeight="32.0" prefWidth="78.0" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="30.0" layoutY="134.0" prefHeight="32.0" prefWidth="116.0" text="# of Photos:" textAlignment="CENTER">
+                        <Label layoutX="30.0" layoutY="136.0" prefHeight="32.0" prefWidth="116.0" text="# of Photos:" textAlignment="CENTER">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
                         <Label layoutX="71.0" layoutY="233.0" prefHeight="32.0" prefWidth="116.0" text="Date Range:" textAlignment="CENTER">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker id="newestPhotoRange" fx:id="newestPhotoRange" disable="true" editable="false" layoutX="32.0" layoutY="307.0" />
-                        <DatePicker id="oldestPhotoRange" fx:id="oldestPhotoRange" disable="true" editable="false" layoutX="33.0" layoutY="262.0" />
-                        <Label layoutX="106.0" layoutY="288.0" prefHeight="18.0" prefWidth="21.0" text="to" textAlignment="CENTER">
+                        <Label layoutX="108.0" layoutY="286.0" prefHeight="18.0" prefWidth="21.0" text="to" textAlignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
+                        <Label fx:id="oldestPhotoDate" layoutX="71.0" layoutY="199.0" prefHeight="23.0" prefWidth="116.0" />
+                        <Label fx:id="oldestPhotoRange" layoutX="71.0" layoutY="265.0" prefHeight="23.0" prefWidth="106.0" />
+                        <Label fx:id="newestPhotoRange" layoutX="71.0" layoutY="304.0" prefHeight="23.0" prefWidth="106.0" />
                      </children>
                   </AnchorPane>
                   <ScrollPane fx:id="scrollPane" prefHeight="335.0" prefWidth="310.0">
