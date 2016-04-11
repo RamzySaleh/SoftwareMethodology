@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
@@ -174,15 +175,27 @@ public class UserPhotoController {
 						start(albumForDeletion);
 					}
 					
-				}
-				 
-				 
+				} 
 			 });
 			 
 		 }
 		 try{
 			 tilePane.getChildren().clear();
-			 tilePane.getChildren().addAll(images);
+			 ArrayList<TilePane> captionPlusPhoto = new ArrayList<TilePane>();
+			 for (int x = 0; x < images.size(); x++){
+				 TilePane tempPane = new TilePane();
+				 tempPane.setMaxWidth(100);
+				 Label caption = new Label();
+				 caption.setText(photos.get(x).getCaption());
+				 caption.setMaxWidth(50);
+				 tempPane.getChildren().addAll(images.get(x), caption);
+				 captionPlusPhoto.add(tempPane);
+			 }
+			 for (int x = 0; x < images.size(); x++){
+				 tilePane.getChildren().add(captionPlusPhoto.get(x));
+			 }
+			
+
 		 } catch (IllegalArgumentException e){
 			 
 		 }
@@ -319,7 +332,6 @@ public class UserPhotoController {
 	                new File(System.getProperty("user.home"))
 	            );                 
 	            fileChooser.getExtensionFilters().addAll(
-	                new FileChooser.ExtensionFilter("All Images", "*.*"),
 	                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
 	                new FileChooser.ExtensionFilter("PNG", "*.png")
 	            );
