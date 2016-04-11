@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,9 +58,9 @@ public class UserPhotoController {
 	@FXML Button logOut;
 	@FXML Label albumName;
 	@FXML Label numberOfPhotos;
-	@FXML DatePicker oldestPhotoDate;
-	@FXML DatePicker oldestPhotoRange;
-	@FXML DatePicker newestPhotoRange;
+	@FXML Label oldestPhotoDate;
+	@FXML Label oldestPhotoRange;
+	@FXML Label newestPhotoRange;
 	MainController main = new MainController();
 	
     private Desktop desktop = Desktop.getDesktop();
@@ -389,12 +390,12 @@ public class UserPhotoController {
 				System.out.println("cal null!");
 				return;
 			}
-			oldestPhotoDate.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
-			oldestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
-			newestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+			
+			oldestPhotoDate.setText(sdf.format(cal.getTime()));
+			oldestPhotoRange.setText(sdf.format(cal.getTime()));
+			newestPhotoRange.setText(sdf.format(cal.getTime()));
 			return;
 			
 		}
@@ -416,11 +417,9 @@ public class UserPhotoController {
 				oldestDate = cal;
 			}
 		}
-		
-		oldestPhotoDate.setValue(LocalDate.of(oldestDate.get(Calendar.YEAR), oldestDate.get(Calendar.MONTH) + 1,
-				oldestDate.get(Calendar.DAY_OF_MONTH)));
-		oldestPhotoRange.setValue(LocalDate.of(oldestDate.get(Calendar.YEAR), oldestDate.get(Calendar.MONTH) + 1,
-				oldestDate.get(Calendar.DAY_OF_MONTH)));
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		oldestPhotoDate.setText(sdf.format(oldestDate.getTime()));
+		oldestPhotoRange.setText(sdf.format(oldestDate.getTime()));
 		
 		
 	}
@@ -439,12 +438,12 @@ public class UserPhotoController {
 				return;
 			}
 			
-			oldestPhotoDate.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
-			oldestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
-			newestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
-									cal.get(Calendar.DAY_OF_MONTH)));
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+			
+			oldestPhotoDate.setText(sdf.format(cal.getTime()));
+			oldestPhotoRange.setText(sdf.format(cal.getTime()));
+			newestPhotoRange.setText(sdf.format(cal.getTime()));
+			
 			return;
 			
 		}
@@ -465,8 +464,10 @@ public class UserPhotoController {
 				newestDate = cal;
 			}
 		}
-		newestPhotoRange.setValue(LocalDate.of(newestDate.get(Calendar.YEAR), newestDate.get(Calendar.MONTH) + 1,
-				newestDate.get(Calendar.DAY_OF_MONTH)));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		
+		newestPhotoRange.setText(sdf.format(newestDate.getTime()));
 		
 	}
 	
