@@ -224,6 +224,7 @@ public class UserPhotoController {
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add("/view/application.css");
 			stage.setScene(scene);
+			((Node)e.getSource()).getScene().getWindow().hide();
 			stage.show();
 		}
 		catch (Exception z) {

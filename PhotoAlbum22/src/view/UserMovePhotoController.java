@@ -113,6 +113,7 @@ public class UserMovePhotoController {
 			Scene scene = new Scene(rootLayout);
 			scene.getStylesheets().add("/view/application.css");
 			stage.setScene(scene);
+			((Node)e.getSource()).getScene().getWindow().hide();
 			stage.show();
 		}
 		catch (Exception z) {
@@ -122,6 +123,22 @@ public class UserMovePhotoController {
 		
 	}
 	public void cancelButtonClicked(ActionEvent e){
-		return;
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("userPhoto.fxml"));
+			AnchorPane rootLayout = (AnchorPane) loader.load();
+			UserPhotoController userPhotoController = loader.getController();
+			userPhotoController.start(currentAlbum);
+			Scene scene = new Scene(rootLayout);
+			scene.getStylesheets().add("/view/application.css");
+			stage.setScene(scene);
+			((Node)e.getSource()).getScene().getWindow().hide();
+			stage.show();
+		}
+		catch (Exception z) {
+			z.printStackTrace();
+		}
+		
 	}
 }

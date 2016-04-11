@@ -190,14 +190,14 @@ public class UserPhotoExpandController {
 		if(result.get() == ButtonType.OK){
 			j = tagListView.getSelectionModel().getSelectedIndex();
 			if (j == -1) return;
-			currentPhoto.tagsHashTable.remove(tags[0][j], tags[1][j]);
+			currentPhoto.removeTag(tags[0][j], tags[1][j]);
 		} else {
 			return;
 		}
 		
 		tags = currentPhoto.getTagsWithKeyValues();
 		obsList.clear();
-		for(int i = 0; i < tags.length; i++) {
+		for(int i = 0; i < tags[0].length; i++) {
 			if (tags == null) continue;
 			if (tags[0][i] == null) continue;
 			obsList.add(tags[0][i] + ": "+tags[1][i]);
