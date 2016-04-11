@@ -1,12 +1,15 @@
 package view;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 import app.Album;
 import app.Photo;
 import app.User;
 import view.MainController;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,8 +90,7 @@ public class UserMainController {
 	public void start() {
 		 // create an ObservableList
 		 // from an ArrayList
-			 lowEndDate.showWeekNumbersProperty();
-			 highEndDate.showWeekNumbersProperty();
+			 
 			 searchAnchor.setVisible(false);
 			 ArrayList<Album> albumList = LoginController.currentUser.getAlbums();
 			 deleteButton.setDisable(true);
@@ -218,13 +220,22 @@ public class UserMainController {
 			alert.setContentText("Oops! At least one field is required to search.");
 			alert.show();
 		}
+		LocalDate date;
+		date = lowEndDate.getValue();
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		ArrayList<Album> albums = new ArrayList<Album>();
 		albums = currentUser.getAlbums();
 		
+		System.out.println("HERE WE ARE "+date);
+		
+		 
 		if(lowEndDate.getValue() != null && highEndDate.getValue() == null){
+			LocalDate lowDate = lowEndDate.getValue();
+			System.out.print("IN HEREEEEEEEEE");
 			for(int i = 0; i < albums.size(); i++){
+				//For each album belonging to user
 				for(int x = 0;x < albums.get(i).getPhotos().size(); x++){
+					//For each photo in the album
 					
 				}
 			}	
