@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoSlideshowController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.UserPhotoSlideshowController">
    <children>
       <SplitPane dividerPositions="0.22122571001494767" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="681.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="175.0">
                <children>
-                  <Button fx:id="logOut" layoutX="35.0" layoutY="261.0" mnemonicParsing="false" onAction="#logOutButtonClicked" text="Log Out">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Button>
                   <Label layoutX="52.0" layoutY="44.0" text="user:">
                      <font>
                         <Font name="System Bold" size="19.0" />
@@ -40,7 +29,17 @@
                <children>
                   <AnchorPane layoutX="349.0" prefHeight="335.0" prefWidth="169.0">
                      <children>
-                        <Label fx:id="timeOfCapture" layoutX="18.0" layoutY="56.0" prefHeight="26.0" prefWidth="141.0">
+                        <Label layoutX="14.0" layoutY="122.0" prefHeight="163.0" prefWidth="141.0" text="When you are done viewing the slideshow, please close this window." textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="-16.0" layoutY="50.0" text="Album:">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label id="albumName" fx:id="albumName" layoutX="53.0" layoutY="37.0" prefHeight="50.0" prefWidth="116.0" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -49,10 +48,10 @@
                   </AnchorPane>
                   <BorderPane fx:id="borderPane" layoutX="6.0" layoutY="31.0" prefHeight="272.0" prefWidth="318.0">
                      <right>
-                        <Button fx:id="forwardSlideshow" mnemonicParsing="false" text="-&gt;" BorderPane.alignment="CENTER" onAction="#forwardButtonClicked"/>
+                        <Button fx:id="forwardSlideshow" mnemonicParsing="false" onAction="#forwardButtonClicked" text="-&gt;" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Button fx:id="backSlideshow" mnemonicParsing="false" text="&lt;-" BorderPane.alignment="CENTER" onAction="#backwardButtonClicked" />
+                        <Button fx:id="backSlideshow" mnemonicParsing="false" onAction="#backwardButtonClicked" text="&lt;-" BorderPane.alignment="CENTER" />
                      </left></BorderPane>
                   
                </children>

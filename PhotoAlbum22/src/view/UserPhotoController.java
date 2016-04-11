@@ -24,6 +24,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -184,6 +185,15 @@ public class UserPhotoController {
 	}
 	public void slideShowButtonClicked(ActionEvent e){
 		try {
+			if(numberOfPhotos.getText().equals("0")) {
+				Alert alert = new Alert(AlertType.ERROR);
+	        	alert.setTitle("Sorry");
+	        	alert.setHeaderText("Could not open slideshow.");
+	        	alert.setContentText("You have no photos in this album. Try adding photos.");
+
+	        	alert.showAndWait();
+	        	return;
+			}
 			Stage stage = new Stage();
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("userPhotoSlideshow.fxml"));
@@ -232,6 +242,25 @@ public class UserPhotoController {
 		}
 		
 		
+	}
+	
+	public void backToAlbumListClicked(ActionEvent e){
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("userMain.fxml"));
+			SplitPane rootLayout = (SplitPane) loader.load();
+			UserMainController userMainController = loader.getController();
+			userMainController.start();
+			Scene scene = new Scene(rootLayout);
+			scene.getStylesheets().add("/view/application.css");
+			stage.setScene(scene);
+			((Node)e.getSource()).getScene().getWindow().hide();
+			stage.show();	
+			
+		} catch (IOException m) {
+			m.printStackTrace();
+		}
 	}
 	
 	public void addButtonClicked(ActionEvent e){
