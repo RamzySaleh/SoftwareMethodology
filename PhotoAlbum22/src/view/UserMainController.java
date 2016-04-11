@@ -437,6 +437,12 @@ public class UserMainController {
 					String[] tagTypeAndValue = new String[2];
 					tagTypeAndValue[0] = cb.getValue();
 					tagTypeAndValue[1] = tagText.getText();
+					for (int i = 0; i < tagsForSearchArr.size(); i++){
+						if (tagsForSearchArr.get(i)[0].equals(tagTypeAndValue[0]) &&
+								tagsForSearchArr.get(i)[1].equals(tagTypeAndValue[1])){
+							return null;
+						}
+					}
 					tagsForSearchArr.add(tagTypeAndValue);
 					return null;
 				} else {

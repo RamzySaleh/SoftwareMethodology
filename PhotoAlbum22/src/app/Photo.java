@@ -137,6 +137,7 @@ public class Photo implements Serializable {
 	
 	public void addTag(String key, String value){
 		if (tagsHashTable.containsKey(key)){
+			if (tagsHashTable.get(key).contains(value)) return;
 			tagsHashTable.get(key).add(value);
 		} else {
 			ArrayList<String> arrList = new ArrayList<String>();
