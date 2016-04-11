@@ -39,12 +39,16 @@ public class UserPhotoSlideshowController {
 	@FXML Button forwardSlideshow;
 	@FXML Button backSlideshow;
 	@FXML BorderPane borderPane;
+	@FXML Label username;
+	@FXML Label albumName;
 	User currentUser = LoginController.currentUser;
 	int currentIndex = 0;
 	ArrayList<Photo> photos;
 	MainController main = new MainController();
 	
 	public void start(Album album){
+		username.setText(currentUser.getName());
+		albumName.setText(album.getName());
 		photos = album.getPhotos();
 		Image firstImage = photos.get(0).getImage();
 		currentIndex = 0; //redundant, only placed here for clarity
@@ -79,6 +83,7 @@ public class UserPhotoSlideshowController {
 		currentIndex--;
 		if(currentIndex < 0){
 			currentIndex = photos.size()-1;
+			if (currentIndex < 0) currentIndex = 0;
 		}
 		Image nextImage = photos.get(currentIndex).getImage();
 		ImageView image = new ImageView(nextImage);
@@ -89,14 +94,6 @@ public class UserPhotoSlideshowController {
 		image.setDisable(true);
 		borderPane.setCenter(image);
 		
-	}
-	public void logOutButtonClicked(ActionEvent e){
-		try {
-			main.logOutButtonClicked(e);
-		}
-		catch(Exception r){
-			r.printStackTrace();
-		}
 	}
 
 }
