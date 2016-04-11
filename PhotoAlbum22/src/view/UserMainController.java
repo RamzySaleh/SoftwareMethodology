@@ -315,6 +315,12 @@ public class UserMainController {
 			
 			
 		}
+		if(photos.isEmpty()){
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText("No search results");
+			alert.show();
+			return;
+		}
 		if(searchComplete){
 			//Open new window with search results
 			try {
