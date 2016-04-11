@@ -80,7 +80,7 @@ public class PhotoAlbum extends Application implements Serializable {
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
 			oos.writeObject(pa);
-			System.out.print("Saved!");
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -105,7 +105,7 @@ public class UserPhotoController {
 		 findNewestDate();
 		 
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
-		 images.clear();
+		 
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
 			 images.add(new ImageView(photos.get(x).getImage()));

@@ -241,7 +241,7 @@ public class UserMainController {
 		if(lowEndDate.getValue() != null && highEndDate.getValue() == null){
 			LocalDate lowDate = lowEndDate.getValue();
 			Date date = Date.from(lowDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			Calendar lowerDate = null;
+			Calendar lowerDate = Calendar.getInstance();
 			lowerDate.setTime(date);
 			lowerDate.set(Calendar.MILLISECOND, 0);
 			
@@ -259,7 +259,7 @@ public class UserMainController {
 		else if(lowEndDate.getValue() == null && highEndDate.getValue() != null){
 			LocalDate highDate = highEndDate.getValue();
 			Date date = Date.from(highDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			Calendar higherDate = null;
+			Calendar higherDate = Calendar.getInstance();
 			higherDate.setTime(date);
 			higherDate.set(Calendar.MILLISECOND, 0);
 			for(int i = 0; i < albums.size(); i++){
@@ -276,13 +276,13 @@ public class UserMainController {
 		else if(lowEndDate.getValue() != null && highEndDate.getValue() != null){
 			LocalDate lowDate = lowEndDate.getValue();
 			Date dateLow = Date.from(lowDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			Calendar lowerDate = null;
+			Calendar lowerDate = Calendar.getInstance();
 			lowerDate.setTime(dateLow);
 			lowerDate.set(Calendar.MILLISECOND, 0);
 			
 			LocalDate highDate = highEndDate.getValue();
 			Date dateHigh = Date.from(highDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			Calendar higherDate = null;
+			Calendar higherDate = Calendar.getInstance();
 			higherDate.setTime(dateHigh);
 			higherDate.set(Calendar.MILLISECOND, 0);
 			
@@ -317,6 +317,24 @@ public class UserMainController {
 		}
 		if(searchComplete){
 			//Open new window with search results
+			try {
+				Stage stage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("userSearchResults.fxml"));
+				AnchorPane rootLayout = (AnchorPane) loader.load();
+				UserSearchResultsController userSearchResultsController = loader.getController();
+				userSearchResultsController.start(photos);
+				Scene scene = new Scene(rootLayout);
+				scene.getStylesheets().add("/view/application.css");
+				stage.setScene(scene);
+				((Node)e.getSource()).getScene().getWindow().hide();
+				stage.show();
+				
+			}
+			catch(Exception z){
+				z.printStackTrace();
+			}
+			
 		}
 	}
 	public void searchBackButtonClicked(ActionEvent e){
