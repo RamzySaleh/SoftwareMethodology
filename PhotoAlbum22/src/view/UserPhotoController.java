@@ -64,6 +64,8 @@ public class UserPhotoController {
 	
     private Desktop desktop = Desktop.getDesktop();
     Album currentAlbum;
+    ImageView currentImageView;
+    int currentImageViewIndex;
 	
 	public void init(MainController mainControl){
 		main = mainControl;
@@ -136,6 +138,8 @@ public class UserPhotoController {
 						
 					} else if (event.getClickCount() == 1){
 						for (int j = 0; j < images.size(); j++) images.get(j).setEffect(dark);
+						currentImageView = currentImage;
+						currentImageViewIndex = currentValue;
 						currentImage.setEffect(normal);
 					}
 					
@@ -208,6 +212,24 @@ public class UserPhotoController {
 	}
 	
 	public void moveButtonClicked(ActionEvent e){
+		Image image = currentImageView.getImage();
+		
+		try {
+			Stage stage = new Stage();
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("movePhoto.fxml"));
+			AnchorPane rootLayout = (AnchorPane) loader.load();
+			UserMovePhotoController userMovePhotoController = loader.getController();
+			userMovePhotoController.start(image, currentImageViewIndex, currentAlbum);
+			Scene scene = new Scene(rootLayout);
+			scene.getStylesheets().add("/view/application.css");
+			stage.setScene(scene);
+			stage.show();
+		}
+		catch (Exception z) {
+			z.printStackTrace();
+		}
+		
 		
 	}
 	

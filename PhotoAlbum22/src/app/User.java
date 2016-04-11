@@ -24,6 +24,10 @@ public class User implements Serializable {
 		return albums;
 	}
 	
+	public void setAlbums(ArrayList<Album> albums){
+		this.albums = albums;
+	}
+	
 	public User(String name){
 		this.name = name;
 	}
