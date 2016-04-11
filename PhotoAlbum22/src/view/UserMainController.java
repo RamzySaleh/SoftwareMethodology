@@ -17,7 +17,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
@@ -27,43 +29,50 @@ import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 
 public class UserMainController {
 
 	@FXML Button logOut;
 	@FXML Button deleteButton;
 	@FXML Button createButton;
+	@FXML Button editButton;
 	@FXML Button searchButton;
 	@FXML Button albumCreate;
 	@FXML Button back;
 	@FXML Button searchOK;
 	@FXML Button searchBack;
+	@FXML Button addTagButton;
+	@FXML Button deleteTagButton;
 	@FXML Label username;
 	@FXML Label addSuccess;
 	@FXML Label addFail;
 	@FXML Label mustInputText;
 	@FXML Label albums;
 	@FXML TextField newAlbumName;
-	@FXML TextArea tags;
 	@FXML DatePicker lowEndDate;
 	@FXML DatePicker highEndDate;
 	@FXML ListView<String> albumListView;
+	@FXML ListView<String> tagsForSearch;
 	@FXML AnchorPane createAlbumAnchor;
 	@FXML AnchorPane searchAnchor;
 	
+	ArrayList<String[]> tagsForSearchArr = new ArrayList<String[]>();
 	MainController main = new MainController();
 	
 	public void init(MainController mainControl){
 		main = mainControl;
 	}
 	private ObservableList<String> obsList;
-	
+	private ObservableList<String> tagsObsList;
 	public void OKButtonClicked(ActionEvent e){
 		addFail.setVisible(false);
 		addSuccess.setVisible(false);
@@ -218,7 +227,7 @@ public class UserMainController {
 	public void searchOKButtonClicked(ActionEvent e){
 		boolean searchComplete = false;
 		User currentUser = LoginController.currentUser;
-		if((lowEndDate.getValue() == null) && (highEndDate.getValue() == null) && ((tags == null) || tags.getText().trim().isEmpty())){
+		if((lowEndDate.getValue() == null) && (highEndDate.getValue() == null) && ((tagsForSearchArr == null) || tagsForSearchArr.isEmpty())){
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setContentText("Oops! At least one field is required to search.");
 			alert.show();
@@ -298,7 +307,7 @@ public class UserMainController {
 				}
 			}
 		}
-		if(tags.getText().trim().isEmpty()){
+		if(tagsForSearchArr.isEmpty()){
 			searchComplete = true;
 		}
 		else {
@@ -311,7 +320,7 @@ public class UserMainController {
 		}
 	}
 	public void searchBackButtonClicked(ActionEvent e){
-		if(lowEndDate.isEditable() || highEndDate.isEditable() || tags.isEditable()){
+		if(lowEndDate.isEditable() || highEndDate.isEditable()){
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setContentText("Are you sure you don't want to finish your search?");
 			Optional<ButtonType> result = alert.showAndWait();
@@ -383,6 +392,97 @@ public class UserMainController {
 			return;
 		}
 		
+	}
+	
+	public void addButtonClicked(ActionEvent e){
+		ArrayList<String> tagChoices = new ArrayList<String>();
+		tagChoices.add("location");
+		tagChoices.add("person");
+		tagChoices.add("mood");
+		tagChoices.add("occasion");
+		tagChoices.add("activity");
+		tagChoices.add("genre");
+		tagChoices.add("filter");
+		tagChoices.add("quality");
+		tagChoices.add("other");
+		
+		Dialog<String[]> dialog = new Dialog<String[]>();
+		dialog.setTitle("Add a tag");
+		dialog.setHeaderText("Select a tag type and input tag.");
+		Label tagType = new Label("Tag type: ");
+		Label tag = new Label("Tag: ");
+		
+		ChoiceBox<String> cb = new ChoiceBox<String>();
+		TextField tagText = new TextField();
+		
+		cb.getItems().addAll(tagChoices);
+		GridPane grid = new GridPane();
+		grid.add(tagType, 1, 1);
+		grid.add(cb, 2, 1);
+		grid.add(tag, 1, 2);
+		grid.add(tagText, 2, 2);
+		
+		dialog.getDialogPane().setContent(grid);
+		
+		ButtonType okButton = new ButtonType("OK", ButtonData.OK_DONE);
+		ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+		
+		dialog.getDialogPane().getButtonTypes().add(okButton);
+		dialog.getDialogPane().getButtonTypes().add(cancelButton);
+		
+		
+		dialog.setResultConverter(new Callback<ButtonType, String[]>(){
+			public String[] call(ButtonType button) {
+				if (button == okButton){
+					String[] tagTypeAndValue = new String[2];
+					tagTypeAndValue[0] = cb.getValue();
+					tagTypeAndValue[1] = tagText.getText();
+					tagsForSearchArr.add(tagTypeAndValue);
+					return null;
+				} else {
+					return null;
+				}
+			}
+		});
+	
+		tagsObsList = FXCollections.observableArrayList();
+		Optional<String[]> result = dialog.showAndWait();
+		tagsObsList.clear();
+		
+		for (int i = 0; i < tagsForSearchArr.size(); i++) {
+			if (tagsForSearch == null) continue;
+		
+			tagsObsList.add((tagsForSearchArr.get(i))[0] + ": "+(tagsForSearchArr.get(i))[1]);
+		}
+		tagsForSearch.setItems(tagsObsList);
+		tagsForSearch.getSelectionModel().clearAndSelect(0);
+
+	}
+	
+	public void deleteTagButtonClicked(ActionEvent e){ 
+
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Delete Tag");
+		alert.setHeaderText("Are you sure you want to delete?");
+		Optional<ButtonType> result = alert.showAndWait();
+		int j;
+		
+		if(result.get() == ButtonType.OK){
+			j = tagsForSearch.getSelectionModel().getSelectedIndex();
+			if (j == -1) return;
+			tagsForSearchArr.remove(j);
+		} else {
+			return;
+		}
+		
+		tagsObsList.clear();
+		for(int i = 0; i < tagsForSearchArr.size(); i++) {
+			if (tagsForSearchArr == null) continue;
+			if (tagsForSearchArr.get(i) == null) continue;
+			tagsObsList.add((tagsForSearchArr.get(i))[0]+ ": "+(tagsForSearchArr.get(i))[1]);
+		}
+		tagsForSearch.setItems(tagsObsList);
+		if (tagsForSearch.getItems().size() > 0) tagsForSearch.getSelectionModel().clearAndSelect(0);
 	}
 	
 }
