@@ -18,6 +18,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -75,23 +76,47 @@ public class UserPhotoController {
 		 photos = album.getPhotos();
 		 
 		 
-		 ImageView image13 = new ImageView("/view/shirt.jpg");
-		 ImageView image12 = new ImageView("/view/shirt.jpg");
-		 ImageView image10 = new ImageView("/view/shirt.jpg");
-	
+		 Image image13 = new Image("/view/shirt.jpg");
+		 Image image12 = new Image("/view/shirt.jpg");
+		 Image image10 = new Image("/view/shirt.jpg");
+		 Photo photo1 = new Photo();
+		 Photo photo2 = new Photo();
+		 Photo photo3 = new Photo();
 		 
+		 ImageView image13v = new ImageView();
+		 ImageView image12v = new ImageView();
+		 ImageView image10v = new ImageView();
+		 image13v.setImage(image13);
+		 image12v.setImage(image12);
+		 image10v.setImage(image10);
+
+		 
+		 photo1.setImage(image10);
+		 photo2.setImage(image12);
+		 photo3.setImage(image13);
+		 photo1.setCaption("first pic");
+		 photo2.setCaption("second one");
+		 photo3.setCaption("photo 3");
+		 ArrayList<Photo> photosArr = new ArrayList<Photo>();
+		 photosArr.add(photo1);
+		 photosArr.add(photo2);
+		 photosArr.add(photo3);
+		 album.setPhotos(photosArr);
 		 //if(photos.isEmpty()){
 			// return;
 		 // }
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
 		 
-		 images.add(image10);
-		 images.add(image12);
-		 images.add(image13);
+		 images.add(image10v);
+		 images.add(image12v);
+		 images.add(image13v);
+		 
+		 /** 
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
 			 images.add(photos.get(i).getImage());
 		 }
+		 */
 		 for(i=0; i < images.size();i++){
 			 ImageView currentImage = images.get(i);
 			 int currentValue = i;
@@ -148,6 +173,7 @@ public class UserPhotoController {
 						albumForDeletion.getPhotos().remove(currentValue);
 						LoginController.currentUser.getAlbums().remove(getAlbumIndex(album.getName()));
 						LoginController.currentUser.getAlbums().add(albumForDeletion);
+						tilePane.getChildren().clear();
 						start(albumForDeletion);
 					}
 					
@@ -157,7 +183,11 @@ public class UserPhotoController {
 			 });
 			 
 		 }
-		 tilePane.getChildren().addAll(images);
+		 try{
+			 tilePane.getChildren().addAll(images);
+		 } catch (IllegalArgumentException e){
+			 
+		 }
 	}
 	
 	public void logOutButtonClicked(ActionEvent e){
