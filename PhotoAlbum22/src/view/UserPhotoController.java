@@ -132,6 +132,7 @@ public class UserPhotoController {
 							UserPhotoExpandController userPhotoExpandController = loader.getController();
 							userPhotoExpandController.startPhotoExpand(currentImage, album, currentValue);
 							Scene scene = new Scene(rootLayout);
+							scene.getStylesheets().add("/view/application.css");
 							stage.setScene(scene);
 							stage.show();
 							mainWindow.getScene().getWindow().hide();

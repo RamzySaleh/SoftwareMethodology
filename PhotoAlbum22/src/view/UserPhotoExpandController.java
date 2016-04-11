@@ -90,6 +90,8 @@ public class UserPhotoExpandController {
 		currentAlbum = album;
 		currentPhoto = album.getPhotos().get(index);
 		caption.setText(currentPhoto.getCaption());
+		caption.getStyleClass().clear(); 
+		caption.getStyleClass().addAll("text-field", "text-input", "declineInput");
 		image.setFitWidth(225);
 		image.setFitHeight(225);
 		image.setSmooth(true);
@@ -215,6 +217,8 @@ public class UserPhotoExpandController {
 	public void editCaptionButton(ActionEvent e){
 		
 		caption.setEditable(true);
+		caption.getStyleClass().clear(); 
+		caption.getStyleClass().addAll("text-field", "text-input", "acceptingInput");
 		
 		editCaptionButton.setDisable(true);
 		editCaptionButton.setVisible(false);
@@ -232,6 +236,8 @@ public class UserPhotoExpandController {
 		currentPhoto.setCaption(caption.getText());
 		
 		caption.setEditable(false);
+		caption.getStyleClass().clear(); 
+		caption.getStyleClass().addAll("text-field", "text-input", "declineInput");
 		
 		editCaptionButton.setDisable(false);
 		editCaptionButton.setVisible(true);
@@ -251,6 +257,9 @@ public class UserPhotoExpandController {
 		caption.setText(currentPhoto.getCaption());
 		
 		caption.setEditable(false);
+		caption.getStyleClass().clear(); 
+		caption.getStyleClass().addAll("text-field", "text-input", "declineInput");
+
 		
 		editCaptionButton.setDisable(false);
 		editCaptionButton.setVisible(true);
