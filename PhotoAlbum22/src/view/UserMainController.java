@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -271,6 +272,63 @@ public class UserMainController {
 				return;
 			}
 		}
+	}
+	
+	public void editNameClicked(ActionEvent e){
+		
+		if (albumListView.getSelectionModel().getSelectedIndex() < 0){
+			
+			Alert alert = new Alert(AlertType.ERROR);
+        	alert.setTitle("Error");
+        	alert.setHeaderText("Select an album.");
+        	alert.setContentText("Please select an album you wish to rename.");
+
+        	alert.showAndWait();
+			
+		}
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Rename");
+		dialog.setHeaderText("Editing Album Name");
+		dialog.setContentText("Please enter your desired album name:");
+
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+			ArrayList<String> albumNames = new ArrayList<String>();
+			ArrayList<Album> albums = LoginController.currentUser.getAlbums();
+			for (int x = 0; x < albums.size(); x++){
+				albumNames.add(albums.get(x).getName());
+			}
+			int indexRename = albumListView.getSelectionModel().getSelectedIndex();
+			
+			if(result.get().length() == 0) {
+				Alert alert = new Alert(AlertType.ERROR);
+	        	alert.setTitle("Error");
+	        	alert.setHeaderText("Invalid album name.");
+	        	alert.setContentText("Please enter a name with at least 1 character.");
+
+	        	alert.showAndWait();
+			} else {
+				String desiredName = result.get();
+				
+				for (int x = 0; x < albumNames.size(); x++){
+					if (desiredName.equals(albumNames.get(x)) && x != indexRename){
+						Alert alert = new Alert(AlertType.ERROR);
+			        	alert.setTitle("Error");
+			        	alert.setHeaderText("Invalid album name.");
+			        	alert.setContentText("Name conflicts with another album's name!");
+
+			        	alert.showAndWait();
+			        	return;
+					}
+				}
+				LoginController.currentUser.getAlbums().get(indexRename).setName(desiredName);	
+				start();
+			}
+			
+		} else {
+			return;
+		}
+		
 	}
 	
 }
