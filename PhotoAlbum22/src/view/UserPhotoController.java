@@ -1,8 +1,15 @@
 package view;
 
+import java.awt.Desktop;
+import java.awt.image.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import javax.imageio.ImageIO;
+
 import app.Album;
 import app.Photo;
 import app.User;
@@ -20,13 +27,20 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
 
 public class UserPhotoController {
@@ -48,12 +62,16 @@ public class UserPhotoController {
 	@FXML DatePicker newestPhotoRange;
 	MainController main = new MainController();
 	
+    private Desktop desktop = Desktop.getDesktop();
+    Album currentAlbum;
+	
 	public void init(MainController mainControl){
 		main = mainControl;
 	}
 	
 	public void start(Album album){
 		
+		 currentAlbum = album;
 		 ColorAdjust normal = new ColorAdjust();
          normal.setBrightness(0);
          ColorAdjust dark = new ColorAdjust();
@@ -74,49 +92,18 @@ public class UserPhotoController {
 		 
 		 ArrayList<Photo> photos = new ArrayList<Photo>();
 		 photos = album.getPhotos();
+		
+		 if(photos.isEmpty()){
+			return;
+		 }
 		 
-		 
-		 Image image13 = new Image("/view/shirt.jpg");
-		 Image image12 = new Image("/view/shirt.jpg");
-		 Image image10 = new Image("/view/shirt.jpg");
-		 Photo photo1 = new Photo();
-		 Photo photo2 = new Photo();
-		 Photo photo3 = new Photo();
-		 
-		 ImageView image13v = new ImageView();
-		 ImageView image12v = new ImageView();
-		 ImageView image10v = new ImageView();
-		 image13v.setImage(image13);
-		 image12v.setImage(image12);
-		 image10v.setImage(image10);
-
-		 
-		 photo1.setImage(image10);
-		 photo2.setImage(image12);
-		 photo3.setImage(image13);
-		 photo1.setCaption("first pic");
-		 photo2.setCaption("second one");
-		 photo3.setCaption("photo 3");
-		 ArrayList<Photo> photosArr = new ArrayList<Photo>();
-		 photosArr.add(photo1);
-		 photosArr.add(photo2);
-		 photosArr.add(photo3);
-		 album.setPhotos(photosArr);
-		 //if(photos.isEmpty()){
-			// return;
-		 // }
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
 		 
-		 images.add(image10v);
-		 images.add(image12v);
-		 images.add(image13v);
-		 
-		 /** 
 		 for(int x = 0; x < photos.size(); x++){
 			 //Adding all ImageViews from the Photo object to ArrayList for display
-			 images.add(photos.get(i).getImage());
+			 images.add(new ImageView(photos.get(i).getImage()));
 		 }
-		 */
+		
 		 for(i=0; i < images.size();i++){
 			 ImageView currentImage = images.get(i);
 			 int currentValue = i;
@@ -184,6 +171,7 @@ public class UserPhotoController {
 			 
 		 }
 		 try{
+			 tilePane.getChildren().clear();
 			 tilePane.getChildren().addAll(images);
 		 } catch (IllegalArgumentException e){
 			 
@@ -200,6 +188,88 @@ public class UserPhotoController {
 		}
 		
 	}
+	
+	public void addButtonClicked(ActionEvent e){
+
+		Stage stage = new Stage();
+			stage.setTitle("File Chooser Sample");
+		 
+	        final FileChooser fileChooser = new FileChooser();
+	        final Button openButton = new Button("Open a Picture...");
+	      
+	        openButton.setOnAction(
+	            new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(final ActionEvent e) {
+	                    configureFileChooser(fileChooser);
+	                    File file = fileChooser.showOpenDialog(stage);
+	                    if (file != null) {
+	                        addFile(file);
+	                    }
+	                }
+	            });
+	 
+	 
+	 
+	        final GridPane inputGridPane = new GridPane();
+	 
+	        GridPane.setConstraints(openButton, 0, 1);
+	        inputGridPane.setHgap(6);
+	        inputGridPane.setVgap(6);
+	        inputGridPane.getChildren().addAll(openButton);
+	        
+	        final Pane rootGroup = new VBox(12);
+	        rootGroup.getChildren().addAll(inputGridPane);
+	        rootGroup.setPadding(new Insets(12, 12, 12, 12));
+	 
+	        stage.setScene(new Scene(rootGroup));
+	        stage.show();
+	        start(currentAlbum);
+	}
+	
+	private static void configureFileChooser(
+	        final FileChooser fileChooser) {      
+	            fileChooser.setTitle("View Pictures");
+	            fileChooser.setInitialDirectory(
+	                new File(System.getProperty("user.home"))
+	            );                 
+	            fileChooser.getExtensionFilters().addAll(
+	                new FileChooser.ExtensionFilter("All Images", "*.*"),
+	                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+	                new FileChooser.ExtensionFilter("PNG", "*.png")
+	            );
+	}
+	
+	private void addFile(File file) {
+        try {
+            Photo newPhoto = new Photo();
+            Image im = null;
+            WritableImage wr = null;
+            BufferedImage bi = ImageIO.read(file);
+            
+            if (bi != null) {
+            	wr = new WritableImage(bi.getWidth(), bi.getHeight());
+            	PixelWriter pw = wr.getPixelWriter();
+            	for (int i = 0; i < bi.getWidth(); i++){
+            		for (int j = 0; j < bi.getHeight(); j++) {
+            			pw.setArgb(i, j, bi.getRGB(i,j));
+            		}
+            	}
+            }
+            im = wr;
+            newPhoto.setImage(im);
+            currentAlbum.addOnePhoto(newPhoto);
+            
+        } catch (IOException ex) {
+        	Alert alert = new Alert(AlertType.ERROR);
+        	alert.setTitle("Error");
+        	alert.setHeaderText("Could not open specified file.");
+        	alert.setContentText("Please try again or try a different file.");
+
+        	alert.showAndWait();
+        }
+    }
+	
 	
 	public Album searchForAlbum(String name){
 		User currentUser = LoginController.currentUser;
