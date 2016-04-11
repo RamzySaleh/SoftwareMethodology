@@ -1,8 +1,8 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 public class Album implements Serializable {
 	
@@ -13,8 +13,8 @@ public class Album implements Serializable {
 	String name;
 	int numOfPhotos;
 	ArrayList<Photo> photos = new ArrayList<Photo>();
-	Timestamp oldestPhoto;
-	Timestamp newestPhoto;
+	Calendar oldestPhoto;
+	Calendar newestPhoto;
 	
 	public Album(String name){
 		this.name = name;
@@ -31,16 +31,16 @@ public class Album implements Serializable {
 	public void setNumOfPhotos(int numOfPhotos) {
 		this.numOfPhotos = numOfPhotos;
 	}
-	public Timestamp getOldestPhoto() {
+	public Calendar getOldestPhoto() {
 		return oldestPhoto;
 	}
-	public void setOldestPhoto(Timestamp oldestPhoto) {
+	public void setOldestPhoto(Calendar oldestPhoto) {
 		this.oldestPhoto = oldestPhoto;
 	}
-	public Timestamp getNewestPhoto() {
+	public Calendar getNewestPhoto() {
 		return newestPhoto;
 	}
-	public void setNewestPhoto(Timestamp newestPhoto) {
+	public void setNewestPhoto(Calendar newestPhoto) {
 		this.newestPhoto = newestPhoto;
 	}
 	public ArrayList<Photo> getPhotos() {

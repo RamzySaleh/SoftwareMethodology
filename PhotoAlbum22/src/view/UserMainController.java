@@ -12,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
@@ -42,12 +44,9 @@ public class UserMainController {
 	@FXML Label mustInputText;
 	@FXML Label albums;
 	@FXML TextField newAlbumName;
-	@FXML TextField monthLow;
-	@FXML TextField dayLow;
-	@FXML TextField yearLow;
-	@FXML TextField monthHigh;
-	@FXML TextField dayHigh;
-	@FXML TextField yearHigh;
+	@FXML TextArea tags;
+	@FXML DatePicker lowEndDate;
+	@FXML DatePicker highEndDate;
 	@FXML ListView<String> albumListView;
 	@FXML AnchorPane createAlbumAnchor;
 	@FXML AnchorPane searchAnchor;
@@ -88,6 +87,9 @@ public class UserMainController {
 	public void start() {
 		 // create an ObservableList
 		 // from an ArrayList
+			 lowEndDate.showWeekNumbersProperty();
+			 highEndDate.showWeekNumbersProperty();
+			 searchAnchor.setVisible(false);
 			 ArrayList<Album> albumList = LoginController.currentUser.getAlbums();
 			 deleteButton.setDisable(true);
 			 username.setVisible(true);
@@ -209,10 +211,56 @@ public class UserMainController {
 	}
 	
 	public void searchOKButtonClicked(ActionEvent e){
+		boolean searchComplete = false;
+		User currentUser = LoginController.currentUser;
+		if((lowEndDate.getValue() == null) && (highEndDate.getValue() == null) && ((tags == null) || tags.getText().trim().isEmpty())){
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setContentText("Oops! At least one field is required to search.");
+			alert.show();
+		}
+		ArrayList<Photo> photos = new ArrayList<Photo>();
+		ArrayList<Album> albums = new ArrayList<Album>();
+		albums = currentUser.getAlbums();
 		
+		if(lowEndDate.getValue() != null && highEndDate.getValue() == null){
+			for(int i = 0; i < albums.size(); i++){
+				for(int x = 0;x < albums.get(i).getPhotos().size(); x++){
+					
+				}
+			}	
+			
+		}
+		else if(lowEndDate.getValue() == null && highEndDate.getValue() != null){
+			
+		}
+		if(tags.getText().trim().isEmpty()){
+			searchComplete = true;
+		}
+		else {
+			//refine the search based on the tags written
+			
+			
+		}
+		if(searchComplete){
+			//Open new window with search results
+		}
 	}
 	public void searchBackButtonClicked(ActionEvent e){
-		
+		if(lowEndDate.isEditable() || highEndDate.isEditable() || tags.isEditable()){
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setContentText("Are you sure you don't want to finish your search?");
+			Optional<ButtonType> result = alert.showAndWait();
+			
+			if(result.get() == ButtonType.OK){
+				searchAnchor.setVisible(false);
+				createAlbumAnchor.setVisible(false);
+				albums.setVisible(true);
+				createButton.setDisable(false);
+			}
+			else{
+				return;
+			}
+		}
 	}
 	
 }
