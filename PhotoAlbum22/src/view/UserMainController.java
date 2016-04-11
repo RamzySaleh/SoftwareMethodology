@@ -233,7 +233,7 @@ public class UserMainController {
 			System.out.print("IN HEREEEEEEEEE");
 			for(int i = 0; i < albums.size(); i++){
 				//For each album belonging to user
-				for(int x = 0;x < albums.get(i).getPhotos().size(); x++){
+				for(int x = 0; x < albums.get(i).getPhotos().size(); x++){
 					//For each photo in the album
 					
 				}

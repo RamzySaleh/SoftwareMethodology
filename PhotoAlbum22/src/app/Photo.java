@@ -28,6 +28,7 @@ public class Photo implements Serializable {
 	transient Image image;
 	String caption;
     private Map<String, ArrayList<String>> tagsHashTable = new HashMap<>();
+	Calendar timeOfCapture;
 
 	
 	public String[] getTagsAsString(){
@@ -165,7 +166,6 @@ public class Photo implements Serializable {
 		timeOfCapture = sdf.getCalendar();
 		timeOfCapture.set(Calendar.MILLISECOND,0);
 	}
-	Calendar timeOfCapture;
 	
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();

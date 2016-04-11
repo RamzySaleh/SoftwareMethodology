@@ -4,12 +4,11 @@ import java.awt.Desktop;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.Optional;
-
 import javax.imageio.ImageIO;
-
 import app.Album;
 import app.Photo;
 import app.User;
@@ -100,6 +99,9 @@ public class UserPhotoController {
 		 if(photos.isEmpty()){
 			return;
 		 }
+		 
+		 findOldestDate();
+		 findNewestDate();
 		 
 		 ArrayList<ImageView> images = new ArrayList<ImageView>();
 		 images.clear();
@@ -222,6 +224,14 @@ public class UserPhotoController {
 	}
 	
 	public void moveButtonClicked(ActionEvent e){
+		
+		if (currentImageView == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setHeaderText("Select a photo.");
+			alert.setContentText("Please select a photo you want to move!");
+			alert.show();
+			return;
+		}
 		Image image = currentImageView.getImage();
 		
 		try {
@@ -283,8 +293,6 @@ public class UserPhotoController {
 	                }
 	            });
 	 
-	 
-	 
 	        final GridPane inputGridPane = new GridPane();
 	 
 	        GridPane.setConstraints(openButton, 0, 1);
@@ -299,6 +307,7 @@ public class UserPhotoController {
 	        stage.setScene(new Scene(rootGroup));
 	        stage.show();
 	        start(currentAlbum);
+	        
 	}
 	
 	private static void configureFileChooser(
@@ -316,6 +325,7 @@ public class UserPhotoController {
 	
 	private void addFile(File file) {
         try {
+        	
             Photo newPhoto = new Photo();
             Image im = null;
             WritableImage wr = null;
@@ -335,6 +345,7 @@ public class UserPhotoController {
             currentAlbum.addOnePhoto(newPhoto);
             start(currentAlbum);
         } catch (IOException ex) {
+        	
         	Alert alert = new Alert(AlertType.ERROR);
         	alert.setTitle("Error");
         	alert.setHeaderText("Could not open specified file.");
@@ -352,7 +363,6 @@ public class UserPhotoController {
 				return currentUser.albums.get(i);
 			}
 		}
-		
 		return null;
 	}
 	
@@ -363,8 +373,101 @@ public class UserPhotoController {
 				return i;
 			}
 		}
-		
 		return -1;
+	}
+	
+	public void findOldestDate(){
+		
+		Calendar oldestDate;
+		ArrayList<Photo> photos = currentAlbum.getPhotos();
+		if (photos.size() == 0) return;
+
+		Calendar cal = photos.get(0).getTimeOfCapture();
+
+		if (photos.size() == 1) {	
+			if (cal == null) {
+				System.out.println("cal null!");
+				return;
+			}
+			oldestPhotoDate.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+									cal.get(Calendar.DAY_OF_MONTH)));
+			oldestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+									cal.get(Calendar.DAY_OF_MONTH)));
+			newestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+									cal.get(Calendar.DAY_OF_MONTH)));
+			return;
+			
+		}
+		
+		
+		oldestDate = cal;
+
+		for (int i = 1; i < photos.size(); i++){
+			cal = photos.get(i).getTimeOfCapture();
+			if (cal == null) {
+				System.out.println("cal null!");
+				return;
+			}
+			if (oldestDate == null){
+				System.out.println("oldest date null");
+				return;
+			}
+			if(cal.before(oldestDate)){
+				oldestDate = cal;
+			}
+		}
+		
+		oldestPhotoDate.setValue(LocalDate.of(oldestDate.get(Calendar.YEAR), oldestDate.get(Calendar.MONTH) + 1,
+				oldestDate.get(Calendar.DAY_OF_MONTH)));
+		oldestPhotoRange.setValue(LocalDate.of(oldestDate.get(Calendar.YEAR), oldestDate.get(Calendar.MONTH) + 1,
+				oldestDate.get(Calendar.DAY_OF_MONTH)));
+		
+		
+	}
+	public void findNewestDate(){
+		
+		Calendar newestDate;
+		ArrayList<Photo> photos = currentAlbum.getPhotos();
+		if (photos.size() == 0) return;
+		
+		Calendar cal = photos.get(0).getTimeOfCapture();
+		
+		if (photos.size() == 1) {
+			
+			if (cal == null) {
+				System.out.println("cal null!");
+				return;
+			}
+			
+			oldestPhotoDate.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+									cal.get(Calendar.DAY_OF_MONTH)));
+			oldestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+									cal.get(Calendar.DAY_OF_MONTH)));
+			newestPhotoRange.setValue(LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
+									cal.get(Calendar.DAY_OF_MONTH)));
+			return;
+			
+		}
+
+		newestDate = cal;
+		
+		for (int i = 1; i < photos.size(); i++){
+			cal = photos.get(i).getTimeOfCapture();
+			if (cal == null) {
+				System.out.println("cal null!");
+				return;
+			}
+			if (newestDate == null){
+				System.out.println("oldest date null");
+				return;
+			}
+			if(newestDate.before(cal)){
+				newestDate = cal;
+			}
+		}
+		newestPhotoRange.setValue(LocalDate.of(newestDate.get(Calendar.YEAR), newestDate.get(Calendar.MONTH) + 1,
+				newestDate.get(Calendar.DAY_OF_MONTH)));
+		
 	}
 	
 	

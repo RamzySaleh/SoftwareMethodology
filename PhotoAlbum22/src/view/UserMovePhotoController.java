@@ -75,9 +75,7 @@ public class UserMovePhotoController {
 		User currentUser = LoginController.currentUser;
 		ArrayList<Album> albums = currentUser.getAlbums();
 		Album albumOfChoice = albums.get(indexOfNewAlbum);
-		Photo photoToBeAdded = new Photo();
-		photoToBeAdded.setImage(imageToBeMoved);
-		albumOfChoice.addOnePhoto(photoToBeAdded);
+		albumOfChoice.addOnePhoto(currentAlbum.getPhotos().get(currentIndex));
 		//Removing old album without photo
 		albums.remove(indexOfNewAlbum);
 		//Add album with photo added
