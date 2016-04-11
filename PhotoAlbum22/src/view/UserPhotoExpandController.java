@@ -109,10 +109,6 @@ public class UserPhotoExpandController {
 		caption.setText(currentPhoto.getCaption());
 		
 	}
-	
-	public void start() {
-		
-	}
 
 	public void addButtonClicked(ActionEvent e){
 		ArrayList<String> tagChoices = new ArrayList<String>();
