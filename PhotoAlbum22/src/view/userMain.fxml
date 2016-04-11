@@ -41,8 +41,8 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Label fx:id="addSuccess" layoutX="99.0" layoutY="212.0" text="ADD SUCCESSFUL" textFill="#2bee34" visible="false" />
-                  <Label fx:id="addFail" layoutX="81.0" layoutY="212.0" text="ALBUM EXISTS. TRY AGAIN" textFill="#d01313" visible="false" />
+                  <Label fx:id="addSuccess" layoutX="45.0" layoutY="212.0" text="ADD SUCCESSFUL" textFill="#2bee34" visible="false" />
+                  <Label fx:id="addFail" layoutX="45.0" layoutY="212.0" text="ALBUM EXISTS. TRY AGAIN" textFill="#d01313" visible="false" />
                   <AnchorPane fx:id="createAlbumAnchor" layoutY="7.0" prefHeight="335.0" prefWidth="169.0" visible="false">
                      <children>
                         <Label layoutX="46.0" layoutY="39.0" text="Create Album">
@@ -61,7 +61,7 @@
                            </font>
                         </Button>
                         <TextField fx:id="newAlbumName" layoutX="38.0" layoutY="115.0" promptText="Album name" />
-                        <Label fx:id="mustInputText" layoutX="64.0" layoutY="160.0" text="MUST INPUT TEXT" textFill="#cd1515" visible="false" />
+                        <Label fx:id="mustInputText" layoutX="45.0" layoutY="160.0" text="MUST INPUT TEXT" textFill="#cd1515" visible="false" />
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="searchAnchor" layoutX="4.0" layoutY="7.0" prefHeight="321.0" prefWidth="212.0">
