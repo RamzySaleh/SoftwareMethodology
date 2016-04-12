@@ -48,9 +48,6 @@ public class PhotoAlbum extends Application implements Serializable {
 			pa = loadFromDisk();
 			AdminController.users = pa.users;
 		}
-		else {
-			System.out.println("Didn't find anything");
-		}
 		launch(args);
 		pa.users = AdminController.getUsers();
 		saveToDisk(pa);

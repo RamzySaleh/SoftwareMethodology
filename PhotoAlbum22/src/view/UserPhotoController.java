@@ -400,7 +400,6 @@ public class UserPhotoController {
 
 		if (photos.size() == 1) {	
 			if (cal == null) {
-				System.out.println("cal null!");
 				return;
 			}
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
@@ -419,11 +418,9 @@ public class UserPhotoController {
 		for (int i = 1; i < photos.size(); i++){
 			cal = photos.get(i).getTimeOfCapture();
 			if (cal == null) {
-				System.out.println("cal null!");
 				return;
 			}
 			if (oldestDate == null){
-				System.out.println("oldest date null");
 				return;
 			}
 			if(cal.before(oldestDate)){
@@ -447,7 +444,6 @@ public class UserPhotoController {
 		if (photos.size() == 1) {
 			
 			if (cal == null) {
-				System.out.println("cal null!");
 				return;
 			}
 			
@@ -466,11 +462,9 @@ public class UserPhotoController {
 		for (int i = 1; i < photos.size(); i++){
 			cal = photos.get(i).getTimeOfCapture();
 			if (cal == null) {
-				System.out.println("cal null!");
 				return;
 			}
 			if (newestDate == null){
-				System.out.println("oldest date null");
 				return;
 			}
 			if(newestDate.before(cal)){
