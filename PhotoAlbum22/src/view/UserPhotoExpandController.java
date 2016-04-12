@@ -105,7 +105,6 @@ public class UserPhotoExpandController {
 		for (int i = 0; i < tags[0].length; i++) {
 			if (tags == null) continue;
 			if (tags[0][i] == null){
-				System.out.println("found null");
 				continue;
 			}
 			obsList.add(tags[0][i] + ": "+tags[1][i]);
@@ -163,6 +162,12 @@ public class UserPhotoExpandController {
 					String[] tagTypeAndValue = new String[2];
 					tagTypeAndValue[0] = cb.getValue();
 					tagTypeAndValue[1] = tagText.getText();
+					if (tagTypeAndValue[0] == null || tagTypeAndValue[1] == null){
+						return null;
+					}
+					if (tagTypeAndValue[0].length() == 0 || tagTypeAndValue[1].length() == 0){
+						return null;
+					}
 					currentPhoto.addTag(cb.getValue(), tagText.getText());
 					return tagTypeAndValue;
 				} else {
@@ -177,7 +182,6 @@ public class UserPhotoExpandController {
 		for (int i = 0; i < tags[0].length; i++) {
 			if (tags == null) continue;
 			if (tags[0][i] == null) {
-				System.out.println("found null");
 				continue;
 			}
 			obsList.add(tags[0][i] + ": "+tags[1][i]);
