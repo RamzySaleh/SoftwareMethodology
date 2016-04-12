@@ -312,8 +312,25 @@ public class UserMainController {
 		}
 		else {
 			//refine the search based on the tags written
-			
-			
+			ArrayList<Photo> photoMatchingTag = new ArrayList<Photo>();
+			System.out.println("testing tags, photos size = "+photos.size());
+			for(int x = 0; x < photos.size(); x++){
+				Photo currentPhoto = photos.get(x);
+				for(int y = 0; y < tagsForSearchArr.size(); y++) {
+					String currentKey = tagsForSearchArr.get(y)[0];
+					String currentValue = tagsForSearchArr.get(y)[1];
+					if(currentPhoto.getListWithKey(currentKey) != null){
+						if(currentPhoto.getListWithKey(currentKey).contains(currentValue)){
+							photoMatchingTag.add(currentPhoto);
+							System.out.print("Found one");
+							break;
+						}
+					}
+				}
+				
+			}
+			photos = photoMatchingTag;
+			searchComplete = true;
 		}
 		if(photos.isEmpty()){
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -333,7 +350,6 @@ public class UserMainController {
 				Scene scene = new Scene(rootLayout);
 				scene.getStylesheets().add("/view/application.css");
 				stage.setScene(scene);
-				((Node)e.getSource()).getScene().getWindow().hide();
 				stage.show();
 				
 			}
@@ -461,6 +477,12 @@ public class UserMainController {
 					String[] tagTypeAndValue = new String[2];
 					tagTypeAndValue[0] = cb.getValue();
 					tagTypeAndValue[1] = tagText.getText();
+					if (tagTypeAndValue[0] == null || tagTypeAndValue[1] == null){
+						return null;
+					}
+					if (tagTypeAndValue[0].length() == 0 || tagTypeAndValue[1].length() == 0){
+						return null;
+					}
 					for (int i = 0; i < tagsForSearchArr.size(); i++){
 						if (tagsForSearchArr.get(i)[0].equals(tagTypeAndValue[0]) &&
 								tagsForSearchArr.get(i)[1].equals(tagTypeAndValue[1])){
